@@ -4,16 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="86479254-77f6-4288-8c5d-27b6dad96de3" name="Changes" comment="h">
-      <change beforePath="$PROJECT_DIR$/python_DE/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/python_DE/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/python_DE/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/python_DE/.idea/material_theme_project_new.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/python_DE/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/python_DE/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/python_DE/.idea/python_DE.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/python_DE/.idea/vcs.xml" beforeDir="false" />
-    </list>
+    <list default="true" id="86479254-77f6-4288-8c5d-27b6dad96de3" name="Changes" comment="h" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
