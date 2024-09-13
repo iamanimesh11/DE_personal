@@ -1,9 +1,13 @@
 import logging
 import datetime
 import os
+import re
+import string
 import time
 import pandas as pd
 import re
+import json
+
 def more_than5000_salary_and_average(filename):
     with open("sample.csv",'r') as file:
         s= file.readlines()
@@ -91,12 +95,9 @@ def time_by_login_logout(filename):
 
                     del login_times[user]
 
-time_by_login_logout("logs")
-# ;
+3# ;
 # for user, time in total_time_logged_in.items():
 #     print(f"User {user} was logged in for {time}")
-
-
 ##### large file handlin
 
 def report_count_number(directoryName):
@@ -114,6 +115,67 @@ def report_count_number(directoryName):
     print(total_sum)
     print(datetime.datetime.now()-x)
 
+# report_count_number("reports")
 
-report_count_number("reports")
+def read_from_json(filename):
+    with open(filename)as file:
+        data=json.load(file)
+        for e in data["employees"]:
+            if e["department"]=="Sales":
+                print( e["name"])
 
+        new_emp= {"name": "alice", "age": 20, "department": "engg"}
+
+        data['employees'].append(new_emp)
+        with open(filename,"w") as file:
+            json.dump(data,file,indent=4)
+
+# read_from_json("data.json")
+emp={}
+def emp_listing(filename):
+    with open(filename) as file:
+        data = json.load(file)
+        for e in data["employees"]:
+            d=e["department"]
+            name = e["name"]
+            if d not in emp:
+                emp[d]=[]
+                emp[d].append(name)
+
+            else:
+                emp[d].append(name)
+
+        for d ,name in emp.items():
+            print(f"{d}: {','.join(name)}")
+
+# emp_listing("datajson.")
+
+maxi=0
+def highest_Salary(filename):
+    with open(filename) as file:
+        data = json.load(file)
+        for e in data["employees"]:
+            salary = e["salary"]
+            name = e["name"]
+            if salary>maxi:
+                max=salary
+                h_emp=e["name"]
+
+
+
+        print(h_emp,max)
+
+highest_Salary("data.json.")
+
+def remove_emp_Dept(filename):
+    with open(filename) as file:
+        data = json.load(file)
+        for e in data["employees"]:
+            dept = e["department"]
+            if dept =="HR":
+                data["employees"].remove(e)
+
+        with open(filename,"w") as file:
+            json.dump(data,file)
+
+remove_emp_Dept("data.json.")
