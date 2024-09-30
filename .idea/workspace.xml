@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="86479254-77f6-4288-8c5d-27b6dad96de3" name="Changes" comment="h">
-      <change afterPath="$PROJECT_DIR$/AIrflow/first_dag.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pyspark/scrap.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,25 +32,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.bulkcsv_to_dataabse.executor&quot;: &quot;Run&quot;,
-    &quot;Python.create_big_file.executor&quot;: &quot;Run&quot;,
-    &quot;Python.csv_method_Readers_Comparison.executor&quot;: &quot;Run&quot;,
-    &quot;Python.csv_to_dataabse.executor&quot;: &quot;Run&quot;,
-    &quot;Python.day2_file_handling.executor&quot;: &quot;Run&quot;,
-    &quot;Python.day3_file_handling.executor&quot;: &quot;Run&quot;,
-    &quot;Python.file_encrypt&amp;decrypt.executor&quot;: &quot;Run&quot;,
-    &quot;Python.generate_Csv_file.executor&quot;: &quot;Run&quot;,
-    &quot;Python.t.executor&quot;: &quot;Run&quot;,
-    &quot;Python.test.executor&quot;: &quot;Run&quot;,
-    &quot;Python.xml_handle.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/lgeil/PycharmProjects/DE_personal/python_DE/FILE_HANDLING/csv to  database&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.bulkcsv_to_dataabse.executor": "Run",
+    "Python.create_big_file.executor": "Run",
+    "Python.csv_method_Readers_Comparison.executor": "Run",
+    "Python.csv_to_dataabse.executor": "Run",
+    "Python.day2_file_handling.executor": "Run",
+    "Python.day3_file_handling.executor": "Run",
+    "Python.file_encrypt&decrypt.executor": "Run",
+    "Python.generate_Csv_file.executor": "Run",
+    "Python.t.executor": "Run",
+    "Python.test.executor": "Run",
+    "Python.xml_handle.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/lgeil/PycharmProjects/DE_personal",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\lgeil\PycharmProjects\DE_personal\python_DE\FILE_HANDLING\csv to  database" />
