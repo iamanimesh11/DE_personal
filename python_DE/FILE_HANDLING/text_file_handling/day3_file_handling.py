@@ -36,12 +36,3 @@ def server_log(filename):
 
 
 # server_log("server.log")
-import datetime
-def process_large(filename):
-    with open(filename,"r")as file:
-        d = datetime.datetime.now()
-        s=file.readlines()
-        print(len(s))
-        print(datetime.datetime.now()-d)
-
-process_large("big_file")

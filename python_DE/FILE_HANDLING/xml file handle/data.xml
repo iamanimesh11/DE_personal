@@ -1,0 +1,12 @@
+<employees>
+    <employee number ="1">
+        <name>John</name>
+        <age>30</age>
+        <department>Sales</department>
+    </employee>
+       <employee number ="2">
+        <name>Jane</name>
+        <age>25</age>
+        <department>Marketing</department>
+    </employee>
+</employees>

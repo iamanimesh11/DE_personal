@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="86479254-77f6-4288-8c5d-27b6dad96de3" name="Changes" comment="h">
+      <change afterPath="$PROJECT_DIR$/AIrflow/first_dag.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -31,22 +32,68 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.create_big_file.executor": "Run",
-    "Python.day2_file_handling.executor": "Run",
-    "Python.day3_file_handling.executor": "Run",
-    "Python.t.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/lgeil/PycharmProjects/DE_personal/python_DE/FILE_HANDLING/day3",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.bulkcsv_to_dataabse.executor&quot;: &quot;Run&quot;,
+    &quot;Python.create_big_file.executor&quot;: &quot;Run&quot;,
+    &quot;Python.csv_method_Readers_Comparison.executor&quot;: &quot;Run&quot;,
+    &quot;Python.csv_to_dataabse.executor&quot;: &quot;Run&quot;,
+    &quot;Python.day2_file_handling.executor&quot;: &quot;Run&quot;,
+    &quot;Python.day3_file_handling.executor&quot;: &quot;Run&quot;,
+    &quot;Python.file_encrypt&amp;decrypt.executor&quot;: &quot;Run&quot;,
+    &quot;Python.generate_Csv_file.executor&quot;: &quot;Run&quot;,
+    &quot;Python.t.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test.executor&quot;: &quot;Run&quot;,
+    &quot;Python.xml_handle.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/lgeil/PycharmProjects/DE_personal/python_DE/FILE_HANDLING/csv to  database&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\lgeil\PycharmProjects\DE_personal\python_DE\FILE_HANDLING\csv to  database" />
+      <recent name="C:\Users\lgeil\PycharmProjects\DE_personal\python_DE\FILE_HANDLING\day3\encrypt_decrypt\Original_Data" />
+      <recent name="C:\Users\lgeil\PycharmProjects\DE_personal\python_DE\FILE_HANDLING\day3\encrypt_decrypt\encrypted_Data" />
       <recent name="C:\Users\lgeil\PycharmProjects\DE_personal\python_DE\FILE_HANDLING\day3" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\lgeil\PycharmProjects\DE_personal\python_DE\FILE_HANDLING" />
+      <recent name="C:\Users\lgeil\PycharmProjects\DE_personal\python_DE\FILE_HANDLING\day3\text_big_file_create" />
+      <recent name="C:\Users\lgeil\PycharmProjects\DE_personal\python_DE\FILE_HANDLING\day3\encrypt_decrypt\Original_Data" />
+      <recent name="C:\Users\lgeil\PycharmProjects\DE_personal\python_DE\FILE_HANDLING\day3\file_handling" />
+      <recent name="C:\Users\lgeil\PycharmProjects\DE_personal\python_DE\FILE_HANDLING\day3\big_file_create" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="file_encrypt&amp;decrypt" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="DE_personal" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/python_DE/FILE_HANDLING/day3" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="C:\Users\lgeil\PycharmProjects\DE_personal\python_DE\FILE_HANDLING\day3\encrypt_decrypt\file_encrypt&amp;decrypt.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.file_encrypt&amp;decrypt" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
