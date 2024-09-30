@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="86479254-77f6-4288-8c5d-27b6dad96de3" name="Changes" comment="h">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pyspark/scrap.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,6 +41,7 @@
     "Python.day3_file_handling.executor": "Run",
     "Python.file_encrypt&decrypt.executor": "Run",
     "Python.generate_Csv_file.executor": "Run",
+    "Python.pyspark.executor": "Run",
     "Python.t.executor": "Run",
     "Python.test.executor": "Run",
     "Python.xml_handle.executor": "Run",
