@@ -12,4 +12,4 @@ result=rdd_transformed.collect()
 print("tranformed: ",result)
 spark.stop()
 
-# l
+# lf
