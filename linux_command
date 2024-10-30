@@ -1,0 +1,24 @@
+# check all directories:
+ls
+
+# list with detailed info and permissions
+ls -l
+
+#list all file including hidden
+ls -a
+
+# show current direcotry path
+pwd
+
+# create new direcotry:
+mkdir
+
+# remove empty dirctory:
+rmdir
+
+# create empty file
+touch "temp"
+
+# delete a file
+rm "temp"
+
