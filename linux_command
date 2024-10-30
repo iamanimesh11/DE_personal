@@ -22,3 +22,22 @@ touch "temp"
 # delete a file
 rm "temp"
 
+# command to copy a file
+cp report.txt backup_report.txt
+
+# command to copy to anther direcotry named as backup_Dir
+cp report.txt backup_Dir/
+
+# command to copy completely a direcotry:
+cp -r tempf backup_Tempf
+
+#moving (rename) a file
+mv report.txt renamed.txt
+
+# command to move to anther direcotry named as backup_Dir
+mv report.txt backup_Dir/
+
+#
+#moving (rename) a directory
+mv reportf renamedf
+
