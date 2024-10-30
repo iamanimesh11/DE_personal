@@ -41,3 +41,20 @@ mv report.txt backup_Dir/
 #moving (rename) a directory
 mv reportf renamedf
 
+# file permission and rights :
+ls -l
+
+givees all files permission,
+drwxr-xr-x 5 animesh animesh 4096 Oct 30 08:06 tempf
+
+d: Indicates it's a directory. (Files would have - here.)
+
+rwxr-xr-x: Permissions:
+rwx (owner) - read, write, execute.
+r-x (group) - read, execute only.
+r-x (others) - read, execute only.
+5: Number of hard links to the directory.
+animesh animesh: The owner and group of the file/directory.
+4096: File size in bytes.
+Oct 30 08:06: Last modification date and time.
+tempf: Name of the file/directory.
