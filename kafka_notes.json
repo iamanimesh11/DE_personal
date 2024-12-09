@@ -1,0 +1,5 @@
+{
+start kafka server: bin/kafka-server-start.sh config/server.properties,
+start zookeeper:  bin/zookeeper-server-start.sh config/zookeeper.properties,
+list al topic:bin/kafka-topics.sh --list -bootstrap-server localhost:9093,
+}
