@@ -11,7 +11,7 @@ start console with properties:
  bin/kafka-console-producer.sh --bootstrap-server localhost:9092 -topic traffic-monitoring --property "parse.key=true" --property "key.separator=:"
 
 change rentention:
-$ bin/kafka-configs.sh --bootstrap-server localhost:9092 --entity-type topics --entity-name  --topic traffic-monitoring --alter --add-config retention.ms=1
+bin/kafka-configs.sh --bootstrap-server localhost:9092 --entity-type topics --entity-name traffic-monitoring --alter --add-config retention.ms=86400000
 
 
 start producer with properties:
