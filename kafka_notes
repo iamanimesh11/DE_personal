@@ -1,5 +1,34 @@
-{
-start kafka server: bin/kafka-server-start.sh config/server.properties,
-start zookeeper:  bin/zookeeper-server-start.sh config/zookeeper.properties,
-list al topic:bin/kafka-topics.sh --list -bootstrap-server localhost:9093,
-}
+start kafka server:
+bin/kafka-server-start.sh config/server.properties
+
+start zookeeper:  
+bin/zookeeper-server-start.sh config/zookeeper.properties
+
+list al topic:
+bin/kafka-topics.sh --list -bootstrap-server localhost:9092
+
+start console with properties:
+ bin/kafka-console-producer.sh --bootstrap-server localhost:9092 -topic traffic-monitoring --property "parse.key=true" --property "key.separator=:"
+
+change rentention:
+$ bin/kafka-configs.sh --bootstrap-server localhost:9092 --entity-type topics --entity-name  --topic traffic-monitoring --alter --add-config retention.ms=1
+
+
+start producer with properties:
+  bin/kafka-console-producer.sh --bootstrap-server localhost:9092 -topic traffic-monitoring --property "parse.key=true" --property "key.separator=:"
+
+create topic:
+ bin/kafka-topics.sh --create --bootstrap-server localhost:9092,localhost:9093 --topic traffic-monitoring --partitions 3 --replication-factor 2
+
+delete topic:
+ bin/kafka-topics.sh --bootstrap-server localhost:9092 --delete --topic test-topic
+
+describe topic:
+bin/kafka-topics.sh --describe --bootstrap-server localhost:9092,localhost:9093 --topic test-traffic-data-topic
+
+
+
+
+
+
+
