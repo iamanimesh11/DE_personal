@@ -26,7 +26,8 @@ delete topic:
 describe topic:
 bin/kafka-topics.sh --describe --bootstrap-server localhost:9092,localhost:9093 --topic test-traffic-data-topic
 
-
+alter topic:
+bin/kafka-topics.sh --alter --topic  another_topic --partitions 3 --bootstrap-server 172.19.165.234:9092
 
 
 
