@@ -15,12 +15,25 @@ def producer():
         print(f"Error occured:{e}")
         exit()
     while True:
-        user=input("enter ur username:")
-        message = input(user+"'s Message: ")
+        while True:
+            user=input("enter ur username:").strip()
+            if user.strip():
+                break
+            else:
+                print("username cant be blank")
+
+        if user.lower() == 'exit':
+            break
+        message = input(user+"'s Message: ").strip()
+
+        if not message:
+                print("message can't be blank")
+                continue
+
+
         timestamp=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-        if message.lower() == 'exit':
-            break
+
         try:
             f=producer.send('chat-messages', key=user,value={'user': user, 'message': message,'timestamp':timestamp})
             f.get(timeout=10)

@@ -1,25 +1,24 @@
-from kafka import KafkaConsumer
+from kafka import KafkaConsumer, TopicPartition
 import json
-from kafka import TopicPartition
+
 
 def consumer1():
     consumer = KafkaConsumer(
-        'chat-messages',
-        bootstrap_servers='172.19.165.234:9092',
+        bootstrap_servers='172.19.165.234:9092',  # Replace with your Kafka server
         value_deserializer=lambda v: json.loads(v.decode('utf-8')),
-        # group_id='chat-group',#set to none for manual partitial assignment
-        group_id=None,  # set to none for manual partitial assignment
-        enable_auto_commit = False  # Disable auto commit
+        enable_auto_commit=False , # Disable auto commit to handle offsets manually
 
     )
-    print("Chat Consumer 1 started. Listening for messages:")
-    partition=
+
+    # Assign specific partition (Partition 0 for Consumer 1)
+    partition = TopicPartition('chat-messages', 0)
+    consumer.assign([partition])
+
+    print("Chat Consumer 1 started. Listening for messages on Partition 0:")
+
     for message in consumer:
         data = message.value
-        key=message.key.decode('utf-8') if message.key else 'None'
-        # print(f"{data['user']}: {data['message']} - {data['timestamp']}")bb
-        print(f"{key}:{data['message']}")
-
+        print(f"{data['user']} : {data['message']}  {data['timestamp']}")
 
 
 if __name__ == "__main__":
