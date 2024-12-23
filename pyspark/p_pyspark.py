@@ -1,15 +1,15 @@
-
 from pyspark.sql import SparkSession
-spark=SparkSession.builder.master("local").appName("first pyspark app").getOrCreate()
+import os
 
-sc=spark.sparkContext
+os.environ["PYSPARK_PYTHON"] = "C:/Users/lgeil.IL-MF10-NB100TS/Miniconda3/envs/myenv/python.exe"
+os.environ["PYSPARK_DRIVER_PYTHON"] = "C:/Users/lgeil.IL-MF10-NB100TS/Miniconda3/envs/myenv/python.exe"
 
-data=[1,2,3,4,5]
-rdd=sc.parallelize(data)
+spark = SparkSession.builder.master("local").appName("test").getOrCreate()
+data = [("John", 1), ("Jane", 2)]
+df = spark.createDataFrame(data, ["name", "id"])
+df.show()
 
-rdd_transformed =rdd.map(lambda x: x*2)
-result=rdd_transformed.collect()
-print("tranformed: ",result)
-spark.stop()
 
-# lf
+
+
+
