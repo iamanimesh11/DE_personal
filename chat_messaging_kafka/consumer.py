@@ -17,7 +17,7 @@ def consumer1():
     for message in consumer:
         data = message.value
         key=message.key.decode('utf-8') if message.key else 'None'
-        # print(f"{data['user']}: {data['message']} - {data['timestamp']}")
+        # print(f"{data['user']}: {data['message']} - {data['timestamp']}")bb
         print(f"{key}:{data['message']}")
 
 
