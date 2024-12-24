@@ -1,6 +1,19 @@
+import time
+
 from kafka import KafkaProducer
 import json
 from datetime import datetime
+
+
+import string
+import random
+
+# using random.choices() generating random strings
+res = ''.join(random.choices(string.ascii_letters,
+                             k=7)) # initializing size of string
+
+print(str(res))
+
 
 def producer():
     try:
@@ -16,7 +29,9 @@ def producer():
         exit()
     while True:
         while True:
-            user=input("enter ur username:").strip()
+            # user=input("enter ur username:").strip()
+            # user=# using random.choices() generating random strings
+            user= ''.join(random.choices(string.ascii_letters, k=7)) # initializing size of string
             if user.strip():
                 break
             else:
@@ -24,7 +39,8 @@ def producer():
 
         if user.lower() == 'exit':
             break
-        message = input(user+"'s Message: ").strip()
+        message= ''.join(random.choices(string.ascii_letters, k=7))
+        # message = input(user+"'s Message: ").strip()
 
         if not message:
                 print("message can't be blank")
@@ -38,6 +54,7 @@ def producer():
             f=producer.send('chat-messages', key=user,value={'user': user, 'message': message,'timestamp':timestamp})
             f.get(timeout=10)
             print("Message sent!")
+            time.sleep(3)
 
         except Exception as e:
             print(f"failed to send message {e}")
