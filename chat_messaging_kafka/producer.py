@@ -3,6 +3,8 @@ import time
 from kafka import KafkaProducer
 import json
 from datetime import datetime
+from kafka.admin import KafkaAdminClient,NewTopic
+
 
 
 import string
@@ -63,4 +65,5 @@ def producer():
 
 
 if __name__ == "__main__":
+    create_kafka_topic("new_topic", num_partitions=2, replication_factor=1)
     producer()

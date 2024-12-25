@@ -2,3 +2,6 @@ connect to psql
 
 animesh@IL-MF10-NA106Y0:~$ psql -U postgres -h localhost -p 5432
 
+
+CONNECT TO DB:
+ \c airflow_ETL
