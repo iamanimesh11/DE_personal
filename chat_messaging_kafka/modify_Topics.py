@@ -1,5 +1,6 @@
-from kafka.admin import KafkaAdminClient,NewTopic
+from kafka.admin import KafkaAdminClient,NewTopic,NewPartitions
 from kafka.errors import TopicAlreadyExistsError
+
 
 def create_kafka_topic(admin_client,topic_name,num_partitions,replication_factor):
     try:
@@ -32,19 +33,37 @@ def describe_kafka_topic(admin_client,topic_name):
             print(f"Topic: {topic}")
     except Exception as e:
         print(f"Error describing topic: {e}")
-
-def alter_kafka_topic(admin_client,topic_name,num_partitions):
+def alter_kafka_topic(admin_client, topic_name, num_partitions):
     try:
+        # Check if the topic exists
+        existing_topics = admin_client.list_topics()
+        if topic_name not in existing_topics:
+            print(f"Error: The topic '{topic_name}' does not exist.")
+            return
 
-        partition_assignments = [NewPartitions(i) for i in range(num_partitions)]
-        admin_client.create_partitions(
-            topic_partitions={topic_name:num_partitions},
-            validate_only=False
-        )
-        print(f"topic  {topic_name} altered to {num_partitions} partitions successfully")
+        # Describe the topic to get current partition count
+        topics_metadata = admin_client.describe_topics(topics=[topic_name])
 
+        # Find metadata for the requested topic
+        topic_metadata = next((entry for entry in topics_metadata if entry['topic'] == topic_name), None)
+        if not topic_metadata:
+            print(f"Error: Could not retrieve metadata for topic '{topic_name}'.")
+            return
+
+        # Get the current partition count
+        current_partition_count = len(topic_metadata['partitions'])
+
+        # Validate the requested number of partitions
+        if num_partitions <= current_partition_count:
+            print(f"Error: Requested partitions ({num_partitions}) must be greater than the current count ({current_partition_count}).")
+            return
+
+        # Specify the new total partitions using NewPartitions
+        new_partitions = {topic_name: NewPartitions(total_count=num_partitions)}
+        admin_client.create_partitions(new_partitions)
+        print(f"Topic '{topic_name}' altered to {num_partitions} partitions successfully.")
     except Exception as e:
-        print(f"error altering topic: {e}")
+        print(f"Error altering topic: {e}")
 
 
 def list_all_topics(admin_client):
@@ -60,7 +79,7 @@ def list_all_topics(admin_client):
 def main():
     try:
         admin_client=KafkaAdminClient(
-            bootstrap_servers='172.19.165.234:9092',
+            bootstrap_servers=['172.19.165.234:9092'],
             client_id="kafka_topic_manager"
         )
         while True:
@@ -69,7 +88,9 @@ def main():
             print("2. Delete Topic")
             print("3. Alter Topic (Add Partitions)")
             print("4. Describe Topic")
-            print("5. Exit")
+            print("5. List all topics")
+            print("6. Exit")
+
             choice = input("Enter your choice: ")
 
             if choice == "1":

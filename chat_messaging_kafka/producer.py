@@ -4,17 +4,14 @@ from kafka import KafkaProducer
 import json
 from datetime import datetime
 from kafka.admin import KafkaAdminClient,NewTopic
-
-
+from modify_Topics import create_kafka_topic
+admin_client=KafkaAdminClient(
+            bootstrap_servers=['172.19.165.234:9092'],
+            client_id="kafka_topic_manager"
+        )
 
 import string
 import random
-
-# using random.choices() generating random strings
-res = ''.join(random.choices(string.ascii_letters,
-                             k=7)) # initializing size of string
-
-print(str(res))
 
 
 def producer():
@@ -33,7 +30,10 @@ def producer():
         while True:
             # user=input("enter ur username:").strip()
             # user=# using random.choices() generating random strings
-            user= ''.join(random.choices(string.ascii_letters, k=7)) # initializing size of string
+            users = ["user1", "user2"]
+            user = random.choice(users)
+
+            # user= ''.join(random.choices(string.ascii_letters, k=7)) # initializing size of string
             if user.strip():
                 break
             else:
@@ -65,5 +65,5 @@ def producer():
 
 
 if __name__ == "__main__":
-    create_kafka_topic("new_topic", num_partitions=2, replication_factor=1)
+    create_kafka_topic(admin_client,"chat-messages",2,1)
     producer()
