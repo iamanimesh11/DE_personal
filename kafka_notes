@@ -33,3 +33,29 @@ bin/kafka-topics.sh --alter --topic  another_topic --partitions 3 --bootstrap-se
 
 
 
+#######################################################################
+
+start kafka exporter
+animesh@IL-MF10-NA106Y0:
+/usr/local/bin/kafka_exporter-1.0.0.linux-amd64$ ./kafka_exporter --kafka.server=172.19.165.234:9092 --web.listen-address=:7071
+
+start prometheus
+animesh@IL-MF10-NA106Y0:/usr/local/bin$ sudo ./prometheus --config.file=/etc/prometheus/prometheus.yml
+
+runs at localhost:9090
+
+find which port :
+ sudo lsof -i :9090
+ sudo kill pid
+
+
+start grafana:
+
+animesh@IL-MF10-NA106Y0:~$ sudo systemctl start grafana-server
+animesh@IL-MF10-NA106Y0:~$ sudo systemctl enable grafana-server
+Synchronizing state of grafana-server.service with SysV service script with /usr/lib/systemd/systemd-sysv-install.
+Executing: /usr/lib/systemd/systemd-sysv-install enable grafana-server
+animesh@IL-MF10-NA106Y0:~$
+
+
+runs at localhost:3000

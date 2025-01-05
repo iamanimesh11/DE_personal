@@ -5,33 +5,29 @@ from psycopg2 import sql
 
 def consumer1():
     consumer = KafkaConsumer(
-        'chat-messages',  # Kafka topic
-
-        group_id='chat-consumer-group',  # Consumer group ID
-
         bootstrap_servers='172.19.165.234:9092',  # Replace with your Kafka server
         value_deserializer=lambda v: json.loads(v.decode('utf-8')),
         enable_auto_commit=False , # Disable auto commit to handle offsets manually
     )
 
+    # Assign specific partition (Partition 0 for Consumer 1)
+    partition = TopicPartition('chat-messages', 0)
+    consumer.assign([partition])
 
-    print("Chat Consumer started. Listening for messages on Partition 0:")
+    print("Chat Consumer 1 started. Listening for messages on Partition 0:")
 
     for message in consumer:
-        partition = message.partition
+        partition=0
         data = message.value
         user=data['user']
         msg_content=data['message']
         timestamp=data['timestamp']
-
         print(f"{user} : {msg_content}  {timestamp}")
         save_to_db(user,msg_content,timestamp, partition)
-        consumer.commit()
 
 
 def save_to_db(user,message,timestamp,partition):
     try:
-        table_name="kafka_chat_message"
         connection =psycopg2.connect(
             dbname="airflow_ETL",
             user="airflow_user",
@@ -42,10 +38,9 @@ def save_to_db(user,message,timestamp,partition):
         cursor=connection.cursor()
 
         insert_query=sql.SQL("""
-        INSERT INTO "kafka_Schema".{table} (username,message,timestamp,partition)
+        INSERT INTO "kafka_Schema".kafka_chat_message (username,message,timestamp,partition)
         VALUES (%s,%s,%s,%s)
-        """).format(table=sql.Identifier(table_name))  # Use sql.Identifier for dynamic table name
-
+        """)
         cursor.execute(insert_query,(user,message,timestamp,partition))
         connection.commit()
         print(f"{user}'s message stored in db")
