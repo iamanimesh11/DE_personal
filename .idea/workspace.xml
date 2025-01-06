@@ -4,11 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="37f2218c-e8d0-42dc-8899-212ea8f657f9" name="Changes" comment="05-1-2024">
-      <change afterPath="$PROJECT_DIR$/chat_messaging_kafka/kafka-Gafrana dashboard.png" afterDir="false" />
+    <list default="true" id="37f2218c-e8d0-42dc-8899-212ea8f657f9" name="Changes" comment="06-1-2024 new">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat_messaging_kafka/modify_Topics.py" beforeDir="false" afterPath="$PROJECT_DIR$/chat_messaging_kafka/modify_Topics.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/temp.py" beforeDir="false" afterPath="$PROJECT_DIR$/temp.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_consumer.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_consumer2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_pro.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/kafka_pro2.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pyspark/p_pyspark.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/streamlit_/flipkat_ETL_LAPTOP.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,12 +94,22 @@
       <option name="project" value="LOCAL" />
       <updated>1736089691593</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="06-1-2024">
+      <option name="closed" value="true" />
+      <created>1736164542991</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1736164542991</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="04-1-2024" />
     <MESSAGE value="05-1-2024" />
-    <option name="LAST_COMMIT_MESSAGE" value="05-1-2024" />
+    <MESSAGE value="06-1-2024" />
+    <MESSAGE value="06-1-2024 new" />
+    <option name="LAST_COMMIT_MESSAGE" value="06-1-2024 new" />
   </component>
 </project>
