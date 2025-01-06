@@ -22,6 +22,7 @@ def create_kafka_topic(admin_client,topic_name,num_partitions,replication_factor
 def delete_kafka_topic(admin_client,topic_name):
     try:
         admin_client.delete_topics(topics=[topic_name])
+
         print(f"topic {topic_name} deleted successfully! " )
     except Exception as e:
         print(f"Error deleting topic: {e}")
@@ -99,7 +100,9 @@ def main():
                 replication_factor = int(input("Enter replication factor: "))
                 create_kafka_topic(admin_client, topic_name, num_partitions, replication_factor)
             elif choice == "2":
+                list_all_topics(admin_client)
                 topic_name = input("Enter topic name to delete: ")
+
                 delete_kafka_topic(admin_client, topic_name)
             elif choice == "3":
                 topic_name = input("Enter topic name to alter: ")
