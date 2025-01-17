@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Real-Time Location Updates</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.1/socket.io.min.js"></script>
+</head>
+<body>
+    <h1>Real-Time Location Updates</h1>
+    <ul id="locations"></ul>
+
+    <script type="text/javascript">
+        var socket = io.connect('http://' + document.domain + ':' + location.port);
+
+        // Listen for location updates
+        socket.on('location_update', function(data) {
+            console.log("Location Update Received:", data);
+
+            // Update the list of locations
+            var list = document.getElementById('locations');
+            var listItem = document.createElement('li');
+            listItem.textContent = `${data.id}: (${data.lat.toFixed(4)}, ${data.lon.toFixed(4)})`;
+            list.appendChild(listItem);
+        });
+    </script>
+</body>
+</html>
