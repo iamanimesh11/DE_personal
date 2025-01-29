@@ -1,0 +1,44 @@
+services:
+  db:
+    image: postgres:latest
+    env_file:
+       - .env    #load  enviornment  variable from  .env file
+    environment:
+      - POSTGRES_USER="${POSTGRES_USER}"
+      - POSTGRES_PASSWORD="${POSTGRES_PASSWORD}"
+      - POSTGRES_DB="${POSTGRES_DB}"
+    volumes:
+      - ./init-scripts:/docker-entrypoint-initdb.d/
+      - pg_data:/var/lib/postgresql/data
+    networks:
+      - flaskdb_network
+    ports:
+      - "5432:5432"
+    restart: always
+
+
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_APP=html_app.py
+      - FLASK_RUN_HOST=0.0.0.0
+      - DB_HOST=db              # Make sure this is pointing to the db container
+      - DB_NAME="${POSTGRES_DB}"    # The database name
+      - DB_USER="${POSTGRES_USER}"   # The database user
+      - DB_PASSWORD="${POSTGRES_PASSWORD}" # The database password
+    depends_on:
+      - db
+    networks:
+      - flaskdb_network
+    volumes:
+      - .:/app  # This mounts the current directory (.) into the /app directory in the container
+
+
+networks:
+  flaskdb_network:
+    driver: bridge
+
+volumes:
+     pg_data:

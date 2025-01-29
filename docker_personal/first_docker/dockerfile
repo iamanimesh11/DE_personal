@@ -1,0 +1,12 @@
+# Use the official Python base image
+FROM python:3.9-slim
+
+# Copy the script into the image
+COPY app.py /app/app.py
+
+# Set the working directory
+WORKDIR /app
+
+# Define the command to run the script
+CMD ["python", "app.py"]
+

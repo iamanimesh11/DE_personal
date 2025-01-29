@@ -1,0 +1,22 @@
+#use of official python runtime as parent  image
+FROM python:3.8-slim
+
+
+#set the working directoy in the container
+WORKDIR /app
+
+#copy thr current directory contents into the container at /app
+COPY . /app
+
+#if any dependencies ,install 
+RUN pip install  --no-cache-dir  -r requirements.txt
+
+#make port 5000 to availble across outside the conainer
+EXPOSE 5000
+EXPOSE 5432
+
+#define envionemnt variable (it ensure all logs and outputs are displayred as soon as they are generated)
+ENV PYTHONUNBUFFERED 1
+
+#RUN app.py when teh container launches
+CMD ["python", "app.py"]
