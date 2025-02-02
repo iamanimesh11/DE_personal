@@ -1,0 +1,152 @@
+[
+    {
+        "messageId": "4883892179728353144367",
+        "timestamp": "2025-02-02T12:54:20.066838",
+        "response": [
+            {
+                "deviceId": "e0d18ac6-ddce-4676-848b-337b8a26d4ac",
+                "deviceInfo": {
+                    "deviceType": "DEVICE_WASHER",
+                    "modelName": "m2",
+                    "alias": "nickname_28",
+                    "reportable": false
+                }
+            }
+        ]
+    },
+    {
+        "messageId": "5602054655622148946041",
+        "timestamp": "2025-02-02T12:54:20.066838",
+        "response": [
+            {
+                "deviceId": "93c057ec-1dce-4692-aeeb-9d22cee2cdc4",
+                "deviceInfo": {
+                    "deviceType": "DEVICE_OVEN",
+                    "modelName": "o1",
+                    "alias": "nickname_41",
+                    "reportable": false
+                }
+            }
+        ]
+    },
+    {
+        "messageId": "3502355296550907366655",
+        "timestamp": "2025-02-02T12:54:20.066838",
+        "response": [
+            {
+                "deviceId": "023101ec-5585-4435-8c93-7cb7311f3737",
+                "deviceInfo": {
+                    "deviceType": "DEVICE_REFRIGERATOR",
+                    "modelName": "r2",
+                    "alias": "nickname_98",
+                    "reportable": false
+                }
+            }
+        ]
+    },
+    {
+        "messageId": "1503774618338413142133",
+        "timestamp": "2025-02-02T12:54:20.066838",
+        "response": [
+            {
+                "deviceId": "383a7edd-0442-4189-a9e4-8756ab96a9bc",
+                "deviceInfo": {
+                    "deviceType": "DEVICE_REFRIGERATOR",
+                    "modelName": "r2",
+                    "alias": "nickname_59",
+                    "reportable": false
+                }
+            }
+        ]
+    },
+    {
+        "messageId": "5049857697770161891295",
+        "timestamp": "2025-02-02T12:54:20.066838",
+        "response": [
+            {
+                "deviceId": "f3379384-4418-4570-9c29-e1a16ef58c97",
+                "deviceInfo": {
+                    "deviceType": "DEVICE_REFRIGERATOR",
+                    "modelName": "r1",
+                    "alias": "nickname_96",
+                    "reportable": false
+                }
+            }
+        ]
+    },
+    {
+        "messageId": "7643479336332304431034",
+        "timestamp": "2025-02-02T12:54:20.066838",
+        "response": [
+            {
+                "deviceId": "1a9afd0a-9bee-455f-9df1-b7db1def0c75",
+                "deviceInfo": {
+                    "deviceType": "DEVICE_AIR_PURIFIER",
+                    "modelName": "a1",
+                    "alias": "nickname_52",
+                    "reportable": true
+                }
+            }
+        ]
+    },
+    {
+        "messageId": "6579619930114219972113",
+        "timestamp": "2025-02-02T12:54:20.067346",
+        "response": [
+            {
+                "deviceId": "90f7231e-949f-4176-bcb9-012e50351ed1",
+                "deviceInfo": {
+                    "deviceType": "DEVICE_OVEN",
+                    "modelName": "o2",
+                    "alias": "nickname_81",
+                    "reportable": false
+                }
+            }
+        ]
+    },
+    {
+        "messageId": "7460578796412839008384",
+        "timestamp": "2025-02-02T12:54:20.067346",
+        "response": [
+            {
+                "deviceId": "5ffec9fe-d28d-4da2-9f6f-6069e6c54b5a",
+                "deviceInfo": {
+                    "deviceType": "DEVICE_AIR_PURIFIER",
+                    "modelName": "a1",
+                    "alias": "nickname_56",
+                    "reportable": false
+                }
+            }
+        ]
+    },
+    {
+        "messageId": "5656253535107002471880",
+        "timestamp": "2025-02-02T12:54:20.067346",
+        "response": [
+            {
+                "deviceId": "3bdbbbda-eca2-452d-94ce-758a3ca10dc1",
+                "deviceInfo": {
+                    "deviceType": "DEVICE_OVEN",
+                    "modelName": "o2",
+                    "alias": "nickname_82",
+                    "reportable": true
+                }
+            }
+        ]
+    },
+    {
+        "messageId": "2011911162239702562204",
+        "timestamp": "2025-02-02T12:54:20.067346",
+        "response": [
+            {
+                "deviceId": "a4605dfa-37aa-4954-a525-31ef2df88905",
+                "deviceInfo": {
+                    "deviceType": "DEVICE_REFRIGERATOR",
+                    "modelName": "r1",
+                    "alias": "nickname_47",
+                    "reportable": false
+                }
+            }
+        ]
+    }
+]
