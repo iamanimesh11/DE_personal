@@ -4,31 +4,31 @@ import io
 import re
 import logging
 import json
-from psycopg2 import extensions
+import time
+start_time=time.time()
+from Database_connection import connect_Database
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(levelname)s - %(message)s')
 
-
 # Connect to DB
-conn = psycopg2.connect(
-    dbname="de_personal",
-    user="postgres",
-    password="animesh11",
-    host="localhost",
-    port="5432"
-)
-cur = conn.cursor()
+db_connection= connect_Database()
+cur = db_connection.cursor()
+
+# Load data from the JSON file
+with open('devices.json', 'r') as file:
+    api_response = json.load(file)
 
 
 # Function to check if a table exists for device type and model
 checked_tables = set()
 
 def check_table_exists(table_name):
+    table_name="device_staging"
     if table_name in checked_tables:
         return True
     cur.execute("""
         SELECT 1
         FROM information_schema.tables 
-        WHERE table_schema = 'devices' 
+        WHERE table_schema = 'iot_lg' 
         AND table_name = %s
     """, (table_name,))
     exists = cur.fetchone() is not None
@@ -38,34 +38,35 @@ def check_table_exists(table_name):
 
 # Function to create a table dynamically if not exists
 def create_table(table_name):
+    table_name="device_staging"
     create_query = f"""
-        CREATE TABLE devices.{table_name} (
+        CREATE TABLE IF NOT EXISTS iot_lg.{table_name} (
             device_id VARCHAR(255) PRIMARY KEY,
             device_type VARCHAR(50) NOT NULL,
             model_name VARCHAR(255) NOT NULL,
             alias VARCHAR(255),
+            is_active BOOLEAN DEFAULT TRUE,
             reportable BOOLEAN DEFAULT TRUE,
+            subscription_status BOOLEAN DEFAULT FALSE,
+            log_action TEXT DEFAULT 'inserted',
             created_at TIMESTAMP DEFAULT NOW(),
             updated_at TIMESTAMP DEFAULT NOW()
         );
     """
     cur.execute(create_query)
-    conn.commit()
+    db_connection.commit()
     print(f"✅ Created table: {table_name}")
 
 
 # Function to insert device data into its corresponding table
 # Now process the devices one by one
 
-# Load data from the JSON file
-with open('devices.json', 'r') as file:
-    api_response = json.load(file)
 
 csv_data = io.StringIO()
-batch_size=1000
+batch_size=2000
 # Initialize a dictionary to group devices by table_name
 devices_by_table = {}
-
+log_printed=False
 # Process each device from the API response
 for device in api_response['response']:
     device_id = device['deviceId']
@@ -79,9 +80,12 @@ for device in api_response['response']:
 
     # Check if table exists for device type and model name
     table_Exist =check_table_exists(table_name)
-    if table_Exist:
-       print(f"Table {table_name} exists now!")
-    elif not table_Exist:
+    if table_Exist :
+        if not log_printed:
+            print(f"Table {table_name}  already exists!")
+            log_printed=True
+
+    if not table_Exist:
        print(f"Table {table_name} doesn't  exists ,creating!")
        create_table(table_name)
 
@@ -90,10 +94,9 @@ for device in api_response['response']:
             devices_by_table[table_name] = []
     devices_by_table[table_name].append((device_id, device_type, model_name, alias, reportable))
 
-print(devices_by_table)
 # Step 4: Set the search path to the 'devices' schema
-cur.execute("SET search_path TO devices;")
-conn.commit()
+cur.execute("SET search_path TO iot_lg;")
+db_connection.commit()
 # Process each table's devices in batches
 for table_name, devices in devices_by_table.items():
     logging.debug(f"Processing table: {table_name}")
@@ -109,7 +112,7 @@ for table_name, devices in devices_by_table.items():
             created_at = "NULL"  # Placeholder if you want NULL or let PostgreSQL handle this
             updated_at = "NULL"  # Same for updated_at
 
-            logging.debug(f"Preparing data for device_id: {device_id}, device_type: {device_type}, model_name: {model_name}")
+            # logging.debug(f"Preparing data for device_id: {device_id}, device_type: {device_type}, model_name: {model_name}")
 
             csv_data.write(f"{device_id},{device_type},{model_name},{alias},{reportable}\n")
             count += 1
@@ -119,37 +122,34 @@ for table_name, devices in devices_by_table.items():
                 logging.debug(f"Batch size reached, inserting batch for table: {table_name}")
 
                 csv_data.seek(0)
-                quoted_table_name = psycopg2.extensions.quote_ident(f'devices.{table_name}',conn)  # Quote table name
+                quoted_table_name = psycopg2.extensions.quote_ident(f'devices.{table_name}',db_connection)  # Quote table name
 
-                logging.debug(f"Inserting data into table: {quoted_table_name}")
 
-                cur.copy_from(csv_data, quoted_table_name, sep=',', columns=(
-                    'device_id', 'device_type', 'model_name', 'alias', 'reportable', 'created_at', 'updated_at'))
+                cur.copy_from(csv_data, "device_staging", sep=',', columns=(
+                    'device_id', 'device_type', 'model_name', 'alias', 'reportable'))
 
-                conn.commit()
+                db_connection.commit()
+                logging.info(f"Batch inserted for {table_name}, {count} records.")
+
                 csv_data.seek(0)
                 csv_data.truncate(0)  # Clear the in-memory CSV for the next batch
                 count = 0
-                logging.info(f"Batch inserted for {table_name}, {count} records.")
 
         # Insert any remaining records for this table (less than batch_size)
         if count > 0:
-            logging.debug(f"Remaining records to insert for table {table_name}, batch size: {count}")
 
             # Move the cursor to the beginning of the StringIO buffer
             csv_data.seek(0)
 
             # Logging for debugging (check csv content if needed)
-            logging.debug(f"Data being inserted:\n{csv_data.getvalue()}")
-
             try:
-                logging.debug(f"Inserting remaining records into table: {table_name}")
+                logging.debug(f"Inserting remaining {count} records into table: {table_name}")
                 # Check if the table exists before inserting
                 cur.execute("""
                     SELECT EXISTS (
                         SELECT 1
                         FROM information_schema.tables
-                        WHERE table_schema = 'devices'
+                        WHERE table_schema = 'iot_lg'
                         AND table_name = %s
                     );
                 """, (table_name,))
@@ -160,11 +160,11 @@ for table_name, devices in devices_by_table.items():
                     # Handle this case (e.g., create the table or log the error)
 
                 # Insert the data from csv_data into the table
-                cur.copy_from(csv_data, table_name, sep=',', columns=(
+                cur.copy_from(csv_data, "device_staging", sep=',', columns=(
                     'device_id', 'device_type', 'model_name', 'alias', 'reportable'))
 
                 # Commit the transaction once the data is inserted
-                conn.commit()
+                db_connection.commit()
 
                 # Clear csv_data to free up memory and reset it for future use
                 csv_data.seek(0)
@@ -175,7 +175,7 @@ for table_name, devices in devices_by_table.items():
             except Exception as e:
                 # In case of an error, log the exception
                 logging.error(f"Error inserting remaining records for {table_name}: {e}")
-                conn.rollback()  # Rollback the transaction in case of error
+                db_connection.rollback()  # Rollback the transaction in case of error
 
 
     except Exception as e:
@@ -186,4 +186,6 @@ for table_name, devices in devices_by_table.items():
 
 # Close connection
 cur.close()
-conn.close()
+db_connection.close()
+end_Time=time.time()
+print(f"total time taken : {end_Time-start_time} seconds")

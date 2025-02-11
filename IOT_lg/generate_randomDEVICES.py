@@ -2,7 +2,8 @@ import random
 import uuid
 import json
 from collections import defaultdict
-
+import time
+start_time=time.time()
 # Example lists of device types and model names (you can expand these lists as needed)
 device_types = ["DEVICE_REFRIGERATOR", "DEVICE_AIR_CONDITIONER", "DEVICE_WASHING_MACHINE", "DEVICE_TV", "DEVICE_MICROWAVE"]
 model_names = {
@@ -13,34 +14,39 @@ model_names = {
     "DEVICE_MICROWAVE": ["MicroWaveX", "QuickHeat", "HeatMaster"]
 }
 
+d=[True,False]
 # Function to generate random device info
 def generate_random_device():
     device_type = random.choice(device_types)
     model_name = random.choice(model_names[device_type])
     device_id = str(uuid.uuid4()).upper()
-    alias = f"{device_type.split('_')[1]}_{model_name}"
+    alias = f"nickname_{random.randint(10,99)}"
     return {
         "deviceId": device_id,
         "deviceInfo": {
-            "deviceType": device_type,
-            "modelName": model_name,
+            "deviceType": "DEVICE_REFRIGERATOR",
+            "modelName": "FrostMaster",
             "alias": alias,
-            "reportable": True
+            "reportable": random.choice(d)
         }
     }
 
 # Generate 100 random devices
-devices = [generate_random_device() for _ in range(2)]
+devices = [generate_random_device() for _ in range(3)]
 print(devices)
 # Group devices by deviceType and modelName
 grouped_devices = defaultdict(list)
 for device in devices:
+
     device_type = device["deviceInfo"]["deviceType"]
     model_name = device["deviceInfo"]["modelName"]
     grouped_devices[(device_type, model_name)].append(device)
 
+print(len(devices))
+
 # Create an empty list to hold all the devices
 response = []
+
 
 # Loop over each device list in the grouped_devices dictionary
 for device_list in grouped_devices.values():
@@ -64,3 +70,5 @@ with open(output_filename, 'w') as json_file:
     json.dump(api_response, json_file, indent=4)
 
 print(f"Data has been saved to {output_filename}")
+end_Time=time.time()
+print(f"total time taken : {end_Time-start_time} seconds")
