@@ -21,7 +21,14 @@ def connect_Database():
             host=host,
             port=port
         )
-        print("Database connection successful!")  # Indicate success
+        cursor = conn.cursor()
+        cursor.execute("SELECT 1")  # Simple test query
+        result = cursor.fetchone()
+        if result[0] != 1:
+            print("Warning: Test query failed. Connection might be good, but database may have issues.")
+
+        print("Successfully connected to PostgreSQL database.")
+        conn.close()
         return conn
     except psycopg2.Error as e:
         print(f"Database connection failed: {e}")  # Indicate failure with error message

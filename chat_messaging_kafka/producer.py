@@ -5,14 +5,13 @@ import json
 from datetime import datetime
 from kafka.admin import KafkaAdminClient,NewTopic
 from modify_Topics import create_kafka_topic
+import string
+import random
+
 admin_client=KafkaAdminClient(
             bootstrap_servers=['172.19.165.234:9092'],
             client_id="kafka_topic_manager"
         )
-
-import string
-import random
-
 
 def producer():
     try:
@@ -24,7 +23,7 @@ def producer():
         )
         print("Chat Producer started. Type messages to send ('exit' to quit):")
     except Exception as e:
-        print(f"Error occured:{e}")
+        print(f"Error occurred:{e}")
         exit()
     while True:
         while True:
