@@ -1,40 +1,24 @@
-import requests
-import logging
 import json
-from datetime import datetime, timedelta
-from elasticsearch import Elasticsearch
 
-# Connect to Elasticsearch
-es = Elasticsearch(["http://localhost:9200"])
+data = ['1740497815392674560',
+        '{"level": "WARNING", "message": "2025-02-25 15:36:55,392 - WARNING - {\\"user_id\\": 52, \\"product_id\\": 1355, \\"amount\\": 62.53, \\"status\\": \\"success\\", \\"random_string\\": \\"0tDefqntLa\\"}", "timestamp": "2025-02-25 15:36:55"}']
 
+# Extract ID
+log_id = data[0]
 
-def log_to_elasticsearch(index, log_data):
-    es.index(index=index, body=log_data)
+# Parse the outer JSON
+log_data = json.loads(data[1])
 
+# Extract the 'message' field and parse the nested JSON inside it
+message_part = log_data['message'].split(' - ')[-1]  # Extracting the actual JSON string
+nested_data = json.loads(message_part)  # Parse it as JSON
 
-# Subscription example
-device_id = "device_12345"
-url = f"https://thinq.developer.lge.com/api/event/{device_id}"
-payload = {"expire": {"unit": "HOUR", "timer": 24}}
-
-try:
-    response = requests.post(url, json=payload)
-    response.raise_for_status()
-
-    log_data = {
-        "timestamp": datetime.utcnow().isoformat(),
-        "device_id": device_id,
-        "subscription_status": "success",
-        "response_time": response.elapsed.total_seconds()
-    }
-
-except requests.exceptions.RequestException as e:
-    log_data = {
-        "timestamp": datetime.utcnow().isoformat(),
-        "device_id": device_id,
-        "subscription_status": "failed",
-        "error_message": str(e)
-    }
-
-# Send log to Elasticsearch
-log_to_elasticsearch("subscription_logs", log_data)
+# Print extracted values
+print("Log ID:", log_id)
+print("Level:", log_data["level"])
+print("Timestamp:", log_data["timestamp"])
+print("User ID:", nested_data["user_id"])
+print("Product ID:", nested_data["product_id"])
+print("Amount:", nested_data["amount"])
+print("Status:", nested_data["status"])
+print("Random String:", nested_data["random_string"])

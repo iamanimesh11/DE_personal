@@ -39,3 +39,12 @@ if __name__ == "__main__":
     print("20-20-20 Rule Reminder is running.")
     print("Press Ctrl+C to stop.")
     start_timer()
+
+#
+# 💛 Jodi Kripya Dhyan Dein! 💛
+#
+# Aapka "Shaadi Special Gift Express" apni manzoorashuda gati se vilambit hai! 🚂🎁
+# Yeh pyaar, duaon aur thodi si der ka bhaari saman lekar chal raha hai.
+# Lekin chinta na karein, yeh jaldi hi aapki sukhad grihasti station par pahunchne ki sambhavana hai!
+#
+# Kripya intezaar ka signal green rakhein aur muskurate rahein! 😄✨
