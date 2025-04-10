@@ -1,0 +1,24 @@
+[2025-03-17T23:46:57.723+0530] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-03-17T23:46:57.773+0530] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: process_Trafficdata.fetch_road_data manual__2025-03-17T18:16:53.364752+00:00 [queued]>
+[2025-03-17T23:46:57.793+0530] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: process_Trafficdata.fetch_road_data manual__2025-03-17T18:16:53.364752+00:00 [queued]>
+[2025-03-17T23:46:57.794+0530] {taskinstance.py:2867} INFO - Starting attempt 1 of 2
+[2025-03-17T23:46:57.819+0530] {taskinstance.py:2890} INFO - Executing <Task(PythonOperator): fetch_road_data> on 2025-03-17 18:16:53.364752+00:00
+[2025-03-17T23:46:57.829+0530] {standard_task_runner.py:104} INFO - Running: ['airflow', 'tasks', 'run', 'process_Trafficdata', 'fetch_road_data', 'manual__2025-03-17T18:16:53.364752+00:00', '--job-id', '78', '--raw', '--subdir', 'DAGS_FOLDER/Process_traffic_Data.py', '--cfg-path', '/tmp/tmp8o6rm_zz']
+[2025-03-17T23:46:57.832+0530] {standard_task_runner.py:105} INFO - Job 78: Subtask fetch_road_data
+[2025-03-17T23:46:57.837+0530] {logging_mixin.py:190} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py:70 DeprecationWarning: This process (pid=388) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2025-03-17T23:46:57.838+0530] {standard_task_runner.py:72} INFO - Started process 389 to run task
+[2025-03-17T23:46:57.920+0530] {task_command.py:467} INFO - Running <TaskInstance: process_Trafficdata.fetch_road_data manual__2025-03-17T18:16:53.364752+00:00 [running]> on host 9e62b6891a9b
+[2025-03-17T23:46:58.058+0530] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='process_Trafficdata' AIRFLOW_CTX_TASK_ID='fetch_road_data' AIRFLOW_CTX_EXECUTION_DATE='2025-03-17T18:16:53.364752+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-03-17T18:16:53.364752+00:00'
+[2025-03-17T23:46:58.060+0530] {taskinstance.py:732} INFO - ::endgroup::
+[2025-03-17T23:46:58.081+0530] {road_data_real_time_traffic_onbounding_box.py:138} INFO - connect_Database() begins
+[2025-03-17T23:46:58.110+0530] {logging_mixin.py:190} INFO - Using connection info: postgres
+[2025-03-17T23:46:58.111+0530] {road_data_real_time_traffic_onbounding_box.py:150} INFO - connect_Database() completed
+[2025-03-17T23:46:58.119+0530] {road_data_real_time_traffic_onbounding_box.py:197} ERROR - exception in main: invalid dsn: missing "=" after "postgres" in connection info string
+
+[2025-03-17T23:46:58.126+0530] {road_data_real_time_traffic_onbounding_box.py:200} INFO - Database connection closed
+[2025-03-17T23:46:58.131+0530] {python.py:240} INFO - Done. Returned value was: None
+[2025-03-17T23:46:58.145+0530] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2025-03-17T23:46:58.146+0530] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=process_Trafficdata, task_id=fetch_road_data, run_id=manual__2025-03-17T18:16:53.364752+00:00, execution_date=20250317T181653, start_date=20250317T181657, end_date=20250317T181658
+[2025-03-17T23:46:58.216+0530] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2025-03-17T23:46:58.239+0530] {taskinstance.py:3901} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-03-17T23:46:58.244+0530] {local_task_job_runner.py:245} INFO - ::endgroup::

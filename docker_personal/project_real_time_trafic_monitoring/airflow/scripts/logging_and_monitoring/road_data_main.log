@@ -1,0 +1,27 @@
+2025-03-18 16:57:04,278 - INFO - road_data Main Started
+2025-03-18 16:57:04,286 - INFO - Lat : 28.60507059568563, LNG: 77.44698311030206
+2025-03-18 16:57:04,294 - INFO - Calling get_nearby_roads_with_coordinates()
+2025-03-18 16:57:06,027 - INFO - Received 2 roads
+2025-03-18 16:57:06,051 - INFO - get_nearby_roads_with_coordinates func completed.
+2025-03-18 16:57:06,088 - INFO - Nearby Roads with Start & End Points:
+2025-03-18 16:57:06,111 - INFO - Nearby Roads with Start & End Points:,Road_list : [{'name': 'Noida Link Road', 'start_lat': 28.592823, 'start_lon': 77.4584486, 'end_lat': 28.6020117, 'end_lon': 77.4499369}, {'name': 'Service Lane', 'start_lat': 28.6072712, 'start_lon': 77.4405653, 'end_lat': 28.6030915, 'end_lon': 77.4494284}]
+2025-03-18 16:57:06,131 - INFO - Starting bulk_insert_into_road_Table()
+2025-03-18 16:57:06,234 - INFO - completed bulk_insert_into_road_Table()
+2025-03-18 17:05:40,611 - INFO - road_data Main Started
+2025-03-18 17:05:40,625 - INFO - Lat : 28.60507059568563, LNG: 77.44698311030206
+2025-03-18 17:05:40,647 - INFO - Calling get_nearby_roads_with_coordinates()
+2025-03-18 17:05:42,618 - INFO - Received 2 roads
+2025-03-18 17:05:42,627 - INFO - get_nearby_roads_with_coordinates func completed.
+2025-03-18 17:05:42,638 - INFO - Nearby Roads with Start & End Points:
+2025-03-18 17:05:42,649 - INFO - Nearby Roads with Start & End Points:,Road_list : [{'name': 'Noida Link Road', 'start_lat': 28.592823, 'start_lon': 77.4584486, 'end_lat': 28.6020117, 'end_lon': 77.4499369}, {'name': 'Service Lane', 'start_lat': 28.6072712, 'start_lon': 77.4405653, 'end_lat': 28.6030915, 'end_lon': 77.4494284}]
+2025-03-18 17:05:42,659 - INFO - Starting bulk_insert_into_road_Table()
+2025-03-18 17:05:42,733 - INFO - completed bulk_insert_into_road_Table()
+2025-03-18 17:17:44,107 - INFO - road_data Main Started
+2025-03-18 17:17:44,120 - INFO - Lat : 28.60507059568563, LNG: 77.44698311030206
+2025-03-18 17:17:44,134 - INFO - Calling get_nearby_roads_with_coordinates()
+2025-03-18 17:17:45,659 - INFO - Received 2 roads
+2025-03-18 17:17:45,668 - INFO - get_nearby_roads_with_coordinates func completed.
+2025-03-18 17:17:45,677 - INFO - Nearby Roads with Start & End Points:
+2025-03-18 17:17:45,685 - INFO - Nearby Roads with Start & End Points:,Road_list : [{'name': 'Noida Link Road', 'start_lat': 28.592823, 'start_lon': 77.4584486, 'end_lat': 28.6020117, 'end_lon': 77.4499369}, {'name': 'Service Lane', 'start_lat': 28.6072712, 'start_lon': 77.4405653, 'end_lat': 28.6030915, 'end_lon': 77.4494284}]
+2025-03-18 17:17:45,694 - INFO - Starting bulk_insert_into_road_Table()
+2025-03-18 17:17:45,752 - INFO - completed bulk_insert_into_road_Table()

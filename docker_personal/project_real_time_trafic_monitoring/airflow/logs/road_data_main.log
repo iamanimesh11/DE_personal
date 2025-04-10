@@ -1,0 +1,113 @@
+2025-03-17 18:11:06,721 - ERROR - exception in main: 'ti'
+2025-03-17 18:12:08,171 - ERROR - exception in main: 'ti'
+2025-03-17 18:15:57,729 - ERROR - exception in main: 'ti'
+2025-03-17 18:16:59,583 - ERROR - exception in main: 'ti'
+2025-03-17 18:17:33,371 - ERROR - exception in main: 'ti'
+2025-03-17 20:06:36,981 - ERROR - exception in main: 'ti'
+2025-03-17 20:06:57,847 - ERROR - exception in main: 'ti'
+2025-03-17 20:07:06,113 - ERROR - exception in main: 'ti'
+2025-03-17 20:07:59,628 - ERROR - exception in main: 'ti'
+2025-03-17 20:08:08,180 - ERROR - exception in main: 'ti'
+2025-03-17 20:30:02,740 - ERROR - exception in main: 'ti'
+2025-03-17 20:31:04,212 - ERROR - exception in main: 'ti'
+2025-03-17 21:30:04,357 - ERROR - exception in main: 'ti'
+2025-03-17 21:31:06,096 - ERROR - exception in main: 'ti'
+2025-03-17 22:52:55,707 - ERROR - exception in main: 'ti'
+2025-03-17 22:53:56,925 - ERROR - exception in main: 'ti'
+2025-03-17 23:13:58,756 - ERROR - exception in main: 'ti'
+2025-03-17 23:15:00,290 - ERROR - exception in main: 'ti'
+2025-03-17 23:19:19,899 - ERROR - exception in main: Failed to retrieve connection info from XCom!
+2025-03-17 23:32:19,560 - ERROR - exception in main: Failed to retrieve connection info from XCom!
+2025-03-17 23:32:19,576 - ERROR - exception in main: Failed to retrieve connection info from XCom!
+2025-03-17 23:33:46,771 - INFO - road_data Main Started
+2025-03-17 23:33:46,781 - INFO - Lat : 28.60507059568563, LNG: 77.44698311030206
+2025-03-17 23:33:46,788 - INFO - Calling get_nearby_roads_with_coordinates()
+2025-03-17 23:33:46,796 - ERROR - exception in main: EOF when reading a line
+2025-03-17 23:35:17,080 - INFO - road_data Main Started
+2025-03-17 23:35:17,090 - INFO - Lat : 28.60507059568563, LNG: 77.44698311030206
+2025-03-17 23:35:17,100 - INFO - Calling get_nearby_roads_with_coordinates()
+2025-03-17 23:35:17,110 - ERROR - exception in main: EOF when reading a line
+2025-03-17 23:36:17,373 - INFO - road_data Main Started
+2025-03-17 23:36:17,384 - INFO - Lat : 28.60507059568563, LNG: 77.44698311030206
+2025-03-17 23:36:17,395 - INFO - Calling get_nearby_roads_with_coordinates()
+2025-03-17 23:36:35,238 - INFO - Received 2 roads
+2025-03-17 23:36:35,254 - INFO - get_nearby_roads_with_coordinates func completed.
+2025-03-17 23:36:35,267 - INFO - Nearby Roads with Start & End Points:
+2025-03-17 23:36:35,281 - INFO - Nearby Roads with Start & End Points:,Road_list : [{'name': 'Noida Link Road', 'start_lat': 28.592823, 'start_lon': 77.4584486, 'end_lat': 28.6020117, 'end_lon': 77.4499369}, {'name': 'Service Lane', 'start_lat': 28.6072712, 'start_lon': 77.4405653, 'end_lat': 28.6030915, 'end_lon': 77.4494284}]
+2025-03-17 23:36:35,293 - INFO - Starting bulk_insert_into_road_Table()
+2025-03-17 23:36:35,309 - ERROR - exception in main: EOF when reading a line
+2025-03-17 23:37:50,539 - INFO - road_data Main Started
+2025-03-17 23:37:50,549 - INFO - Lat : 28.60507059568563, LNG: 77.44698311030206
+2025-03-17 23:37:50,557 - INFO - Calling get_nearby_roads_with_coordinates()
+2025-03-17 23:38:14,206 - INFO - Received 2 roads
+2025-03-17 23:38:14,214 - INFO - get_nearby_roads_with_coordinates func completed.
+2025-03-17 23:38:14,222 - INFO - Nearby Roads with Start & End Points:
+2025-03-17 23:38:14,231 - INFO - Nearby Roads with Start & End Points:,Road_list : [{'name': 'Noida Link Road', 'start_lat': 28.592823, 'start_lon': 77.4584486, 'end_lat': 28.6020117, 'end_lon': 77.4499369}, {'name': 'Service Lane', 'start_lat': 28.6072712, 'start_lon': 77.4405653, 'end_lat': 28.6030915, 'end_lon': 77.4494284}]
+2025-03-17 23:38:14,240 - INFO - Starting bulk_insert_into_road_Table()
+2025-03-17 23:38:14,270 - ERROR - exception in main: 'str' object has no attribute 'rollback'
+2025-03-17 23:42:19,854 - INFO - road_data Main Started
+2025-03-17 23:42:19,867 - INFO - Lat : 28.60507059568563, LNG: 77.44698311030206
+2025-03-17 23:42:19,875 - INFO - Calling get_nearby_roads_with_coordinates()
+2025-03-17 23:42:39,276 - INFO - Received 2 roads
+2025-03-17 23:42:39,286 - INFO - get_nearby_roads_with_coordinates func completed.
+2025-03-17 23:42:39,294 - INFO - Nearby Roads with Start & End Points:
+2025-03-17 23:42:39,303 - INFO - Nearby Roads with Start & End Points:,Road_list : [{'name': 'Noida Link Road', 'start_lat': 28.592823, 'start_lon': 77.4584486, 'end_lat': 28.6020117, 'end_lon': 77.4499369}, {'name': 'Service Lane', 'start_lat': 28.6072712, 'start_lon': 77.4405653, 'end_lat': 28.6030915, 'end_lon': 77.4494284}]
+2025-03-17 23:42:39,311 - INFO - Starting bulk_insert_into_road_Table()
+2025-03-17 23:42:39,345 - ERROR - exception in main: cannot access local variable 'conn' where it is not associated with a value
+2025-03-17 23:44:16,972 - INFO - road_data Main Started
+2025-03-17 23:44:16,980 - INFO - Lat : 28.60507059568563, LNG: 77.44698311030206
+2025-03-17 23:44:16,987 - INFO - Calling get_nearby_roads_with_coordinates()
+2025-03-17 23:44:33,910 - INFO - Received 2 roads
+2025-03-17 23:44:33,917 - INFO - get_nearby_roads_with_coordinates func completed.
+2025-03-17 23:44:33,926 - INFO - Nearby Roads with Start & End Points:
+2025-03-17 23:44:33,933 - INFO - Nearby Roads with Start & End Points:,Road_list : [{'name': 'Noida Link Road', 'start_lat': 28.592823, 'start_lon': 77.4584486, 'end_lat': 28.6020117, 'end_lon': 77.4499369}, {'name': 'Service Lane', 'start_lat': 28.6072712, 'start_lon': 77.4405653, 'end_lat': 28.6030915, 'end_lon': 77.4494284}]
+2025-03-17 23:44:33,941 - INFO - Starting bulk_insert_into_road_Table()
+2025-03-17 23:44:33,981 - ERROR - exception in main: cannot access local variable 'conn' where it is not associated with a value
+2025-03-17 23:46:58,119 - ERROR - exception in main: invalid dsn: missing "=" after "postgres" in connection info string
+
+2025-03-17 23:55:08,406 - ERROR - exception in main: psycopg2.connect() argument after ** must be a mapping, not str
+2025-03-17 23:56:53,564 - INFO - road_data Main Started
+2025-03-17 23:56:53,573 - INFO - Lat : 28.60507059568563, LNG: 77.44698311030206
+2025-03-17 23:56:53,580 - INFO - Calling get_nearby_roads_with_coordinates()
+2025-03-17 23:57:10,904 - INFO - Received 2 roads
+2025-03-17 23:57:10,914 - INFO - get_nearby_roads_with_coordinates func completed.
+2025-03-17 23:57:10,923 - INFO - Nearby Roads with Start & End Points:
+2025-03-17 23:57:10,932 - INFO - Nearby Roads with Start & End Points:,Road_list : [{'name': 'Noida Link Road', 'start_lat': 28.592823, 'start_lon': 77.4584486, 'end_lat': 28.6020117, 'end_lon': 77.4499369}, {'name': 'Service Lane', 'start_lat': 28.6072712, 'start_lon': 77.4405653, 'end_lat': 28.6030915, 'end_lon': 77.4494284}]
+2025-03-17 23:57:10,941 - INFO - Starting bulk_insert_into_road_Table()
+2025-03-17 23:57:11,012 - INFO - completed bulk_insert_into_road_Table()
+2025-03-18 06:51:02,136 - INFO - road_data Main Started
+2025-03-18 06:51:02,161 - INFO - Lat : 28.60507059568563, LNG: 77.44698311030206
+2025-03-18 06:51:02,183 - INFO - Calling get_nearby_roads_with_coordinates()
+2025-03-18 06:51:02,508 - INFO - road_data Main Started
+2025-03-18 06:51:02,522 - INFO - Lat : 28.60507059568563, LNG: 77.44698311030206
+2025-03-18 06:51:02,554 - INFO - Calling get_nearby_roads_with_coordinates()
+2025-03-18 06:51:03,705 - INFO - Received 2 roads
+2025-03-18 06:51:03,783 - INFO - get_nearby_roads_with_coordinates func completed.
+2025-03-18 06:51:03,801 - INFO - Received 2 roads
+2025-03-18 06:51:03,804 - INFO - Nearby Roads with Start & End Points:
+2025-03-18 06:51:03,828 - INFO - get_nearby_roads_with_coordinates func completed.
+2025-03-18 06:51:03,850 - INFO - Nearby Roads with Start & End Points:,Road_list : [{'name': 'Noida Link Road', 'start_lat': 28.592823, 'start_lon': 77.4584486, 'end_lat': 28.6020117, 'end_lon': 77.4499369}, {'name': 'Service Lane', 'start_lat': 28.6072712, 'start_lon': 77.4405653, 'end_lat': 28.6030915, 'end_lon': 77.4494284}]
+2025-03-18 06:51:03,867 - INFO - Nearby Roads with Start & End Points:
+2025-03-18 06:51:03,877 - INFO - Nearby Roads with Start & End Points:,Road_list : [{'name': 'Noida Link Road', 'start_lat': 28.592823, 'start_lon': 77.4584486, 'end_lat': 28.6020117, 'end_lon': 77.4499369}, {'name': 'Service Lane', 'start_lat': 28.6072712, 'start_lon': 77.4405653, 'end_lat': 28.6030915, 'end_lon': 77.4494284}]
+2025-03-18 06:51:03,902 - INFO - Starting bulk_insert_into_road_Table()
+2025-03-18 06:51:03,954 - INFO - Starting bulk_insert_into_road_Table()
+2025-03-18 06:51:04,281 - INFO - completed bulk_insert_into_road_Table()
+2025-03-18 06:51:04,344 - INFO - completed bulk_insert_into_road_Table()
+2025-03-18 07:30:09,569 - INFO - road_data Main Started
+2025-03-18 07:30:09,587 - INFO - Lat : 28.60507059568563, LNG: 77.44698311030206
+2025-03-18 07:30:09,615 - INFO - Calling get_nearby_roads_with_coordinates()
+2025-03-18 07:30:16,628 - INFO - Received 2 roads
+2025-03-18 07:30:16,651 - INFO - get_nearby_roads_with_coordinates func completed.
+2025-03-18 07:30:16,667 - INFO - Nearby Roads with Start & End Points:
+2025-03-18 07:30:16,679 - INFO - Nearby Roads with Start & End Points:,Road_list : [{'name': 'Noida Link Road', 'start_lat': 28.592823, 'start_lon': 77.4584486, 'end_lat': 28.6020117, 'end_lon': 77.4499369}, {'name': 'Service Lane', 'start_lat': 28.6072712, 'start_lon': 77.4405653, 'end_lat': 28.6030915, 'end_lon': 77.4494284}]
+2025-03-18 07:30:16,696 - INFO - Starting bulk_insert_into_road_Table()
+2025-03-18 07:30:16,796 - INFO - completed bulk_insert_into_road_Table()
+2025-03-18 08:44:15,489 - INFO - road_data Main Started
+2025-03-18 08:44:15,521 - INFO - Lat : 28.60507059568563, LNG: 77.44698311030206
+2025-03-18 08:44:15,562 - INFO - Calling get_nearby_roads_with_coordinates()
+2025-03-18 08:44:20,203 - INFO - Received 2 roads
+2025-03-18 08:44:21,006 - INFO - get_nearby_roads_with_coordinates func completed.
+2025-03-18 08:44:21,026 - INFO - Nearby Roads with Start & End Points:
+2025-03-18 08:44:21,058 - INFO - Nearby Roads with Start & End Points:,Road_list : [{'name': 'Noida Link Road', 'start_lat': 28.592823, 'start_lon': 77.4584486, 'end_lat': 28.6020117, 'end_lon': 77.4499369}, {'name': 'Service Lane', 'start_lat': 28.6072712, 'start_lon': 77.4405653, 'end_lat': 28.6030915, 'end_lon': 77.4494284}]
+2025-03-18 08:44:21,073 - INFO - Starting bulk_insert_into_road_Table()
+2025-03-18 08:44:23,475 - INFO - completed bulk_insert_into_road_Table()

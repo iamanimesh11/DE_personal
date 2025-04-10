@@ -1,0 +1,22 @@
+[2025-03-17T23:32:19.092+0530] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-03-17T23:32:19.137+0530] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: process_Trafficdata.fetch_road_data manual__2025-03-17T18:02:16.249786+00:00 [queued]>
+[2025-03-17T23:32:19.156+0530] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: process_Trafficdata.fetch_road_data manual__2025-03-17T18:02:16.249786+00:00 [queued]>
+[2025-03-17T23:32:19.157+0530] {taskinstance.py:2867} INFO - Starting attempt 1 of 2
+[2025-03-17T23:32:19.185+0530] {taskinstance.py:2890} INFO - Executing <Task(PythonOperator): fetch_road_data> on 2025-03-17 18:02:16.249786+00:00
+[2025-03-17T23:32:19.198+0530] {standard_task_runner.py:104} INFO - Running: ['airflow', 'tasks', 'run', 'process_Trafficdata', 'fetch_road_data', 'manual__2025-03-17T18:02:16.249786+00:00', '--job-id', '63', '--raw', '--subdir', 'DAGS_FOLDER/Process_traffic_Data.py', '--cfg-path', '/tmp/tmpanaf3olv']
+[2025-03-17T23:32:19.202+0530] {logging_mixin.py:190} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py:70 DeprecationWarning: This process (pid=204) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2025-03-17T23:32:19.202+0530] {standard_task_runner.py:105} INFO - Job 63: Subtask fetch_road_data
+[2025-03-17T23:32:19.203+0530] {standard_task_runner.py:72} INFO - Started process 205 to run task
+[2025-03-17T23:32:19.325+0530] {task_command.py:467} INFO - Running <TaskInstance: process_Trafficdata.fetch_road_data manual__2025-03-17T18:02:16.249786+00:00 [running]> on host 9e62b6891a9b
+[2025-03-17T23:32:19.483+0530] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='process_Trafficdata' AIRFLOW_CTX_TASK_ID='fetch_road_data' AIRFLOW_CTX_EXECUTION_DATE='2025-03-17T18:02:16.249786+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2025-03-17T18:02:16.249786+00:00'
+[2025-03-17T23:32:19.485+0530] {taskinstance.py:732} INFO - ::endgroup::
+[2025-03-17T23:32:19.515+0530] {road_data_real_time_traffic_onbounding_box.py:137} INFO - connect_Database() begins
+[2025-03-17T23:32:19.550+0530] {logging_mixin.py:190} INFO - Using connection info: None
+[2025-03-17T23:32:19.551+0530] {road_data_real_time_traffic_onbounding_box.py:145} CRITICAL - connect_Database() Connection failed: No connection established
+[2025-03-17T23:32:19.560+0530] {road_data_real_time_traffic_onbounding_box.py:201} ERROR - exception in main: Failed to retrieve connection info from XCom!
+[2025-03-17T23:32:19.571+0530] {python.py:240} INFO - Done. Returned value was: None
+[2025-03-17T23:32:19.593+0530] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2025-03-17T23:32:19.594+0530] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=process_Trafficdata, task_id=fetch_road_data, run_id=manual__2025-03-17T18:02:16.249786+00:00, execution_date=20250317T180216, start_date=20250317T180219, end_date=20250317T180219
+[2025-03-17T23:32:19.664+0530] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2025-03-17T23:32:19.695+0530] {taskinstance.py:3901} INFO - 0 downstream tasks scheduled from follow-on schedule check
+[2025-03-17T23:32:19.700+0530] {local_task_job_runner.py:245} INFO - ::endgroup::

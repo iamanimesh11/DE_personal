@@ -1,0 +1,136 @@
+2025-03-17 15:28:29,492 - INFO - Database connection started.
+2025-03-17 15:28:41,721 - CRITICAL - Database connection error: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+
+2025-03-17 15:29:13,233 - INFO - Database connection started.
+2025-03-17 15:29:25,254 - CRITICAL - Database connection error: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+
+2025-03-17 15:29:56,307 - INFO - Database connection started.
+2025-03-17 15:30:00,549 - INFO - Database connection started.
+2025-03-17 15:30:08,328 - CRITICAL - Database connection error: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+
+2025-03-17 15:30:12,562 - CRITICAL - Database connection error: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+
+2025-03-17 15:30:14,018 - INFO - Database connection started.
+2025-03-17 15:30:14,026 - CRITICAL - Database connection error: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+
+2025-03-17 15:30:39,229 - INFO - Database connection started.
+2025-03-17 15:30:51,245 - CRITICAL - Database connection error: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+
+2025-03-17 15:34:02,053 - INFO - Database connection started.
+2025-03-17 15:34:02,057 - INFO - Database connection started.
+2025-03-17 15:34:14,067 - CRITICAL - Database connection error: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+
+2025-03-17 15:34:14,070 - CRITICAL - Database connection error: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+
+2025-03-17 15:34:16,478 - INFO - Database connection started.
+2025-03-17 15:34:16,524 - CRITICAL - Database connection error: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+
+2025-03-17 15:34:45,419 - INFO - Database connection started.
+2025-03-17 15:34:57,474 - CRITICAL - Database connection error: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+
+2025-03-17 15:35:28,318 - INFO - Database connection started.
+2025-03-17 15:35:40,329 - CRITICAL - Database connection error: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+
+2025-03-17 15:36:11,028 - INFO - Database connection started.
+2025-03-17 15:36:23,049 - CRITICAL - Database connection error: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+
+2025-03-17 15:36:54,183 - INFO - Database connection started.
+2025-03-17 15:37:06,205 - CRITICAL - Database connection error: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+
+2025-03-17 15:37:37,831 - INFO - Database connection started.
+2025-03-17 15:37:49,845 - CRITICAL - Database connection error: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+
+2025-03-17 15:38:20,763 - INFO - Database connection started.
+2025-03-17 15:38:32,784 - CRITICAL - Database connection error: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+
+2025-03-17 15:39:03,501 - INFO - Database connection started.
+2025-03-17 15:39:15,515 - CRITICAL - Database connection error: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+
+2025-03-17 15:39:46,290 - INFO - Database connection started.
+2025-03-17 15:39:58,313 - CRITICAL - Database connection error: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+
+2025-03-17 15:40:29,170 - INFO - Database connection started.
+2025-03-17 15:40:41,186 - CRITICAL - Database connection error: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+
+2025-03-17 15:41:11,729 - INFO - Database connection started.
+2025-03-17 15:41:23,771 - CRITICAL - Database connection error: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+
+2025-03-17 15:42:45,178 - INFO - Database connection started.
+2025-03-17 15:42:45,204 - CRITICAL - Database connection error: connection to server at "localhost" (::1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+
+2025-03-17 15:46:08,581 - INFO - Database connection started.
+2025-03-17 15:46:08,604 - INFO - Successfully connected to PostgreSQL database.
+2025-03-17 15:46:08,615 - INFO - Schema 'roads_traffic' is ready.
+2025-03-17 15:46:08,625 - INFO - Table 'roads' is ready.
+2025-03-17 15:46:08,642 - INFO - Index 'roads_road_id_idx' created successfully.
+2025-03-17 15:46:08,651 - INFO - Table 'traffic_data' is ready.
+2025-03-17 15:46:08,662 - INFO - Index 'traffic_Data_road_id_idx' created successfully.
+2025-03-17 15:46:08,670 - INFO - Database setup completed successfully.
+2025-03-17 15:51:09,912 - INFO - Database connection started.
+2025-03-17 15:51:09,928 - INFO - Successfully connected to PostgreSQL database.
+2025-03-17 15:51:09,934 - INFO - Schema 'roads_traffic' is ready.
+2025-03-17 15:51:09,939 - INFO - Table 'roads' is ready.
+2025-03-17 15:51:09,948 - INFO - Index 'roads_road_id_idx' created successfully.
+2025-03-17 15:51:09,954 - INFO - Table 'traffic_data' is ready.
+2025-03-17 15:51:09,960 - INFO - Index 'traffic_Data_road_id_idx' created successfully.
+2025-03-17 15:51:09,966 - INFO - Database setup completed successfully.

@@ -1,0 +1,25 @@
+[2025-03-18T06:50:55.949+0530] {local_task_job_runner.py:123} INFO - ::group::Pre task execution logs
+[2025-03-18T06:50:56.021+0530] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: process_Trafficdata.database_connection scheduled__2025-03-18T00:00:00+00:00 [queued]>
+[2025-03-18T06:50:56.058+0530] {taskinstance.py:2614} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: process_Trafficdata.database_connection scheduled__2025-03-18T00:00:00+00:00 [queued]>
+[2025-03-18T06:50:56.061+0530] {taskinstance.py:2867} INFO - Starting attempt 1 of 2
+[2025-03-18T06:50:56.117+0530] {taskinstance.py:2890} INFO - Executing <Task(PythonOperator): database_connection> on 2025-03-18 00:00:00+00:00
+[2025-03-18T06:50:56.136+0530] {standard_task_runner.py:104} INFO - Running: ['airflow', 'tasks', 'run', 'process_Trafficdata', 'database_connection', 'scheduled__2025-03-18T00:00:00+00:00', '--job-id', '84', '--raw', '--subdir', 'DAGS_FOLDER/Process_traffic_Data.py', '--cfg-path', '/tmp/tmppzc_84o9']
+[2025-03-18T06:50:56.144+0530] {standard_task_runner.py:105} INFO - Job 84: Subtask database_connection
+[2025-03-18T06:50:56.147+0530] {logging_mixin.py:190} WARNING - /home/airflow/.local/lib/python3.12/site-packages/airflow/task/task_runner/standard_task_runner.py:70 DeprecationWarning: This process (pid=515) is multi-threaded, use of fork() may lead to deadlocks in the child.
+[2025-03-18T06:50:56.150+0530] {standard_task_runner.py:72} INFO - Started process 518 to run task
+[2025-03-18T06:50:56.360+0530] {task_command.py:467} INFO - Running <TaskInstance: process_Trafficdata.database_connection scheduled__2025-03-18T00:00:00+00:00 [running]> on host 9e62b6891a9b
+[2025-03-18T06:50:56.675+0530] {taskinstance.py:3134} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='airflow' AIRFLOW_CTX_DAG_ID='process_Trafficdata' AIRFLOW_CTX_TASK_ID='database_connection' AIRFLOW_CTX_EXECUTION_DATE='2025-03-18T00:00:00+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='scheduled__2025-03-18T00:00:00+00:00'
+[2025-03-18T06:50:56.678+0530] {taskinstance.py:732} INFO - ::endgroup::
+[2025-03-18T06:50:56.731+0530] {Database_connection.py:38} INFO - Database connection started.
+[2025-03-18T06:50:56.764+0530] {Database_connection.py:58} INFO - Successfully connected to PostgreSQL database.
+[2025-03-18T06:50:56.780+0530] {Database_connection.py:62} INFO - Schema 'roads_traffic' is ready.
+[2025-03-18T06:50:56.799+0530] {Database_connection.py:76} INFO - Table 'roads' is ready.
+[2025-03-18T06:50:56.818+0530] {Database_connection.py:87} INFO - Index 'roads_road_id_idx' created successfully.
+[2025-03-18T06:50:56.836+0530] {Database_connection.py:115} INFO - Table 'traffic_data' is ready.
+[2025-03-18T06:50:56.858+0530] {Database_connection.py:130} INFO - Index 'traffic_Data_road_id_idx' created successfully.
+[2025-03-18T06:50:56.882+0530] {Database_connection.py:136} INFO - Database setup completed successfully.
+[2025-03-18T06:50:57.314+0530] {python.py:240} INFO - Done. Returned value was: True
+[2025-03-18T06:50:57.767+0530] {taskinstance.py:341} INFO - ::group::Post task execution logs
+[2025-03-18T06:50:57.770+0530] {taskinstance.py:353} INFO - Marking task as SUCCESS. dag_id=process_Trafficdata, task_id=database_connection, run_id=scheduled__2025-03-18T00:00:00+00:00, execution_date=20250318T000000, start_date=20250318T012056, end_date=20250318T012057
+[2025-03-18T06:50:59.158+0530] {local_task_job_runner.py:266} INFO - Task exited with return code 0
+[2025-03-18T06:50:59.215+0530] {local_task_job_runner.py:245} INFO - ::endgroup::
