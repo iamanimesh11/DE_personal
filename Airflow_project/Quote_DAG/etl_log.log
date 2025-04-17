@@ -1,0 +1,564 @@
+2024-10-13 11:06:13,637 - INFO - Data extraction successfull
+2024-10-13 11:06:13,640 - INFO - Transformed data: Linda Martin - I find that people make Los Angeles their home for one of two reasons. Either they're running from something, or looking for something.
+2024-10-13 11:06:13,641 - INFO - Total records transformed: 1
+2024-10-13 11:06:15,685 - INFO - Data successfully loaded: 1 records.
+2024-10-13 11:06:15,686 - INFO - ETL process completed.
+2024-10-13 11:07:47,685 - INFO - Starting ETL process.
+2024-10-13 11:07:48,457 - INFO - Data extraction successfull
+2024-10-13 11:07:48,459 - INFO - Transformed data: Chloe Decker - Immortality? Mm. Of course. Uh…you spell that with one or two "m"s? I always forget.
+2024-10-13 11:07:48,460 - INFO - Total records transformed: 1
+2024-10-13 11:07:49,995 - INFO - Data successfully loaded: 1 records.
+2024-10-13 11:07:49,996 - INFO - ETL process completed.
+2024-10-16 12:17:27,957 - INFO - Starting ETL process.
+2024-10-16 12:17:29,611 - INFO - Data extraction successfull
+2024-10-16 12:17:29,613 - INFO - Transformed data: Lucifer Morningstar - Take a swing...you'll have splinters in your stool.
+2024-10-16 12:17:29,613 - INFO - Total records transformed: 1
+2024-10-16 12:17:30,347 - INFO - ETL JOB FAILED : ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))
+2024-10-16 12:17:42,932 - INFO - Starting ETL process.
+2024-10-16 12:17:44,245 - INFO - Data extraction successfull
+2024-10-16 12:17:44,246 - INFO - Transformed data: Eve - When the devil walks the earth and meets his first love; means you consider me to be your... first love. Ergo! You love me.
+2024-10-16 12:17:44,247 - INFO - Total records transformed: 1
+2024-10-16 12:17:44,989 - INFO - ETL JOB FAILED : HTTPSConnectionPool(host='discord.com', port=443): Max retries exceeded with url: /api/webhooks/1293892426125021214/pJGAI1r9CKf6BzXyLj8_EqTzpEG1domttEXfYZ5qSIVpZu-sYN_QM3Rx3RxdViV7pmUo (Caused by SSLError(SSLCertVerificationError(1, '[SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1007)')))
+2024-10-16 12:22:01,587 - INFO - Data extraction successfull
+2024-10-16 12:43:34,024 - INFO - Data extraction successfull
+2024-10-16 12:43:36,273 - ERROR - no  data to transform
+2024-10-16 12:43:38,335 - ERROR - No data to load
+2024-10-16 12:51:03,198 - INFO - [{'quote': "I mean if all the apples are bad...maybe it's the tree that's the problem.", 'author': 'Lucifer Morningstar'}]
+2024-10-16 12:51:03,198 - INFO - Data extraction successfull
+2024-10-16 12:51:06,167 - ERROR - no  data to transform
+2024-10-16 12:51:08,401 - ERROR - No data to load
+2024-10-16 13:00:58,758 - INFO - [{'quote': 'I mean, God works in mysterious ways. So you just got to believe that when He crushes your nuts, He does it for a reason.', 'author': 'Ella Lopez'}]
+2024-10-16 13:00:58,758 - INFO - Data extraction successfull
+2024-10-16 13:02:51,343 - INFO - [{'quote': "Sometimes you have to accept when someone doesn't feel the same way about you.", 'author': 'Mazikeen Smith'}]
+2024-10-16 13:02:51,343 - INFO - Data extraction successfull
+2024-10-16 13:02:53,696 - INFO - Total records transformed: 1
+2024-10-16 13:03:06,425 - INFO - Total records transformed: 1
+2024-10-16 13:07:36,888 - INFO - [{'quote': 'We might not always understand it, but God has a plan.', 'author': 'Father Frank'}]
+2024-10-16 13:07:36,889 - INFO - Data extraction successfull
+2024-10-16 13:07:41,176 - INFO - Total records transformed: 1
+2024-10-16 13:09:57,153 - INFO - [{'quote': "When you have children, you always have family. They will always be your priority, your responsibility. And a man, a man provides. And he does it even when he's not appreciated or respected or even loved. He simply bears up and he does it. Because he's a man.", 'author': 'Chloe Decker'}]
+2024-10-16 13:09:57,154 - INFO - Data extraction successfull
+2024-10-16 13:10:00,927 - INFO - Total records transformed: 1
+2024-10-16 13:10:03,727 - INFO - Successfully loaded 1 records into the database.
+2024-10-16 16:24:43,710 - INFO - [{'quote': "Let me play the Me's advocate.", 'author': 'Lucifer Morningstar'}]
+2024-10-16 16:24:43,711 - INFO - Data extraction successfull
+2024-10-16 16:24:46,131 - INFO - Total records transformed: 1
+2024-10-16 16:24:48,408 - INFO - tttttttttttttttttttttttt: [['Lucifer Morningstar', "Let me play the Me's advocate."]]
+2024-10-16 16:24:48,441 - INFO - Successfully loaded 1 records into the database.
+2024-10-16 17:13:59,506 - INFO - [{'quote': 'Why do humans think they can rectify one evil with another?', 'author': 'Chloe Decker'}]
+2024-10-16 17:13:59,507 - INFO - Data extraction successfull
+2024-10-16 17:14:05,624 - INFO - Total records transformed: 1
+2024-10-16 17:14:09,948 - INFO - [{'quote': 'I refuse to be a scapegoat for which something I bear no responsibility. It’s a theme in my life.', 'author': 'Lucifer Morningstar'}]
+2024-10-16 17:14:09,949 - INFO - Data extraction successfull
+2024-10-16 17:14:13,026 - INFO - tttttttttttttttttttttttt: [['Chloe Decker', 'Why do humans think they can rectify one evil with another?']]
+2024-10-16 17:14:13,057 - INFO - Successfully loaded 1 records into the database.
+2024-10-16 17:14:15,983 - INFO - Total records transformed: 1
+2024-10-16 17:14:19,422 - INFO - tttttttttttttttttttttttt: [['Lucifer Morningstar', 'I refuse to be a scapegoat for which something I bear no responsibility. It’s a theme in my life.']]
+2024-10-16 17:14:19,459 - INFO - Successfully loaded 1 records into the database.
+2024-10-16 17:15:06,084 - INFO - [{'quote': "What do you say, Sam? A fiddle of gold against your soul says I'm better than you.", 'author': 'Lucifer Morningstar'}]
+2024-10-16 17:15:06,085 - INFO - Data extraction successfull
+2024-10-16 17:15:08,334 - INFO - Total records transformed: 1
+2024-10-16 17:15:10,676 - INFO - tttttttttttttttttttttttt: [['Lucifer Morningstar', "What do you say, Sam? A fiddle of gold against your soul says I'm better than you."]]
+2024-10-16 17:15:10,702 - INFO - Successfully loaded 1 records into the database.
+2024-10-16 17:16:04,878 - INFO - [{'quote': "If it were that easy to kill me, I'd have been dead a long time ago!", 'author': 'Cain'}]
+2024-10-16 17:16:04,879 - INFO - Data extraction successfull
+2024-10-16 17:16:07,054 - INFO - Total records transformed: 1
+2024-10-16 17:16:09,204 - INFO - tttttttttttttttttttttttt: [['Cain', "If it were that easy to kill me, I'd have been dead a long time ago!"]]
+2024-10-16 17:16:09,230 - INFO - Successfully loaded 1 records into the database.
+2024-10-16 17:25:22,302 - INFO - [{'quote': "Just whenever you're faced with a choice, ask yourself the question:WWLD? What would Lucifer do?", 'author': 'Lucifer Morningstar'}]
+2024-10-16 17:25:22,302 - INFO - Data extraction successfull
+2024-10-16 17:25:24,534 - INFO - Total records transformed: 1
+2024-10-16 17:25:27,018 - INFO - tttttttttttttttttttttttt: [['Lucifer Morningstar', "Just whenever you're faced with a choice, ask yourself the question:WWLD? What would Lucifer do?"]]
+2024-10-16 17:25:27,046 - INFO - Successfully loaded 1 records into the database.
+2024-10-16 17:26:05,621 - INFO - [{'quote': 'You people misunderstand me. You call me Satan and Devil but… do you know my crime? I loved God too much. And for that he betrayed me — punished me.', 'author': 'Lucifer Morningstar'}]
+2024-10-16 17:26:05,622 - INFO - Data extraction successfull
+2024-10-16 17:26:07,789 - INFO - Total records transformed: 1
+2024-10-16 17:26:10,392 - INFO - tttttttttttttttttttttttt: [['Lucifer Morningstar', 'You people misunderstand me. You call me Satan and Devil but… do you know my crime? I loved God too much. And for that he betrayed me — punished me.']]
+2024-10-16 17:26:10,419 - INFO - Successfully loaded 1 records into the database.
+2024-10-16 17:27:06,342 - INFO - [{'quote': 'As though I wanted people to suffer. All I ever wanted was to be my own man here.', 'author': 'Lucifer Morningstar'}]
+2024-10-16 17:27:06,344 - INFO - Data extraction successfull
+2024-10-16 17:27:08,503 - INFO - Total records transformed: 1
+2024-10-16 17:27:10,617 - INFO - tttttttttttttttttttttttt: [['Lucifer Morningstar', 'As though I wanted people to suffer. All I ever wanted was to be my own man here.']]
+2024-10-16 17:27:10,644 - INFO - Successfully loaded 1 records into the database.
+2024-10-16 17:28:05,476 - INFO - [{'quote': 'I find people who are rude usually feel powerless in their own lives. Terrified of not being in control.', 'author': 'Linda Martin'}]
+2024-10-16 17:28:05,477 - INFO - Data extraction successfull
+2024-10-16 17:28:07,621 - INFO - Total records transformed: 1
+2024-10-16 17:28:09,744 - INFO - tttttttttttttttttttttttt: [['Linda Martin', 'I find people who are rude usually feel powerless in their own lives. Terrified of not being in control.']]
+2024-10-16 17:28:09,768 - INFO - Successfully loaded 1 records into the database.
+2024-10-16 17:29:05,858 - INFO - [{'quote': "It's always the ones you least suspect, the ones you trust the most, that hurt you. They wait until your guard is down and then wham! In my case, it was tequila.", 'author': 'Ella Lopez'}]
+2024-10-16 17:29:05,859 - INFO - Data extraction successfull
+2024-10-16 17:29:08,102 - INFO - Total records transformed: 1
+2024-10-16 17:29:10,322 - INFO - tttttttttttttttttttttttt: [['Ella Lopez', "It's always the ones you least suspect, the ones you trust the most, that hurt you. They wait until your guard is down and then wham! In my case, it was tequila."]]
+2024-10-16 17:29:10,350 - INFO - Successfully loaded 1 records into the database.
+2024-10-16 17:30:06,384 - INFO - [{'quote': "No, of course not. I detest the little creatures. And I'd certainly never put one in my mouth.", 'author': 'Lucifer Morningstar'}]
+2024-10-16 17:30:06,385 - INFO - Data extraction successfull
+2024-10-16 17:30:08,798 - INFO - Total records transformed: 1
+2024-10-16 17:30:12,705 - INFO - tttttttttttttttttttttttt: [['Lucifer Morningstar', "No, of course not. I detest the little creatures. And I'd certainly never put one in my mouth."]]
+2024-10-16 17:30:12,743 - INFO - Successfully loaded 1 records into the database.
+2024-10-16 17:31:06,952 - INFO - [{'quote': "I can't go downstairs, Detective. Between my sunglasses, scarf and gloves, I'll look like Stevie Wonder on a snow day.", 'author': 'Lucifer Morningstar'}]
+2024-10-16 17:31:06,953 - INFO - Data extraction successfull
+2024-10-16 17:31:09,835 - INFO - Total records transformed: 1
+2024-10-16 17:31:12,509 - INFO - tttttttttttttttttttttttt: [['Lucifer Morningstar', "I can't go downstairs, Detective. Between my sunglasses, scarf and gloves, I'll look like Stevie Wonder on a snow day."]]
+2024-10-16 17:31:12,538 - INFO - Successfully loaded 1 records into the database.
+2024-10-16 17:32:06,636 - INFO - [{'quote': "Whenever I'm procrastinating on something, I make an appointment for myself to do it. That way, can't back out. Like, for example, when I had to ask my landlord permission to get Bob, literally put it on my calendar.", 'author': 'Ella Lopez'}]
+2024-10-16 17:32:06,637 - INFO - Data extraction successfull
+2024-10-16 17:32:09,339 - INFO - Total records transformed: 1
+2024-10-16 17:32:12,562 - INFO - tttttttttttttttttttttttt: [['Ella Lopez', "Whenever I'm procrastinating on something, I make an appointment for myself to do it. That way, can't back out. Like, for example, when I had to ask my landlord permission to get Bob, literally put it on my calendar."]]
+2024-10-16 17:32:12,593 - INFO - Successfully loaded 1 records into the database.
+2024-10-16 17:33:05,128 - INFO - [{'quote': 'What happens in Heaven, stays in Heaven.', 'author': 'Lucifer Morningstar'}]
+2024-10-16 17:33:05,128 - INFO - Data extraction successfull
+2024-10-16 17:33:07,356 - INFO - Total records transformed: 1
+2024-10-16 17:33:09,558 - INFO - tttttttttttttttttttttttt: [['Lucifer Morningstar', 'What happens in Heaven, stays in Heaven.']]
+2024-10-16 17:33:09,582 - INFO - Successfully loaded 1 records into the database.
+2024-10-16 17:34:05,379 - INFO - [{'quote': 'You people misunderstand me. You call me Satan and Devil but… do you know my crime? I loved God too much. And for that he betrayed me — punished me.', 'author': 'Lucifer Morningstar'}]
+2024-10-16 17:34:05,380 - INFO - Data extraction successfull
+2024-10-16 17:34:07,557 - INFO - Total records transformed: 1
+2024-10-16 17:34:09,723 - INFO - tttttttttttttttttttttttt: [['Lucifer Morningstar', 'You people misunderstand me. You call me Satan and Devil but… do you know my crime? I loved God too much. And for that he betrayed me — punished me.']]
+2024-10-16 17:34:09,749 - INFO - Successfully loaded 1 records into the database.
+2024-10-16 17:35:10,166 - INFO - [{'quote': 'I love LA. Even the homeless have an IMDB page.', 'author': 'Lucifer Morningstar'}]
+2024-10-16 17:35:10,166 - INFO - Data extraction successfull
+2024-10-16 17:35:12,960 - INFO - Total records transformed: 1
+2024-10-16 17:35:15,523 - INFO - tttttttttttttttttttttttt: [['Lucifer Morningstar', 'I love LA. Even the homeless have an IMDB page.']]
+2024-10-16 17:35:15,558 - INFO - Successfully loaded 1 records into the database.
+2024-10-16 17:36:12,451 - INFO - [{'quote': 'When angels fall, they also… rise.', 'author': 'Linda Martin'}]
+2024-10-16 17:36:12,453 - INFO - Data extraction successfull
+2024-10-16 17:36:16,628 - INFO - Total records transformed: 1
+2024-10-16 17:36:19,627 - INFO - tttttttttttttttttttttttt: [['Linda Martin', 'When angels fall, they also… rise.']]
+2024-10-16 17:36:19,654 - INFO - Successfully loaded 1 records into the database.
+2024-10-16 17:37:18,686 - INFO - [{'quote': 'But I never told you what I want. I want you. All in. The whole deal. So there.', 'author': 'Dan Espinoza'}]
+2024-10-16 17:37:18,687 - INFO - Data extraction successfull
+2024-10-16 17:37:21,349 - INFO - Total records transformed: 1
+2024-10-16 17:37:23,858 - INFO - tttttttttttttttttttttttt: [['Dan Espinoza', 'But I never told you what I want. I want you. All in. The whole deal. So there.']]
+2024-10-16 17:37:23,890 - INFO - Successfully loaded 1 records into the database.
+2024-10-16 17:41:58,360 - INFO - [{'quote': "Yeah, well, our Father's been disrespecting me since the beginning of time, so pot-kettle, don't you think?", 'author': 'Lucifer Morningstar'}]
+2024-10-16 17:41:58,361 - INFO - Data extraction successfull
+2024-10-16 17:42:03,565 - INFO - Total records transformed: 1
+2024-10-16 17:42:10,613 - INFO - [{'quote': 'As though I wanted people to suffer. All I ever wanted was to be my own man here.', 'author': 'Lucifer Morningstar'}]
+2024-10-16 17:42:10,614 - INFO - Data extraction successfull
+2024-10-16 17:42:12,991 - INFO - tttttttttttttttttttttttt: [['Lucifer Morningstar', "Yeah, well, our Father's been disrespecting me since the beginning of time, so pot-kettle, don't you think?"]]
+2024-10-16 17:42:13,018 - INFO - Successfully loaded 1 records into the database.
+2024-10-16 17:42:16,392 - INFO - [{'quote': "Why don't you tell me something? How did she end up dying in a hailstorm of bullets and you get away without a scratch? I think that's interesting, don't you?", 'author': 'Chloe Decker'}]
+2024-10-16 17:42:16,393 - INFO - Data extraction successfull
+2024-10-16 17:42:18,751 - INFO - Total records transformed: 1
+2024-10-16 17:42:21,031 - INFO - Total records transformed: 1
+2024-10-16 17:42:23,510 - INFO - tttttttttttttttttttttttt: [['Lucifer Morningstar', 'As though I wanted people to suffer. All I ever wanted was to be my own man here.']]
+2024-10-16 17:42:23,542 - INFO - Successfully loaded 1 records into the database.
+2024-10-16 17:42:25,990 - INFO - tttttttttttttttttttttttt: [['Chloe Decker', "Why don't you tell me something? How did she end up dying in a hailstorm of bullets and you get away without a scratch? I think that's interesting, don't you?"]]
+2024-10-16 17:42:26,013 - INFO - Successfully loaded 1 records into the database.
+2024-10-16 17:44:32,919 - INFO - [{'quote': "I'm trying to say this from a constructive place. I can feel your negative vibrations from across the room, man.", 'author': 'Dan Espinoza'}]
+2024-10-16 17:44:32,920 - INFO - Data extraction successfull
+2024-10-16 17:44:39,544 - INFO - Total records transformed: 1
+2024-10-16 17:44:47,085 - INFO - [{'quote': 'I refuse to be a scapegoat for which something I bear no responsibility. It’s a theme in my life.', 'author': 'Lucifer Morningstar'}]
+2024-10-16 17:44:47,087 - INFO - Data extraction successfull
+2024-10-16 17:44:50,259 - INFO - tttttttttttttttttttttttt: [['Dan Espinoza', "I'm trying to say this from a constructive place. I can feel your negative vibrations from across the room, man."]]
+2024-10-16 17:44:50,303 - INFO - Successfully loaded 1 records into the database.
+2024-10-16 17:44:56,421 - INFO - [{'quote': "When you have children, you always have family. They will always be your priority, your responsibility. And a man, a man provides. And he does it even when he's not appreciated or respected or even loved. He simply bears up and he does it. Because he's a man.", 'author': 'Chloe Decker'}]
+2024-10-16 17:44:56,421 - INFO - Data extraction successfull
+2024-10-16 17:44:58,910 - INFO - Total records transformed: 1
+2024-10-16 17:45:05,477 - INFO - [{'quote': 'I want you to teach me your secret. I want you to show me how to be a tool.', 'author': 'Lucifer Morningstar'}]
+2024-10-16 17:45:05,478 - INFO - Data extraction successfull
+2024-10-16 17:45:07,784 - INFO - Total records transformed: 1
+2024-10-16 17:45:10,236 - INFO - tttttttttttttttttttttttt: [['Lucifer Morningstar', 'I refuse to be a scapegoat for which something I bear no responsibility. It’s a theme in my life.']]
+2024-10-16 17:45:10,263 - INFO - Successfully loaded 1 records into the database.
+2024-10-16 17:45:16,764 - INFO - [{'quote': 'Immortality? Mm. Of course. Uh…you spell that with one or two "m"s? I always forget.', 'author': 'Chloe Decker'}]
+2024-10-16 17:45:16,765 - INFO - Data extraction successfull
+2024-10-16 17:45:18,921 - INFO - Total records transformed: 1
+2024-10-16 17:45:21,345 - INFO - tttttttttttttttttttttttt: [['Chloe Decker', "When you have children, you always have family. They will always be your priority, your responsibility. And a man, a man provides. And he does it even when he's not appreciated or respected or even loved. He simply bears up and he does it. Because he's a man."]]
+2024-10-16 17:45:21,373 - INFO - Successfully loaded 1 records into the database.
+2024-10-16 17:45:27,314 - INFO - [{'quote': 'This poor saps either already in Heck or in the "Silver City, enduring Uriel welcome speech, which is far worse than Heck, if you ask me.', 'author': 'Lucifer Morningstar'}]
+2024-10-16 17:45:27,315 - INFO - Data extraction successfull
+2024-10-16 17:45:29,574 - INFO - Total records transformed: 1
+2024-10-16 17:45:31,794 - INFO - tttttttttttttttttttttttt: [['Lucifer Morningstar', 'I want you to teach me your secret. I want you to show me how to be a tool.']]
+2024-10-16 17:45:31,822 - INFO - Successfully loaded 1 records into the database.
+2024-10-16 17:45:37,802 - INFO - [{'quote': 'My life imploded because of you. My marriage, my Job, my snacks. I know you ate my pudding. It was labelled!', 'author': 'Dan Espinoza'}]
+2024-10-16 17:45:37,803 - INFO - Data extraction successfull
+2024-10-16 17:45:40,525 - INFO - Total records transformed: 1
+2024-10-16 17:45:43,107 - INFO - tttttttttttttttttttttttt: [['Chloe Decker', 'Immortality? Mm. Of course. Uh…you spell that with one or two "m"s? I always forget.']]
+2024-10-16 17:45:43,137 - INFO - Successfully loaded 1 records into the database.
+2024-10-16 17:45:49,953 - INFO - [{'quote': 'What happens in Heaven, stays in Heaven.', 'author': 'Lucifer Morningstar'}]
+2024-10-16 17:45:49,954 - INFO - Data extraction successfull
+2024-10-16 17:45:52,539 - INFO - Total records transformed: 1
+2024-10-16 17:45:54,883 - INFO - tttttttttttttttttttttttt: [['Lucifer Morningstar', 'This poor saps either already in Heck or in the "Silver City, enduring Uriel welcome speech, which is far worse than Heck, if you ask me.']]
+2024-10-16 17:45:54,919 - INFO - Successfully loaded 1 records into the database.
+2024-10-16 17:45:58,625 - INFO - [{'quote': "If it were that easy to kill me, I'd have been dead a long time ago!", 'author': 'Cain'}]
+2024-10-16 17:45:58,626 - INFO - Data extraction successfull
+2024-10-16 17:46:00,970 - INFO - Total records transformed: 1
+2024-10-16 17:46:03,468 - INFO - tttttttttttttttttttttttt: [['Dan Espinoza', 'My life imploded because of you. My marriage, my Job, my snacks. I know you ate my pudding. It was labelled!']]
+2024-10-16 17:46:03,501 - INFO - Successfully loaded 1 records into the database.
+2024-10-16 17:46:05,975 - INFO - Total records transformed: 1
+2024-10-16 17:46:08,306 - INFO - tttttttttttttttttttttttt: [['Lucifer Morningstar', 'What happens in Heaven, stays in Heaven.']]
+2024-10-16 17:46:08,335 - INFO - Successfully loaded 1 records into the database.
+2024-10-16 17:46:11,108 - INFO - tttttttttttttttttttttttt: [['Cain', "If it were that easy to kill me, I'd have been dead a long time ago!"]]
+2024-10-16 17:46:11,135 - INFO - Successfully loaded 1 records into the database.
+2024-10-17 11:54:01,174 - INFO - [{'quote': 'The Devil gets burned by fire. Could this be any more ironic?', 'author': 'Lucifer Morningstar'}]
+2024-10-17 11:54:02,286 - INFO - [{'quote': 'I refuse to be a scapegoat for which something I bear no responsibility. It’s a theme in my life.', 'author': 'Lucifer Morningstar'}]
+2024-10-17 11:54:03,408 - INFO - [{'quote': "You sure you don't want to chase after her? Maybe I can ask Father for some rain and make it a moment.", 'author': 'Amenadiel'}]
+2024-10-17 11:54:04,471 - INFO - [{'quote': 'Say you fall in love with a woman who has a cat. What are you gonna do? You accept the cat.', 'author': 'Dan Espinoza'}]
+2024-10-17 11:54:05,629 - INFO - [{'quote': 'You people misunderstand me. You call me Satan and Devil but… do you know my crime? I loved God too much. And for that he betrayed me — punished me.', 'author': 'Lucifer Morningstar'}]
+2024-10-17 11:54:05,630 - INFO - Data extraction successfull
+2024-10-17 11:54:07,716 - INFO - Total records transformed: 5
+2024-10-17 11:54:09,691 - INFO - tttttttttttttttttttttttt: [['Lucifer Morningstar', 'The Devil gets burned by fire. Could this be any more ironic?'], ['Lucifer Morningstar', 'I refuse to be a scapegoat for which something I bear no responsibility. It’s a theme in my life.'], ['Amenadiel', "You sure you don't want to chase after her? Maybe I can ask Father for some rain and make it a moment."], ['Dan Espinoza', 'Say you fall in love with a woman who has a cat. What are you gonna do? You accept the cat.'], ['Lucifer Morningstar', 'You people misunderstand me. You call me Satan and Devil but… do you know my crime? I loved God too much. And for that he betrayed me — punished me.']]
+2024-10-17 11:54:09,720 - INFO - Successfully loaded 5 records into the database.
+2024-10-17 11:56:15,380 - INFO - [{'quote': "Those wings out there in the human world, Luci, they're too powerful. A piece of divinity.", 'author': 'Amenadiel'}]
+2024-10-17 11:56:16,513 - INFO - [{'quote': "People don't arrive broken. They start with passion and yearning till something comes along that disabuses them of those notions.", 'author': 'Lucifer Morningstar'}]
+2024-10-17 11:56:17,602 - INFO - [{'quote': "Yeah, well, our Father's been disrespecting me since the beginning of time, so pot-kettle, don't you think?", 'author': 'Lucifer Morningstar'}]
+2024-10-17 11:56:18,678 - INFO - [{'quote': 'I want you to teach me your secret. I want you to show me how to be a tool.', 'author': 'Lucifer Morningstar'}]
+2024-10-17 11:56:19,779 - INFO - [{'quote': 'The best thing to do is always to follow your greatest desire.', 'author': 'Lucifer Morningstar'}]
+2024-10-17 11:56:19,780 - INFO - Data extraction successfull
+2024-10-17 11:56:22,162 - INFO - Total records transformed: 5
+2024-10-17 11:56:24,418 - INFO - tttttttttttttttttttttttt: [['Amenadiel', "Those wings out there in the human world, Luci, they're too powerful. A piece of divinity."], ['Lucifer Morningstar', "People don't arrive broken. They start with passion and yearning till something comes along that disabuses them of those notions."], ['Lucifer Morningstar', "Yeah, well, our Father's been disrespecting me since the beginning of time, so pot-kettle, don't you think?"], ['Lucifer Morningstar', 'I want you to teach me your secret. I want you to show me how to be a tool.'], ['Lucifer Morningstar', 'The best thing to do is always to follow your greatest desire.']]
+2024-10-17 11:56:24,445 - INFO - Successfully loaded 5 records into the database.
+2024-10-17 12:00:44,714 - INFO - [{'quote': "No one expects you to change overnight. It's hard to be one of the good guys. Look, I screw up, too. I've made plenty of mistakes believe me. But I don't quit… and I know that counts for something. At least you're trying, right?", 'author': 'Dan Espinoza'}]
+2024-10-17 12:00:45,921 - INFO - [{'quote': "Lately I've been thinking. Do you think I'm the Devil because I'm inherently evil, or just because dear ol' dad decided I was?", 'author': 'Lucifer Morningstar'}]
+2024-10-17 12:00:47,012 - INFO - [{'quote': 'Oh, right. The Eve, from the Garden of Eden. I mean, I am carrying an angel baby. I guess this is just a normal Tuesday for me now.', 'author': 'Linda Martin'}]
+2024-10-17 12:00:48,507 - INFO - [{'quote': "My mum's gonna kill me. And before you say it, that's not a metaphor. She's literally going to kill me. She's not the forgiving type.", 'author': 'Lucifer Morningstar'}]
+2024-10-17 12:00:49,612 - INFO - [{'quote': "Yeah, well, our Father's been disrespecting me since the beginning of time, so pot-kettle, don't you think?", 'author': 'Lucifer Morningstar'}]
+2024-10-17 12:00:51,769 - INFO - [{'quote': "Those wings out there in the human world, Luci, they're too powerful. A piece of divinity.", 'author': 'Amenadiel'}]
+2024-10-17 12:00:52,879 - INFO - [{'quote': 'I want you to teach me your secret. I want you to show me how to be a tool.', 'author': 'Lucifer Morningstar'}]
+2024-10-17 12:00:54,047 - INFO - [{'quote': "I find that people make Los Angeles their home for one of two reasons. Either they're running from something, or looking for something.", 'author': 'Linda Martin'}]
+2024-10-17 12:00:55,218 - INFO - [{'quote': 'Detective Decker is out there protecting them. She is...truly good.', 'author': 'Lucifer Morningstar'}]
+2024-10-17 12:00:56,330 - INFO - [{'quote': "Classic Chloe. Only you would make a point of remembering the exact amount of time you can't remember.", 'author': 'Dan Espinoza'}]
+2024-10-17 12:00:57,600 - INFO - [{'quote': "A deal's a deal, especially one with the Devil.", 'author': 'Lucifer Morningstar'}]
+2024-10-17 12:00:58,667 - INFO - [{'quote': 'I mean, God works in mysterious ways. So you just got to believe that when He crushes your nuts, He does it for a reason.', 'author': 'Ella Lopez'}]
+2024-10-17 12:00:59,760 - INFO - [{'quote': 'I got paid as a bounty hunter. Hunting humans is a job! Who knew?', 'author': 'Mazikeen Smith'}]
+2024-10-17 12:01:00,791 - INFO - [{'quote': 'This poor saps either already in Heck or in the "Silver City, enduring Uriel welcome speech, which is far worse than Heck, if you ask me.', 'author': 'Lucifer Morningstar'}]
+2024-10-17 12:01:01,898 - INFO - [{'quote': 'What happens in Heaven, stays in Heaven.', 'author': 'Lucifer Morningstar'}]
+2024-10-17 12:01:03,031 - INFO - [{'quote': "It's always the ones you least suspect, the ones you trust the most, that hurt you. They wait until your guard is down and then wham! In my case, it was tequila.", 'author': 'Ella Lopez'}]
+2024-10-17 12:01:04,136 - INFO - [{'quote': 'I got paid as a bounty hunter. Hunting humans is a job! Who knew?', 'author': 'Mazikeen Smith'}]
+2024-10-17 12:01:05,235 - INFO - [{'quote': "My mum's gonna kill me. And before you say it, that's not a metaphor. She's literally going to kill me. She's not the forgiving type.", 'author': 'Lucifer Morningstar'}]
+2024-10-17 12:01:06,291 - INFO - [{'quote': "Miracles aren't my thing, but I'm sure we can come to an arrangement.", 'author': 'Lucifer Morningstar'}]
+2024-10-17 12:01:07,386 - INFO - [{'quote': 'I mean, God works in mysterious ways. So you just got to believe that when He crushes your nuts, He does it for a reason.', 'author': 'Ella Lopez'}]
+2024-10-17 12:01:08,547 - INFO - [{'quote': 'That tingling sensation running up your spine… inevitability. And the bit running down your leg? Fear.', 'author': 'Lucifer Morningstar'}]
+2024-10-17 12:01:09,672 - INFO - [{'quote': 'But I never told you what I want. I want you. All in. The whole deal. So there.', 'author': 'Dan Espinoza'}]
+2024-10-17 12:01:10,846 - INFO - [{'quote': "I'm trying to say this from a constructive place. I can feel your negative vibrations from across the room, man.", 'author': 'Dan Espinoza'}]
+2024-10-17 12:01:11,890 - INFO - [{'quote': "I can't go downstairs, Detective. Between my sunglasses, scarf and gloves, I'll look like Stevie Wonder on a snow day.", 'author': 'Lucifer Morningstar'}]
+2024-10-17 12:01:12,978 - INFO - [{'quote': "People don't arrive broken. They start with passion and yearning till something comes along that disabuses them of those notions.", 'author': 'Lucifer Morningstar'}]
+2024-10-17 12:01:14,117 - INFO - [{'quote': 'Sometimes we need to lose something before we can understand its value.', 'author': 'Linda Martin'}]
+2024-10-17 12:01:15,302 - INFO - [{'quote': 'I love LA. Even the homeless have an IMDB page.', 'author': 'Lucifer Morningstar'}]
+2024-10-17 12:01:16,449 - INFO - [{'quote': "Sorry if it's a bit chilly. Most people think I burn hot. It's actually quite the opposite.", 'author': 'Lucifer Morningstar'}]
+2024-10-17 12:01:17,629 - INFO - [{'quote': 'You know, if you spent as much time appealing to suspects as you do annoying me, things might go a lot faster.', 'author': 'Chloe Decker'}]
+2024-10-17 12:01:18,853 - INFO - [{'quote': "My name's Beatrice but everybody calls me Trixie.", 'author': 'Trixie'}]
+2024-10-17 12:01:20,031 - INFO - [{'quote': "Lately I've been thinking. Do you think I'm the Devil because I'm inherently evil, or just because dear ol' dad decided I was?", 'author': 'Lucifer Morningstar'}]
+2024-10-17 12:01:21,146 - INFO - [{'quote': "It's really not a good day for…your…Luciferness.", 'author': 'Chloe Decker'}]
+2024-10-17 12:01:22,265 - INFO - [{'quote': "What about the name Zoriel? That's a good name for a warrior. We can call him Zori for short. Or Ezekiel. Zek.", 'author': 'Amenadiel'}]
+2024-10-17 12:01:23,324 - INFO - [{'quote': "What do you say, Sam? A fiddle of gold against your soul says I'm better than you.", 'author': 'Lucifer Morningstar'}]
+2024-10-17 12:01:24,432 - INFO - [{'quote': 'You people misunderstand me. You call me Satan and Devil but… do you know my crime? I loved God too much. And for that he betrayed me — punished me.', 'author': 'Lucifer Morningstar'}]
+2024-10-17 12:01:25,995 - INFO - [{'quote': 'As though I wanted people to suffer. All I ever wanted was to be my own man here.', 'author': 'Lucifer Morningstar'}]
+2024-10-17 12:01:27,386 - INFO - [{'quote': 'Why do humans think they can rectify one evil with another?', 'author': 'Chloe Decker'}]
+2024-10-17 12:01:28,445 - INFO - [{'quote': 'I love LA. Even the homeless have an IMDB page.', 'author': 'Lucifer Morningstar'}]
+2024-10-17 12:01:29,830 - INFO - [{'quote': "Take a swing...you'll have splinters in your stool.", 'author': 'Lucifer Morningstar'}]
+2024-10-17 12:01:31,005 - INFO - [{'quote': 'I find people who are rude usually feel powerless in their own lives. Terrified of not being in control.', 'author': 'Linda Martin'}]
+2024-10-17 12:01:32,111 - INFO - [{'quote': 'If it makes you comfy, you could call me God.', 'author': 'Lucifer Morningstar'}]
+2024-10-17 12:01:33,202 - INFO - [{'quote': "Let me play the Me's advocate.", 'author': 'Lucifer Morningstar'}]
+2024-10-17 12:01:34,270 - INFO - [{'quote': 'I love LA. Even the homeless have an IMDB page.', 'author': 'Lucifer Morningstar'}]
+2024-10-17 12:01:35,289 - INFO - [{'quote': "It's really not a good day for…your…Luciferness.", 'author': 'Chloe Decker'}]
+2024-10-17 12:01:36,519 - INFO - [{'quote': "When you have children, you always have family. They will always be your priority, your responsibility. And a man, a man provides. And he does it even when he's not appreciated or respected or even loved. He simply bears up and he does it. Because he's a man.", 'author': 'Chloe Decker'}]
+2024-10-17 12:01:37,622 - INFO - [{'quote': "You see, what I hate more than anything is a liar. A charlatan. Someone who doesn't believe in what they say.", 'author': 'Lucifer Morningstar'}]
+2024-10-17 12:01:38,747 - INFO - [{'quote': 'Lucifer Morningstar. Is that a stage name or something?', 'author': 'Chloe Decker'}]
+2024-10-17 12:01:39,866 - INFO - [{'quote': 'Anybody worth dating should understand everything that makes you… you.', 'author': 'Eve'}]
+2024-10-17 12:01:40,892 - INFO - [{'quote': 'Detective Decker is out there protecting them. She is...truly good.', 'author': 'Lucifer Morningstar'}]
+2024-10-17 12:01:41,941 - INFO - [{'quote': 'The best thing to do is always to follow your greatest desire.', 'author': 'Lucifer Morningstar'}]
+2024-10-17 12:01:41,942 - INFO - Data extraction successfull
+2024-10-17 12:01:44,500 - INFO - Total records transformed: 50
+2024-10-17 12:01:47,166 - INFO - tttttttttttttttttttttttt: [['Dan Espinoza', "No one expects you to change overnight. It's hard to be one of the good guys. Look, I screw up, too. I've made plenty of mistakes believe me. But I don't quit… and I know that counts for something. At least you're trying, right?"], ['Lucifer Morningstar', "Lately I've been thinking. Do you think I'm the Devil because I'm inherently evil, or just because dear ol' dad decided I was?"], ['Linda Martin', 'Oh, right. The Eve, from the Garden of Eden. I mean, I am carrying an angel baby. I guess this is just a normal Tuesday for me now.'], ['Lucifer Morningstar', "My mum's gonna kill me. And before you say it, that's not a metaphor. She's literally going to kill me. She's not the forgiving type."], ['Lucifer Morningstar', "Yeah, well, our Father's been disrespecting me since the beginning of time, so pot-kettle, don't you think?"], ['Amenadiel', "Those wings out there in the human world, Luci, they're too powerful. A piece of divinity."], ['Lucifer Morningstar', 'I want you to teach me your secret. I want you to show me how to be a tool.'], ['Linda Martin', "I find that people make Los Angeles their home for one of two reasons. Either they're running from something, or looking for something."], ['Lucifer Morningstar', 'Detective Decker is out there protecting them. She is...truly good.'], ['Dan Espinoza', "Classic Chloe. Only you would make a point of remembering the exact amount of time you can't remember."], ['Lucifer Morningstar', "A deal's a deal, especially one with the Devil."], ['Ella Lopez', 'I mean, God works in mysterious ways. So you just got to believe that when He crushes your nuts, He does it for a reason.'], ['Mazikeen Smith', 'I got paid as a bounty hunter. Hunting humans is a job! Who knew?'], ['Lucifer Morningstar', 'This poor saps either already in Heck or in the "Silver City, enduring Uriel welcome speech, which is far worse than Heck, if you ask me.'], ['Lucifer Morningstar', 'What happens in Heaven, stays in Heaven.'], ['Ella Lopez', "It's always the ones you least suspect, the ones you trust the most, that hurt you. They wait until your guard is down and then wham! In my case, it was tequila."], ['Mazikeen Smith', 'I got paid as a bounty hunter. Hunting humans is a job! Who knew?'], ['Lucifer Morningstar', "My mum's gonna kill me. And before you say it, that's not a metaphor. She's literally going to kill me. She's not the forgiving type."], ['Lucifer Morningstar', "Miracles aren't my thing, but I'm sure we can come to an arrangement."], ['Ella Lopez', 'I mean, God works in mysterious ways. So you just got to believe that when He crushes your nuts, He does it for a reason.'], ['Lucifer Morningstar', 'That tingling sensation running up your spine… inevitability. And the bit running down your leg? Fear.'], ['Dan Espinoza', 'But I never told you what I want. I want you. All in. The whole deal. So there.'], ['Dan Espinoza', "I'm trying to say this from a constructive place. I can feel your negative vibrations from across the room, man."], ['Lucifer Morningstar', "I can't go downstairs, Detective. Between my sunglasses, scarf and gloves, I'll look like Stevie Wonder on a snow day."], ['Lucifer Morningstar', "People don't arrive broken. They start with passion and yearning till something comes along that disabuses them of those notions."], ['Linda Martin', 'Sometimes we need to lose something before we can understand its value.'], ['Lucifer Morningstar', 'I love LA. Even the homeless have an IMDB page.'], ['Lucifer Morningstar', "Sorry if it's a bit chilly. Most people think I burn hot. It's actually quite the opposite."], ['Chloe Decker', 'You know, if you spent as much time appealing to suspects as you do annoying me, things might go a lot faster.'], ['Trixie', "My name's Beatrice but everybody calls me Trixie."], ['Lucifer Morningstar', "Lately I've been thinking. Do you think I'm the Devil because I'm inherently evil, or just because dear ol' dad decided I was?"], ['Chloe Decker', "It's really not a good day for…your…Luciferness."], ['Amenadiel', "What about the name Zoriel? That's a good name for a warrior. We can call him Zori for short. Or Ezekiel. Zek."], ['Lucifer Morningstar', "What do you say, Sam? A fiddle of gold against your soul says I'm better than you."], ['Lucifer Morningstar', 'You people misunderstand me. You call me Satan and Devil but… do you know my crime? I loved God too much. And for that he betrayed me — punished me.'], ['Lucifer Morningstar', 'As though I wanted people to suffer. All I ever wanted was to be my own man here.'], ['Chloe Decker', 'Why do humans think they can rectify one evil with another?'], ['Lucifer Morningstar', 'I love LA. Even the homeless have an IMDB page.'], ['Lucifer Morningstar', "Take a swing...you'll have splinters in your stool."], ['Linda Martin', 'I find people who are rude usually feel powerless in their own lives. Terrified of not being in control.'], ['Lucifer Morningstar', 'If it makes you comfy, you could call me God.'], ['Lucifer Morningstar', "Let me play the Me's advocate."], ['Lucifer Morningstar', 'I love LA. Even the homeless have an IMDB page.'], ['Chloe Decker', "It's really not a good day for…your…Luciferness."], ['Chloe Decker', "When you have children, you always have family. They will always be your priority, your responsibility. And a man, a man provides. And he does it even when he's not appreciated or respected or even loved. He simply bears up and he does it. Because he's a man."], ['Lucifer Morningstar', "You see, what I hate more than anything is a liar. A charlatan. Someone who doesn't believe in what they say."], ['Chloe Decker', 'Lucifer Morningstar. Is that a stage name or something?'], ['Eve', 'Anybody worth dating should understand everything that makes you… you.'], ['Lucifer Morningstar', 'Detective Decker is out there protecting them. She is...truly good.'], ['Lucifer Morningstar', 'The best thing to do is always to follow your greatest desire.']]
+2024-10-17 12:01:47,205 - INFO - Successfully loaded 50 records into the database.
+2024-10-19 22:18:35,004 - INFO - [{'quote': 'Look, people like you. they find you helpful, like duct tape or a trusty socket wrench.', 'author': 'Lucifer Morningstar'}]
+2024-10-19 22:18:35,307 - INFO - [{'quote': "It's really not a good day for…your…Luciferness.", 'author': 'Chloe Decker'}]
+2024-10-19 22:18:35,621 - INFO - [{'quote': "Why don't you tell me something? How did she end up dying in a hailstorm of bullets and you get away without a scratch? I think that's interesting, don't you?", 'author': 'Chloe Decker'}]
+2024-10-19 22:18:35,939 - INFO - [{'quote': "I find that people make Los Angeles their home for one of two reasons. Either they're running from something, or looking for something.", 'author': 'Linda Martin'}]
+2024-10-19 22:18:36,252 - INFO - [{'quote': "All my time with Dr. Linda has been about exploring the denial that I'm in, but I've overcome that now, I've had an honest-to-Devil epiphany. Now all my problems should just, you know, go away.", 'author': 'Lucifer Morningstar'}]
+2024-10-19 22:18:36,565 - INFO - [{'quote': "Whenever I'm procrastinating on something, I make an appointment for myself to do it. That way, can't back out. Like, for example, when I had to ask my landlord permission to get Bob, literally put it on my calendar.", 'author': 'Ella Lopez'}]
+2024-10-19 22:18:36,987 - INFO - [{'quote': "No, of course not. I detest the little creatures. And I'd certainly never put one in my mouth.", 'author': 'Lucifer Morningstar'}]
+2024-10-19 22:18:37,302 - INFO - [{'quote': 'I mean, God works in mysterious ways. So you just got to believe that when He crushes your nuts, He does it for a reason.', 'author': 'Ella Lopez'}]
+2024-10-19 22:18:37,618 - INFO - [{'quote': "I'm trying to say this from a constructive place. I can feel your negative vibrations from across the room, man.", 'author': 'Dan Espinoza'}]
+2024-10-19 22:18:37,936 - INFO - [{'quote': 'I am a Devil of my word.', 'author': 'Lucifer Morningstar'}]
+2024-10-19 22:18:38,246 - INFO - [{'quote': "Always gratifying to find out that one's nemesis is altogether lacking in style.", 'author': 'Lucifer Morningstar'}]
+2024-10-19 22:18:38,511 - INFO - [{'quote': 'You know, if you spent as much time appealing to suspects as you do annoying me, things might go a lot faster.', 'author': 'Chloe Decker'}]
+2024-10-19 22:18:39,300 - INFO - [{'quote': "No, of course not. I detest the little creatures. And I'd certainly never put one in my mouth.", 'author': 'Lucifer Morningstar'}]
+2024-10-19 22:18:39,616 - INFO - [{'quote': "There's a good chance this thing might come out of me with wings. Wings!", 'author': 'Linda Martin'}]
+2024-10-19 22:18:39,930 - INFO - [{'quote': "Whenever I'm procrastinating on something, I make an appointment for myself to do it. That way, can't back out. Like, for example, when I had to ask my landlord permission to get Bob, literally put it on my calendar.", 'author': 'Ella Lopez'}]
+2024-10-19 22:18:40,193 - INFO - [{'quote': "My name's Beatrice but everybody calls me Trixie.", 'author': 'Trixie'}]
+2024-10-19 22:18:40,559 - INFO - [{'quote': 'As though I wanted people to suffer. All I ever wanted was to be my own man here.', 'author': 'Lucifer Morningstar'}]
+2024-10-19 22:18:40,835 - INFO - [{'quote': 'You know, if you spent as much time appealing to suspects as you do annoying me, things might go a lot faster.', 'author': 'Chloe Decker'}]
+2024-10-19 22:18:41,188 - INFO - [{'quote': "People don't have power over us. We give it to them.", 'author': 'Lucifer Morningstar'}]
+2024-10-19 22:18:41,502 - INFO - [{'quote': "Well, that is a shame. 'Cause you and my backside used to get on very well.", 'author': 'Lucifer Morningstar'}]
+2024-10-19 22:18:41,820 - INFO - [{'quote': "Yeah, well, our Father's been disrespecting me since the beginning of time, so pot-kettle, don't you think?", 'author': 'Lucifer Morningstar'}]
+2024-10-19 22:18:42,131 - INFO - [{'quote': 'When angels fall, they also… rise.', 'author': 'Linda Martin'}]
+2024-10-19 22:18:42,445 - INFO - [{'quote': 'My life imploded because of you. My marriage, my Job, my snacks. I know you ate my pudding. It was labelled!', 'author': 'Dan Espinoza'}]
+2024-10-19 22:18:42,759 - INFO - [{'quote': 'Anybody worth dating should understand everything that makes you… you.', 'author': 'Eve'}]
+2024-10-19 22:18:43,074 - INFO - [{'quote': "I find that people make Los Angeles their home for one of two reasons. Either they're running from something, or looking for something.", 'author': 'Linda Martin'}]
+2024-10-19 22:18:43,389 - INFO - [{'quote': "I find that people make Los Angeles their home for one of two reasons. Either they're running from something, or looking for something.", 'author': 'Linda Martin'}]
+2024-10-19 22:18:43,703 - INFO - [{'quote': 'Oh, right. The Eve, from the Garden of Eden. I mean, I am carrying an angel baby. I guess this is just a normal Tuesday for me now.', 'author': 'Linda Martin'}]
+2024-10-19 22:18:44,376 - INFO - [{'quote': "It's always the ones you least suspect, the ones you trust the most, that hurt you. They wait until your guard is down and then wham! In my case, it was tequila.", 'author': 'Ella Lopez'}]
+2024-10-19 22:18:44,648 - INFO - [{'quote': 'I mean, God works in mysterious ways. So you just got to believe that when He crushes your nuts, He does it for a reason.', 'author': 'Ella Lopez'}]
+2024-10-19 22:18:44,961 - INFO - [{'quote': 'You people misunderstand me. You call me Satan and Devil but… do you know my crime? I loved God too much. And for that he betrayed me — punished me.', 'author': 'Lucifer Morningstar'}]
+2024-10-19 22:18:45,234 - INFO - [{'quote': 'We might not always understand it, but God has a plan.', 'author': 'Father Frank'}]
+2024-10-19 22:18:45,592 - INFO - [{'quote': 'Say you fall in love with a woman who has a cat. What are you gonna do? You accept the cat.', 'author': 'Dan Espinoza'}]
+2024-10-19 22:18:45,867 - INFO - [{'quote': 'Lucifer Morningstar. Is that a stage name or something?', 'author': 'Chloe Decker'}]
+2024-10-19 22:18:45,376 - INFO - [{'quote': "You sure you don't want to chase after her? Maybe I can ask Father for some rain and make it a moment.", 'author': 'Amenadiel'}]
+2024-10-19 22:18:45,691 - INFO - [{'quote': "All my time with Dr. Linda has been about exploring the denial that I'm in, but I've overcome that now, I've had an honest-to-Devil epiphany. Now all my problems should just, you know, go away.", 'author': 'Lucifer Morningstar'}]
+2024-10-19 22:18:46,006 - INFO - [{'quote': "My mum's gonna kill me. And before you say it, that's not a metaphor. She's literally going to kill me. She's not the forgiving type.", 'author': 'Lucifer Morningstar'}]
+2024-10-19 22:18:46,321 - INFO - [{'quote': "Lately I've been thinking. Do you think I'm the Devil because I'm inherently evil, or just because dear ol' dad decided I was?", 'author': 'Lucifer Morningstar'}]
+2024-10-19 22:18:46,636 - INFO - [{'quote': "No, of course not. I detest the little creatures. And I'd certainly never put one in my mouth.", 'author': 'Lucifer Morningstar'}]
+2024-10-19 22:18:46,949 - INFO - [{'quote': "No one expects you to change overnight. It's hard to be one of the good guys. Look, I screw up, too. I've made plenty of mistakes believe me. But I don't quit… and I know that counts for something. At least you're trying, right?", 'author': 'Dan Espinoza'}]
+2024-10-19 22:18:47,207 - INFO - [{'quote': "I find that people make Los Angeles their home for one of two reasons. Either they're running from something, or looking for something.", 'author': 'Linda Martin'}]
+2024-10-19 22:18:47,474 - INFO - [{'quote': 'No matter how bad things get, the true test is how we choose to respond to the pain we suffer, or inflict.', 'author': 'Amenadiel'}]
+2024-10-19 22:18:47,788 - INFO - [{'quote': 'I mean, God works in mysterious ways. So you just got to believe that when He crushes your nuts, He does it for a reason.', 'author': 'Ella Lopez'}]
+2024-10-19 22:18:48,104 - INFO - [{'quote': "Let me play the Me's advocate.", 'author': 'Lucifer Morningstar'}]
+2024-10-19 22:18:48,840 - INFO - [{'quote': 'Hell truly hath no fury like a woman scorned.', 'author': 'Lucifer Morningstar'}]
+2024-10-19 22:18:49,153 - INFO - [{'quote': 'That tingling sensation running up your spine… inevitability. And the bit running down your leg? Fear.', 'author': 'Lucifer Morningstar'}]
+2024-10-19 22:18:49,470 - INFO - [{'quote': 'As though I wanted people to suffer. All I ever wanted was to be my own man here.', 'author': 'Lucifer Morningstar'}]
+2024-10-19 22:18:49,783 - INFO - [{'quote': "No, of course not. I detest the little creatures. And I'd certainly never put one in my mouth.", 'author': 'Lucifer Morningstar'}]
+2024-10-19 22:18:50,099 - INFO - [{'quote': "A deal's a deal, especially one with the Devil.", 'author': 'Lucifer Morningstar'}]
+2024-10-19 22:18:50,415 - INFO - [{'quote': "Well, that is a shame. 'Cause you and my backside used to get on very well.", 'author': 'Lucifer Morningstar'}]
+2024-10-19 22:18:50,731 - INFO - [{'quote': 'Detective Decker is out there protecting them. She is...truly good.', 'author': 'Lucifer Morningstar'}]
+2024-10-19 22:18:50,732 - INFO - 50 Data extraction successfully
+2024-10-19 22:18:53,535 - INFO - Total records transformed: 50
+2024-10-19 22:18:56,116 - INFO - Data To transform : [['Lucifer Morningstar', 'Look, people like you. they find you helpful, like duct tape or a trusty socket wrench.'], ['Chloe Decker', "It's really not a good day for…your…Luciferness."], ['Chloe Decker', "Why don't you tell me something? How did she end up dying in a hailstorm of bullets and you get away without a scratch? I think that's interesting, don't you?"], ['Linda Martin', "I find that people make Los Angeles their home for one of two reasons. Either they're running from something, or looking for something."], ['Lucifer Morningstar', "All my time with Dr. Linda has been about exploring the denial that I'm in, but I've overcome that now, I've had an honest-to-Devil epiphany. Now all my problems should just, you know, go away."], ['Ella Lopez', "Whenever I'm procrastinating on something, I make an appointment for myself to do it. That way, can't back out. Like, for example, when I had to ask my landlord permission to get Bob, literally put it on my calendar."], ['Lucifer Morningstar', "No, of course not. I detest the little creatures. And I'd certainly never put one in my mouth."], ['Ella Lopez', 'I mean, God works in mysterious ways. So you just got to believe that when He crushes your nuts, He does it for a reason.'], ['Dan Espinoza', "I'm trying to say this from a constructive place. I can feel your negative vibrations from across the room, man."], ['Lucifer Morningstar', 'I am a Devil of my word.'], ['Lucifer Morningstar', "Always gratifying to find out that one's nemesis is altogether lacking in style."], ['Chloe Decker', 'You know, if you spent as much time appealing to suspects as you do annoying me, things might go a lot faster.'], ['Lucifer Morningstar', "No, of course not. I detest the little creatures. And I'd certainly never put one in my mouth."], ['Linda Martin', "There's a good chance this thing might come out of me with wings. Wings!"], ['Ella Lopez', "Whenever I'm procrastinating on something, I make an appointment for myself to do it. That way, can't back out. Like, for example, when I had to ask my landlord permission to get Bob, literally put it on my calendar."], ['Trixie', "My name's Beatrice but everybody calls me Trixie."], ['Lucifer Morningstar', 'As though I wanted people to suffer. All I ever wanted was to be my own man here.'], ['Chloe Decker', 'You know, if you spent as much time appealing to suspects as you do annoying me, things might go a lot faster.'], ['Lucifer Morningstar', "People don't have power over us. We give it to them."], ['Lucifer Morningstar', "Well, that is a shame. 'Cause you and my backside used to get on very well."], ['Lucifer Morningstar', "Yeah, well, our Father's been disrespecting me since the beginning of time, so pot-kettle, don't you think?"], ['Linda Martin', 'When angels fall, they also… rise.'], ['Dan Espinoza', 'My life imploded because of you. My marriage, my Job, my snacks. I know you ate my pudding. It was labelled!'], ['Eve', 'Anybody worth dating should understand everything that makes you… you.'], ['Linda Martin', "I find that people make Los Angeles their home for one of two reasons. Either they're running from something, or looking for something."], ['Linda Martin', "I find that people make Los Angeles their home for one of two reasons. Either they're running from something, or looking for something."], ['Linda Martin', 'Oh, right. The Eve, from the Garden of Eden. I mean, I am carrying an angel baby. I guess this is just a normal Tuesday for me now.'], ['Ella Lopez', "It's always the ones you least suspect, the ones you trust the most, that hurt you. They wait until your guard is down and then wham! In my case, it was tequila."], ['Ella Lopez', 'I mean, God works in mysterious ways. So you just got to believe that when He crushes your nuts, He does it for a reason.'], ['Lucifer Morningstar', 'You people misunderstand me. You call me Satan and Devil but… do you know my crime? I loved God too much. And for that he betrayed me — punished me.'], ['Father Frank', 'We might not always understand it, but God has a plan.'], ['Dan Espinoza', 'Say you fall in love with a woman who has a cat. What are you gonna do? You accept the cat.'], ['Chloe Decker', 'Lucifer Morningstar. Is that a stage name or something?'], ['Amenadiel', "You sure you don't want to chase after her? Maybe I can ask Father for some rain and make it a moment."], ['Lucifer Morningstar', "All my time with Dr. Linda has been about exploring the denial that I'm in, but I've overcome that now, I've had an honest-to-Devil epiphany. Now all my problems should just, you know, go away."], ['Lucifer Morningstar', "My mum's gonna kill me. And before you say it, that's not a metaphor. She's literally going to kill me. She's not the forgiving type."], ['Lucifer Morningstar', "Lately I've been thinking. Do you think I'm the Devil because I'm inherently evil, or just because dear ol' dad decided I was?"], ['Lucifer Morningstar', "No, of course not. I detest the little creatures. And I'd certainly never put one in my mouth."], ['Dan Espinoza', "No one expects you to change overnight. It's hard to be one of the good guys. Look, I screw up, too. I've made plenty of mistakes believe me. But I don't quit… and I know that counts for something. At least you're trying, right?"], ['Linda Martin', "I find that people make Los Angeles their home for one of two reasons. Either they're running from something, or looking for something."], ['Amenadiel', 'No matter how bad things get, the true test is how we choose to respond to the pain we suffer, or inflict.'], ['Ella Lopez', 'I mean, God works in mysterious ways. So you just got to believe that when He crushes your nuts, He does it for a reason.'], ['Lucifer Morningstar', "Let me play the Me's advocate."], ['Lucifer Morningstar', 'Hell truly hath no fury like a woman scorned.'], ['Lucifer Morningstar', 'That tingling sensation running up your spine… inevitability. And the bit running down your leg? Fear.'], ['Lucifer Morningstar', 'As though I wanted people to suffer. All I ever wanted was to be my own man here.'], ['Lucifer Morningstar', "No, of course not. I detest the little creatures. And I'd certainly never put one in my mouth."], ['Lucifer Morningstar', "A deal's a deal, especially one with the Devil."], ['Lucifer Morningstar', "Well, that is a shame. 'Cause you and my backside used to get on very well."], ['Lucifer Morningstar', 'Detective Decker is out there protecting them. She is...truly good.']]
+2024-10-19 22:18:56,150 - INFO - Successfully loaded 50 records into the database.
+2024-10-19 22:20:28,801 - INFO - [{'quote': "No, of course not. I detest the little creatures. And I'd certainly never put one in my mouth.", 'author': 'Lucifer Morningstar'}]
+2024-10-19 22:20:29,116 - INFO - [{'quote': "No, of course not. I detest the little creatures. And I'd certainly never put one in my mouth.", 'author': 'Lucifer Morningstar'}]
+2024-10-19 22:20:29,430 - INFO - [{'quote': "People sometimes kill the people with whom they're in love. The heart's mysterious.", 'author': 'Lucifer Morningstar'}]
+2024-10-19 22:20:29,744 - INFO - [{'quote': 'If it makes you comfy, you could call me God.', 'author': 'Lucifer Morningstar'}]
+2024-10-19 22:20:30,061 - INFO - [{'quote': "When you have children, you always have family. They will always be your priority, your responsibility. And a man, a man provides. And he does it even when he's not appreciated or respected or even loved. He simply bears up and he does it. Because he's a man.", 'author': 'Chloe Decker'}]
+2024-10-19 22:20:30,344 - INFO - [{'quote': 'But I never told you what I want. I want you. All in. The whole deal. So there.', 'author': 'Dan Espinoza'}]
+2024-10-19 22:20:30,692 - INFO - [{'quote': "Yeah, well, our Father's been disrespecting me since the beginning of time, so pot-kettle, don't you think?", 'author': 'Lucifer Morningstar'}]
+2024-10-19 22:20:31,007 - INFO - [{'quote': "Let me play the Me's advocate.", 'author': 'Lucifer Morningstar'}]
+2024-10-19 22:20:31,322 - INFO - [{'quote': 'Hell truly hath no fury like a woman scorned.', 'author': 'Lucifer Morningstar'}]
+2024-10-19 22:20:31,638 - INFO - [{'quote': "Classic Chloe. Only you would make a point of remembering the exact amount of time you can't remember.", 'author': 'Dan Espinoza'}]
+2024-10-19 22:20:31,902 - INFO - [{'quote': 'Look, people like you. they find you helpful, like duct tape or a trusty socket wrench.', 'author': 'Lucifer Morningstar'}]
+2024-10-19 22:20:32,268 - INFO - [{'quote': 'That tingling sensation running up your spine… inevitability. And the bit running down your leg? Fear.', 'author': 'Lucifer Morningstar'}]
+2024-10-19 22:20:33,109 - INFO - [{'quote': "When you have children, you always have family. They will always be your priority, your responsibility. And a man, a man provides. And he does it even when he's not appreciated or respected or even loved. He simply bears up and he does it. Because he's a man.", 'author': 'Chloe Decker'}]
+2024-10-19 22:20:33,424 - INFO - [{'quote': 'Oh, right. The Eve, from the Garden of Eden. I mean, I am carrying an angel baby. I guess this is just a normal Tuesday for me now.', 'author': 'Linda Martin'}]
+2024-10-19 22:20:33,678 - INFO - [{'quote': "Whenever I'm procrastinating on something, I make an appointment for myself to do it. That way, can't back out. Like, for example, when I had to ask my landlord permission to get Bob, literally put it on my calendar.", 'author': 'Ella Lopez'}]
+2024-10-19 22:20:34,054 - INFO - [{'quote': "Take a swing...you'll have splinters in your stool.", 'author': 'Lucifer Morningstar'}]
+2024-10-19 22:20:34,475 - INFO - [{'quote': 'When the devil walks the earth and meets his first love; means you consider me to be your... first love. Ergo! You love me.', 'author': 'Eve'}]
+2024-10-19 22:20:34,790 - INFO - [{'quote': "Those wings out there in the human world, Luci, they're too powerful. A piece of divinity.", 'author': 'Amenadiel'}]
+2024-10-19 22:20:35,108 - INFO - [{'quote': 'Trust me, a church confessional has nothing compared to pillow talk.', 'author': 'Lucifer Morningstar'}]
+2024-10-19 22:20:35,408 - INFO - [{'quote': "Those wings out there in the human world, Luci, they're too powerful. A piece of divinity.", 'author': 'Amenadiel'}]
+2024-10-19 22:20:35,736 - INFO - [{'quote': "Ah, well, no need to thank me for my heroism. Well, maybe just a little. No one's stopping you.", 'author': 'Lucifer Morningstar'}]
+2024-10-19 22:20:36,052 - INFO - [{'quote': 'Detective Decker is out there protecting them. She is...truly good.', 'author': 'Lucifer Morningstar'}]
+2024-10-19 22:20:36,369 - INFO - [{'quote': "Classic Chloe. Only you would make a point of remembering the exact amount of time you can't remember.", 'author': 'Dan Espinoza'}]
+2024-10-19 22:20:36,682 - INFO - [{'quote': 'No matter how bad things get, the true test is how we choose to respond to the pain we suffer, or inflict.', 'author': 'Amenadiel'}]
+2024-10-19 22:20:36,998 - INFO - [{'quote': "Just whenever you're faced with a choice, ask yourself the question:WWLD? What would Lucifer do?", 'author': 'Lucifer Morningstar'}]
+2024-10-19 22:20:37,418 - INFO - [{'quote': 'Hell truly hath no fury like a woman scorned.', 'author': 'Lucifer Morningstar'}]
+2024-10-19 22:20:38,158 - INFO - [{'quote': "I'm trying to say this from a constructive place. I can feel your negative vibrations from across the room, man.", 'author': 'Dan Espinoza'}]
+2024-10-19 22:20:38,445 - INFO - [{'quote': 'Say you fall in love with a woman who has a cat. What are you gonna do? You accept the cat.', 'author': 'Dan Espinoza'}]
+2024-10-19 22:20:38,784 - INFO - [{'quote': "Sorry if it's a bit chilly. Most people think I burn hot. It's actually quite the opposite.", 'author': 'Lucifer Morningstar'}]
+2024-10-19 22:20:39,100 - INFO - [{'quote': 'We might not always understand it, but God has a plan.', 'author': 'Father Frank'}]
+2024-10-19 22:20:39,415 - INFO - [{'quote': 'Lucifer Morningstar. Is that a stage name or something?', 'author': 'Chloe Decker'}]
+2024-10-19 22:20:40,047 - INFO - [{'quote': 'The Devil gets burned by fire. Could this be any more ironic?', 'author': 'Lucifer Morningstar'}]
+2024-10-19 22:20:40,361 - INFO - [{'quote': 'If it makes you comfy, you could call me God.', 'author': 'Lucifer Morningstar'}]
+2024-10-19 22:20:40,625 - INFO - [{'quote': 'I want you to teach me your secret. I want you to show me how to be a tool.', 'author': 'Lucifer Morningstar'}]
+2024-10-19 22:20:40,991 - INFO - [{'quote': "Just whenever you're faced with a choice, ask yourself the question:WWLD? What would Lucifer do?", 'author': 'Lucifer Morningstar'}]
+2024-10-19 22:20:41,307 - INFO - [{'quote': "Yeah, well, our Father's been disrespecting me since the beginning of time, so pot-kettle, don't you think?", 'author': 'Lucifer Morningstar'}]
+2024-10-19 22:20:41,623 - INFO - [{'quote': "There's a good chance this thing might come out of me with wings. Wings!", 'author': 'Linda Martin'}]
+2024-10-19 22:20:41,938 - INFO - [{'quote': 'Hell truly hath no fury like a woman scorned.', 'author': 'Lucifer Morningstar'}]
+2024-10-19 22:20:42,254 - INFO - [{'quote': "Lately I've been thinking. Do you think I'm the Devil because I'm inherently evil, or just because dear ol' dad decided I was?", 'author': 'Lucifer Morningstar'}]
+2024-10-19 22:20:42,568 - INFO - [{'quote': "I'm like walking heroin, very habit forming. It never ends well.", 'author': 'Lucifer Morningstar'}]
+2024-10-19 22:20:43,303 - INFO - [{'quote': "If you truly worship the dollar, then I'm your ticket to divinity.", 'author': 'Lucifer Morningstar'}]
+2024-10-19 22:20:43,618 - INFO - [{'quote': 'Immortality? Mm. Of course. Uh…you spell that with one or two "m"s? I always forget.', 'author': 'Chloe Decker'}]
+2024-10-19 22:20:43,934 - INFO - [{'quote': "No, of course not. I detest the little creatures. And I'd certainly never put one in my mouth.", 'author': 'Lucifer Morningstar'}]
+2024-10-19 22:20:44,249 - INFO - [{'quote': "Those wings out there in the human world, Luci, they're too powerful. A piece of divinity.", 'author': 'Amenadiel'}]
+2024-10-19 22:20:44,566 - INFO - [{'quote': 'Immortality? Mm. Of course. Uh…you spell that with one or two "m"s? I always forget.', 'author': 'Chloe Decker'}]
+2024-10-19 22:20:44,880 - INFO - [{'quote': 'We might not always understand it, but God has a plan.', 'author': 'Father Frank'}]
+2024-10-19 22:20:45,194 - INFO - [{'quote': "It's always the ones you least suspect, the ones you trust the most, that hurt you. They wait until your guard is down and then wham! In my case, it was tequila.", 'author': 'Ella Lopez'}]
+2024-10-19 22:20:45,513 - INFO - [{'quote': "Just whenever you're faced with a choice, ask yourself the question:WWLD? What would Lucifer do?", 'author': 'Lucifer Morningstar'}]
+2024-10-19 22:20:45,801 - INFO - [{'quote': "I'm trying to say this from a constructive place. I can feel your negative vibrations from across the room, man.", 'author': 'Dan Espinoza'}]
+2024-10-19 22:20:46,141 - INFO - [{'quote': "Whenever I'm procrastinating on something, I make an appointment for myself to do it. That way, can't back out. Like, for example, when I had to ask my landlord permission to get Bob, literally put it on my calendar.", 'author': 'Ella Lopez'}]
+2024-10-19 22:20:46,143 - INFO - 50 Data extraction successfully
+2024-10-19 22:20:48,445 - INFO - Total records transformed: 50
+2024-10-19 22:20:51,039 - INFO - Data To transform : [['Lucifer Morningstar', "No, of course not. I detest the little creatures. And I'd certainly never put one in my mouth."], ['Lucifer Morningstar', "No, of course not. I detest the little creatures. And I'd certainly never put one in my mouth."], ['Lucifer Morningstar', "People sometimes kill the people with whom they're in love. The heart's mysterious."], ['Lucifer Morningstar', 'If it makes you comfy, you could call me God.'], ['Chloe Decker', "When you have children, you always have family. They will always be your priority, your responsibility. And a man, a man provides. And he does it even when he's not appreciated or respected or even loved. He simply bears up and he does it. Because he's a man."], ['Dan Espinoza', 'But I never told you what I want. I want you. All in. The whole deal. So there.'], ['Lucifer Morningstar', "Yeah, well, our Father's been disrespecting me since the beginning of time, so pot-kettle, don't you think?"], ['Lucifer Morningstar', "Let me play the Me's advocate."], ['Lucifer Morningstar', 'Hell truly hath no fury like a woman scorned.'], ['Dan Espinoza', "Classic Chloe. Only you would make a point of remembering the exact amount of time you can't remember."], ['Lucifer Morningstar', 'Look, people like you. they find you helpful, like duct tape or a trusty socket wrench.'], ['Lucifer Morningstar', 'That tingling sensation running up your spine… inevitability. And the bit running down your leg? Fear.'], ['Chloe Decker', "When you have children, you always have family. They will always be your priority, your responsibility. And a man, a man provides. And he does it even when he's not appreciated or respected or even loved. He simply bears up and he does it. Because he's a man."], ['Linda Martin', 'Oh, right. The Eve, from the Garden of Eden. I mean, I am carrying an angel baby. I guess this is just a normal Tuesday for me now.'], ['Ella Lopez', "Whenever I'm procrastinating on something, I make an appointment for myself to do it. That way, can't back out. Like, for example, when I had to ask my landlord permission to get Bob, literally put it on my calendar."], ['Lucifer Morningstar', "Take a swing...you'll have splinters in your stool."], ['Eve', 'When the devil walks the earth and meets his first love; means you consider me to be your... first love. Ergo! You love me.'], ['Amenadiel', "Those wings out there in the human world, Luci, they're too powerful. A piece of divinity."], ['Lucifer Morningstar', 'Trust me, a church confessional has nothing compared to pillow talk.'], ['Amenadiel', "Those wings out there in the human world, Luci, they're too powerful. A piece of divinity."], ['Lucifer Morningstar', "Ah, well, no need to thank me for my heroism. Well, maybe just a little. No one's stopping you."], ['Lucifer Morningstar', 'Detective Decker is out there protecting them. She is...truly good.'], ['Dan Espinoza', "Classic Chloe. Only you would make a point of remembering the exact amount of time you can't remember."], ['Amenadiel', 'No matter how bad things get, the true test is how we choose to respond to the pain we suffer, or inflict.'], ['Lucifer Morningstar', "Just whenever you're faced with a choice, ask yourself the question:WWLD? What would Lucifer do?"], ['Lucifer Morningstar', 'Hell truly hath no fury like a woman scorned.'], ['Dan Espinoza', "I'm trying to say this from a constructive place. I can feel your negative vibrations from across the room, man."], ['Dan Espinoza', 'Say you fall in love with a woman who has a cat. What are you gonna do? You accept the cat.'], ['Lucifer Morningstar', "Sorry if it's a bit chilly. Most people think I burn hot. It's actually quite the opposite."], ['Father Frank', 'We might not always understand it, but God has a plan.'], ['Chloe Decker', 'Lucifer Morningstar. Is that a stage name or something?'], ['Lucifer Morningstar', 'The Devil gets burned by fire. Could this be any more ironic?'], ['Lucifer Morningstar', 'If it makes you comfy, you could call me God.'], ['Lucifer Morningstar', 'I want you to teach me your secret. I want you to show me how to be a tool.'], ['Lucifer Morningstar', "Just whenever you're faced with a choice, ask yourself the question:WWLD? What would Lucifer do?"], ['Lucifer Morningstar', "Yeah, well, our Father's been disrespecting me since the beginning of time, so pot-kettle, don't you think?"], ['Linda Martin', "There's a good chance this thing might come out of me with wings. Wings!"], ['Lucifer Morningstar', 'Hell truly hath no fury like a woman scorned.'], ['Lucifer Morningstar', "Lately I've been thinking. Do you think I'm the Devil because I'm inherently evil, or just because dear ol' dad decided I was?"], ['Lucifer Morningstar', "I'm like walking heroin, very habit forming. It never ends well."], ['Lucifer Morningstar', "If you truly worship the dollar, then I'm your ticket to divinity."], ['Chloe Decker', 'Immortality? Mm. Of course. Uh…you spell that with one or two "m"s? I always forget.'], ['Lucifer Morningstar', "No, of course not. I detest the little creatures. And I'd certainly never put one in my mouth."], ['Amenadiel', "Those wings out there in the human world, Luci, they're too powerful. A piece of divinity."], ['Chloe Decker', 'Immortality? Mm. Of course. Uh…you spell that with one or two "m"s? I always forget.'], ['Father Frank', 'We might not always understand it, but God has a plan.'], ['Ella Lopez', "It's always the ones you least suspect, the ones you trust the most, that hurt you. They wait until your guard is down and then wham! In my case, it was tequila."], ['Lucifer Morningstar', "Just whenever you're faced with a choice, ask yourself the question:WWLD? What would Lucifer do?"], ['Dan Espinoza', "I'm trying to say this from a constructive place. I can feel your negative vibrations from across the room, man."], ['Ella Lopez', "Whenever I'm procrastinating on something, I make an appointment for myself to do it. That way, can't back out. Like, for example, when I had to ask my landlord permission to get Bob, literally put it on my calendar."]]
+2024-10-19 22:20:51,073 - INFO - Successfully loaded 50 records into the database.
+2024-10-21 10:07:51,977 - INFO - [{'quote': 'My life imploded because of you. My marriage, my Job, my snacks. I know you ate my pudding. It was labelled!', 'author': 'Dan Espinoza'}]
+2024-10-21 10:07:54,078 - INFO - [{'quote': "Classic Chloe. Only you would make a point of remembering the exact amount of time you can't remember.", 'author': 'Dan Espinoza'}]
+2024-10-21 10:07:55,987 - INFO - [{'quote': "If it were that easy to kill me, I'd have been dead a long time ago!", 'author': 'Cain'}]
+2024-10-21 10:07:58,771 - INFO - [{'quote': "People don't have power over us. We give it to them.", 'author': 'Lucifer Morningstar'}]
+2024-10-21 10:08:01,415 - INFO - [{'quote': 'Sometimes we need to lose something before we can understand its value.', 'author': 'Linda Martin'}]
+2024-10-21 10:08:04,954 - INFO - [{'quote': "A deal's a deal, especially one with the Devil.", 'author': 'Lucifer Morningstar'}]
+2024-10-21 10:08:06,741 - INFO - [{'quote': "You see, what I hate more than anything is a liar. A charlatan. Someone who doesn't believe in what they say.", 'author': 'Lucifer Morningstar'}]
+2024-10-21 10:08:10,197 - INFO - [{'quote': "No one expects you to change overnight. It's hard to be one of the good guys. Look, I screw up, too. I've made plenty of mistakes believe me. But I don't quit… and I know that counts for something. At least you're trying, right?", 'author': 'Dan Espinoza'}]
+2024-10-21 10:08:13,468 - INFO - [{'quote': 'I mean, God works in mysterious ways. So you just got to believe that when He crushes your nuts, He does it for a reason.', 'author': 'Ella Lopez'}]
+2024-10-21 10:08:15,739 - INFO - [{'quote': 'That tingling sensation running up your spine… inevitability. And the bit running down your leg? Fear.', 'author': 'Lucifer Morningstar'}]
+2024-10-21 10:08:21,211 - INFO - [{'quote': "When you have children, you always have family. They will always be your priority, your responsibility. And a man, a man provides. And he does it even when he's not appreciated or respected or even loved. He simply bears up and he does it. Because he's a man.", 'author': 'Chloe Decker'}]
+2024-10-21 10:08:23,593 - INFO - [{'quote': 'Oh, right. The Eve, from the Garden of Eden. I mean, I am carrying an angel baby. I guess this is just a normal Tuesday for me now.', 'author': 'Linda Martin'}]
+2024-10-21 10:08:27,027 - INFO - [{'quote': "Classic Chloe. Only you would make a point of remembering the exact amount of time you can't remember.", 'author': 'Dan Espinoza'}]
+2024-10-21 10:08:29,705 - INFO - [{'quote': 'The Devil gets burned by fire. Could this be any more ironic?', 'author': 'Lucifer Morningstar'}]
+2024-10-21 10:08:31,607 - INFO - [{'quote': "No one expects you to change overnight. It's hard to be one of the good guys. Look, I screw up, too. I've made plenty of mistakes believe me. But I don't quit… and I know that counts for something. At least you're trying, right?", 'author': 'Dan Espinoza'}]
+2024-10-21 10:08:35,490 - INFO - [{'quote': 'We might not always understand it, but God has a plan.', 'author': 'Father Frank'}]
+2024-10-21 10:08:37,573 - INFO - [{'quote': "There's a good chance this thing might come out of me with wings. Wings!", 'author': 'Linda Martin'}]
+2024-10-21 10:08:39,585 - INFO - [{'quote': "When you have children, you always have family. They will always be your priority, your responsibility. And a man, a man provides. And he does it even when he's not appreciated or respected or even loved. He simply bears up and he does it. Because he's a man.", 'author': 'Chloe Decker'}]
+2024-10-21 10:08:43,197 - INFO - [{'quote': 'We might not always understand it, but God has a plan.', 'author': 'Father Frank'}]
+2024-10-21 10:08:46,655 - INFO - [{'quote': 'But I never told you what I want. I want you. All in. The whole deal. So there.', 'author': 'Dan Espinoza'}]
+2024-10-21 10:08:49,891 - INFO - [{'quote': "Ah, well, no need to thank me for my heroism. Well, maybe just a little. No one's stopping you.", 'author': 'Lucifer Morningstar'}]
+2024-10-21 10:08:55,124 - INFO - [{'quote': 'Trust me, a church confessional has nothing compared to pillow talk.', 'author': 'Lucifer Morningstar'}]
+2024-10-21 10:08:58,359 - INFO - [{'quote': "Well, that is a shame. 'Cause you and my backside used to get on very well.", 'author': 'Lucifer Morningstar'}]
+2024-10-21 10:09:00,785 - INFO - [{'quote': "When you have children, you always have family. They will always be your priority, your responsibility. And a man, a man provides. And he does it even when he's not appreciated or respected or even loved. He simply bears up and he does it. Because he's a man.", 'author': 'Chloe Decker'}]
+2024-10-21 10:09:03,641 - INFO - [{'quote': "I mean if all the apples are bad...maybe it's the tree that's the problem.", 'author': 'Lucifer Morningstar'}]
+2024-10-21 10:09:05,739 - INFO - [{'quote': "No, of course not. I detest the little creatures. And I'd certainly never put one in my mouth.", 'author': 'Lucifer Morningstar'}]
+2024-10-21 10:09:07,671 - INFO - [{'quote': "Sometimes you have to accept when someone doesn't feel the same way about you.", 'author': 'Mazikeen Smith'}]
+2024-10-21 10:09:11,077 - INFO - [{'quote': "No, of course not. I detest the little creatures. And I'd certainly never put one in my mouth.", 'author': 'Lucifer Morningstar'}]
+2024-10-21 10:09:13,077 - INFO - [{'quote': "What do you say, Sam? A fiddle of gold against your soul says I'm better than you.", 'author': 'Lucifer Morningstar'}]
+2024-10-21 10:09:18,622 - INFO - [{'quote': 'Say you fall in love with a woman who has a cat. What are you gonna do? You accept the cat.', 'author': 'Dan Espinoza'}]
+2024-10-21 10:09:22,351 - INFO - [{'quote': "I find that people make Los Angeles their home for one of two reasons. Either they're running from something, or looking for something.", 'author': 'Linda Martin'}]
+2024-10-21 10:09:24,361 - INFO - [{'quote': "It's always the ones you least suspect, the ones you trust the most, that hurt you. They wait until your guard is down and then wham! In my case, it was tequila.", 'author': 'Ella Lopez'}]
+2024-10-21 10:09:30,742 - INFO - [{'quote': "What do you say, Sam? A fiddle of gold against your soul says I'm better than you.", 'author': 'Lucifer Morningstar'}]
+2024-10-21 10:09:37,848 - INFO - [{'quote': "A deal's a deal, especially one with the Devil.", 'author': 'Lucifer Morningstar'}]
+2024-10-21 10:09:39,310 - INFO - [{'quote': "My mum's gonna kill me. And before you say it, that's not a metaphor. She's literally going to kill me. She's not the forgiving type.", 'author': 'Lucifer Morningstar'}]
+2024-10-21 10:09:42,757 - INFO - [{'quote': "My name's Beatrice but everybody calls me Trixie.", 'author': 'Trixie'}]
+2024-10-21 10:09:44,621 - INFO - [{'quote': 'But I never told you what I want. I want you. All in. The whole deal. So there.', 'author': 'Dan Espinoza'}]
+2024-10-21 10:09:46,628 - INFO - [{'quote': "A deal's a deal, especially one with the Devil.", 'author': 'Lucifer Morningstar'}]
+2024-10-21 10:09:51,175 - INFO - [{'quote': "I mean if all the apples are bad...maybe it's the tree that's the problem.", 'author': 'Lucifer Morningstar'}]
+2024-10-21 10:09:53,233 - INFO - [{'quote': "What do you say, Sam? A fiddle of gold against your soul says I'm better than you.", 'author': 'Lucifer Morningstar'}]
+2024-10-21 10:09:54,801 - INFO - [{'quote': 'Lucifer Morningstar. Is that a stage name or something?', 'author': 'Chloe Decker'}]
+2024-10-21 10:09:57,071 - INFO - [{'quote': 'You know, if you spent as much time appealing to suspects as you do annoying me, things might go a lot faster.', 'author': 'Chloe Decker'}]
+2024-10-21 10:10:01,231 - INFO - [{'quote': "Miracles aren't my thing, but I'm sure we can come to an arrangement.", 'author': 'Lucifer Morningstar'}]
+2024-10-21 10:10:03,856 - INFO - [{'quote': "Ah, well, no need to thank me for my heroism. Well, maybe just a little. No one's stopping you.", 'author': 'Lucifer Morningstar'}]
+2024-10-21 10:10:06,154 - INFO - [{'quote': 'I refuse to be a scapegoat for which something I bear no responsibility. It’s a theme in my life.', 'author': 'Lucifer Morningstar'}]
+2024-10-21 10:10:08,658 - INFO - [{'quote': 'Detective Decker is out there protecting them. She is...truly good.', 'author': 'Lucifer Morningstar'}]
+2024-10-21 10:10:11,401 - INFO - [{'quote': "There's a good chance this thing might come out of me with wings. Wings!", 'author': 'Linda Martin'}]
+2024-10-21 10:10:13,238 - INFO - [{'quote': 'Trust me, a church confessional has nothing compared to pillow talk.', 'author': 'Lucifer Morningstar'}]
+2024-10-21 10:10:15,992 - INFO - [{'quote': 'When angels fall, they also… rise.', 'author': 'Linda Martin'}]
+2024-10-21 10:10:18,676 - INFO - [{'quote': 'You people misunderstand me. You call me Satan and Devil but… do you know my crime? I loved God too much. And for that he betrayed me — punished me.', 'author': 'Lucifer Morningstar'}]
+2024-10-21 10:10:18,677 - INFO - 50 Data extraction successfully
+2024-10-21 10:10:21,056 - INFO - Total records transformed: 50
+2024-10-21 10:10:23,494 - INFO - Data To transform : [['Dan Espinoza', 'My life imploded because of you. My marriage, my Job, my snacks. I know you ate my pudding. It was labelled!'], ['Dan Espinoza', "Classic Chloe. Only you would make a point of remembering the exact amount of time you can't remember."], ['Cain', "If it were that easy to kill me, I'd have been dead a long time ago!"], ['Lucifer Morningstar', "People don't have power over us. We give it to them."], ['Linda Martin', 'Sometimes we need to lose something before we can understand its value.'], ['Lucifer Morningstar', "A deal's a deal, especially one with the Devil."], ['Lucifer Morningstar', "You see, what I hate more than anything is a liar. A charlatan. Someone who doesn't believe in what they say."], ['Dan Espinoza', "No one expects you to change overnight. It's hard to be one of the good guys. Look, I screw up, too. I've made plenty of mistakes believe me. But I don't quit… and I know that counts for something. At least you're trying, right?"], ['Ella Lopez', 'I mean, God works in mysterious ways. So you just got to believe that when He crushes your nuts, He does it for a reason.'], ['Lucifer Morningstar', 'That tingling sensation running up your spine… inevitability. And the bit running down your leg? Fear.'], ['Chloe Decker', "When you have children, you always have family. They will always be your priority, your responsibility. And a man, a man provides. And he does it even when he's not appreciated or respected or even loved. He simply bears up and he does it. Because he's a man."], ['Linda Martin', 'Oh, right. The Eve, from the Garden of Eden. I mean, I am carrying an angel baby. I guess this is just a normal Tuesday for me now.'], ['Dan Espinoza', "Classic Chloe. Only you would make a point of remembering the exact amount of time you can't remember."], ['Lucifer Morningstar', 'The Devil gets burned by fire. Could this be any more ironic?'], ['Dan Espinoza', "No one expects you to change overnight. It's hard to be one of the good guys. Look, I screw up, too. I've made plenty of mistakes believe me. But I don't quit… and I know that counts for something. At least you're trying, right?"], ['Father Frank', 'We might not always understand it, but God has a plan.'], ['Linda Martin', "There's a good chance this thing might come out of me with wings. Wings!"], ['Chloe Decker', "When you have children, you always have family. They will always be your priority, your responsibility. And a man, a man provides. And he does it even when he's not appreciated or respected or even loved. He simply bears up and he does it. Because he's a man."], ['Father Frank', 'We might not always understand it, but God has a plan.'], ['Dan Espinoza', 'But I never told you what I want. I want you. All in. The whole deal. So there.'], ['Lucifer Morningstar', "Ah, well, no need to thank me for my heroism. Well, maybe just a little. No one's stopping you."], ['Lucifer Morningstar', 'Trust me, a church confessional has nothing compared to pillow talk.'], ['Lucifer Morningstar', "Well, that is a shame. 'Cause you and my backside used to get on very well."], ['Chloe Decker', "When you have children, you always have family. They will always be your priority, your responsibility. And a man, a man provides. And he does it even when he's not appreciated or respected or even loved. He simply bears up and he does it. Because he's a man."], ['Lucifer Morningstar', "I mean if all the apples are bad...maybe it's the tree that's the problem."], ['Lucifer Morningstar', "No, of course not. I detest the little creatures. And I'd certainly never put one in my mouth."], ['Mazikeen Smith', "Sometimes you have to accept when someone doesn't feel the same way about you."], ['Lucifer Morningstar', "No, of course not. I detest the little creatures. And I'd certainly never put one in my mouth."], ['Lucifer Morningstar', "What do you say, Sam? A fiddle of gold against your soul says I'm better than you."], ['Dan Espinoza', 'Say you fall in love with a woman who has a cat. What are you gonna do? You accept the cat.'], ['Linda Martin', "I find that people make Los Angeles their home for one of two reasons. Either they're running from something, or looking for something."], ['Ella Lopez', "It's always the ones you least suspect, the ones you trust the most, that hurt you. They wait until your guard is down and then wham! In my case, it was tequila."], ['Lucifer Morningstar', "What do you say, Sam? A fiddle of gold against your soul says I'm better than you."], ['Lucifer Morningstar', "A deal's a deal, especially one with the Devil."], ['Lucifer Morningstar', "My mum's gonna kill me. And before you say it, that's not a metaphor. She's literally going to kill me. She's not the forgiving type."], ['Trixie', "My name's Beatrice but everybody calls me Trixie."], ['Dan Espinoza', 'But I never told you what I want. I want you. All in. The whole deal. So there.'], ['Lucifer Morningstar', "A deal's a deal, especially one with the Devil."], ['Lucifer Morningstar', "I mean if all the apples are bad...maybe it's the tree that's the problem."], ['Lucifer Morningstar', "What do you say, Sam? A fiddle of gold against your soul says I'm better than you."], ['Chloe Decker', 'Lucifer Morningstar. Is that a stage name or something?'], ['Chloe Decker', 'You know, if you spent as much time appealing to suspects as you do annoying me, things might go a lot faster.'], ['Lucifer Morningstar', "Miracles aren't my thing, but I'm sure we can come to an arrangement."], ['Lucifer Morningstar', "Ah, well, no need to thank me for my heroism. Well, maybe just a little. No one's stopping you."], ['Lucifer Morningstar', 'I refuse to be a scapegoat for which something I bear no responsibility. It’s a theme in my life.'], ['Lucifer Morningstar', 'Detective Decker is out there protecting them. She is...truly good.'], ['Linda Martin', "There's a good chance this thing might come out of me with wings. Wings!"], ['Lucifer Morningstar', 'Trust me, a church confessional has nothing compared to pillow talk.'], ['Linda Martin', 'When angels fall, they also… rise.'], ['Lucifer Morningstar', 'You people misunderstand me. You call me Satan and Devil but… do you know my crime? I loved God too much. And for that he betrayed me — punished me.']]
+2024-10-21 10:10:23,547 - INFO - Successfully loaded 50 records into the database.
+2024-10-21 10:21:25,002 - INFO - [{'quote': 'But I never told you what I want. I want you. All in. The whole deal. So there.', 'author': 'Dan Espinoza'}]
+2024-10-21 10:21:27,496 - INFO - [{'quote': "It's really not a good day for…your…Luciferness.", 'author': 'Chloe Decker'}]
+2024-10-21 10:21:27,498 - INFO - 2 Data extraction successfully
+2024-10-21 10:21:30,023 - INFO - Total records transformed: 2
+2024-10-21 10:21:34,182 - INFO - Data To transform : [['Dan Espinoza', 'But I never told you what I want. I want you. All in. The whole deal. So there.'], ['Chloe Decker', "It's really not a good day for…your…Luciferness."]]
+2024-10-21 10:21:34,218 - INFO - Successfully loaded 2 records into the database.
+2024-10-21 10:22:06,729 - INFO - [{'quote': 'If it makes you comfy, you could call me God.', 'author': 'Lucifer Morningstar'}]
+2024-10-21 10:22:09,389 - INFO - [{'quote': "Why don't you tell me something? How did she end up dying in a hailstorm of bullets and you get away without a scratch? I think that's interesting, don't you?", 'author': 'Chloe Decker'}]
+2024-10-21 10:22:09,391 - INFO - 2 Data extraction successfully
+2024-10-21 10:22:12,481 - INFO - Total records transformed: 2
+2024-10-21 10:22:15,339 - INFO - Data To transform : [['Lucifer Morningstar', 'If it makes you comfy, you could call me God.'], ['Chloe Decker', "Why don't you tell me something? How did she end up dying in a hailstorm of bullets and you get away without a scratch? I think that's interesting, don't you?"]]
+2024-10-21 10:22:15,393 - INFO - Successfully loaded 2 records into the database.
+2024-10-21 10:23:15,028 - INFO - [{'quote': 'I refuse to be a scapegoat for which something I bear no responsibility. It’s a theme in my life.', 'author': 'Lucifer Morningstar'}]
+2024-10-21 10:23:16,705 - INFO - [{'quote': 'That tingling sensation running up your spine… inevitability. And the bit running down your leg? Fear.', 'author': 'Lucifer Morningstar'}]
+2024-10-21 10:23:16,706 - INFO - 2 Data extraction successfully
+2024-10-21 10:23:19,557 - INFO - Total records transformed: 2
+2024-10-21 10:23:22,019 - INFO - Data To transform : [['Lucifer Morningstar', 'I refuse to be a scapegoat for which something I bear no responsibility. It’s a theme in my life.'], ['Lucifer Morningstar', 'That tingling sensation running up your spine… inevitability. And the bit running down your leg? Fear.']]
+2024-10-21 10:23:22,044 - INFO - Successfully loaded 2 records into the database.
+2024-10-21 10:24:07,427 - INFO - [{'quote': 'No matter how bad things get, the true test is how we choose to respond to the pain we suffer, or inflict.', 'author': 'Amenadiel'}]
+2024-10-21 10:24:10,734 - INFO - [{'quote': "Desire shouldn't be contained, it's unnatural.", 'author': 'Lucifer Morningstar'}]
+2024-10-21 10:24:10,735 - INFO - 2 Data extraction successfully
+2024-10-21 10:24:15,102 - INFO - Total records transformed: 2
+2024-10-21 10:24:19,543 - INFO - Data To transform : [['Amenadiel', 'No matter how bad things get, the true test is how we choose to respond to the pain we suffer, or inflict.'], ['Lucifer Morningstar', "Desire shouldn't be contained, it's unnatural."]]
+2024-10-21 10:24:19,641 - INFO - Successfully loaded 2 records into the database.
+2024-10-21 10:25:08,077 - INFO - [{'quote': "You see, what I hate more than anything is a liar. A charlatan. Someone who doesn't believe in what they say.", 'author': 'Lucifer Morningstar'}]
+2024-10-21 10:25:11,252 - INFO - [{'quote': "Ah, well, no need to thank me for my heroism. Well, maybe just a little. No one's stopping you.", 'author': 'Lucifer Morningstar'}]
+2024-10-21 10:25:11,252 - INFO - 2 Data extraction successfully
+2024-10-21 10:25:13,676 - INFO - Total records transformed: 2
+2024-10-21 10:25:16,059 - INFO - Data To transform : [['Lucifer Morningstar', "You see, what I hate more than anything is a liar. A charlatan. Someone who doesn't believe in what they say."], ['Lucifer Morningstar', "Ah, well, no need to thank me for my heroism. Well, maybe just a little. No one's stopping you."]]
+2024-10-21 10:25:16,085 - INFO - Successfully loaded 2 records into the database.
+2024-10-21 10:26:07,472 - INFO - [{'quote': 'Trust me, a church confessional has nothing compared to pillow talk.', 'author': 'Lucifer Morningstar'}]
+2024-10-21 10:26:09,007 - INFO - [{'quote': "Desire shouldn't be contained, it's unnatural.", 'author': 'Lucifer Morningstar'}]
+2024-10-21 10:26:09,008 - INFO - 2 Data extraction successfully
+2024-10-21 10:26:11,677 - INFO - Total records transformed: 2
+2024-10-21 10:26:14,372 - INFO - Data To transform : [['Lucifer Morningstar', 'Trust me, a church confessional has nothing compared to pillow talk.'], ['Lucifer Morningstar', "Desire shouldn't be contained, it's unnatural."]]
+2024-10-21 10:26:14,419 - INFO - Successfully loaded 2 records into the database.
+2024-10-21 10:27:12,289 - INFO - [{'quote': "Well, who wouldn't want to be with their greatest desire?", 'author': 'Amenadiel'}]
+2024-10-21 10:27:14,937 - INFO - [{'quote': 'We might not always understand it, but God has a plan.', 'author': 'Father Frank'}]
+2024-10-21 10:27:14,938 - INFO - 2 Data extraction successfully
+2024-10-21 10:27:18,252 - INFO - Total records transformed: 2
+2024-10-21 10:27:21,716 - INFO - Data To transform : [['Amenadiel', "Well, who wouldn't want to be with their greatest desire?"], ['Father Frank', 'We might not always understand it, but God has a plan.']]
+2024-10-21 10:27:21,770 - INFO - Successfully loaded 2 records into the database.
+2024-10-21 10:28:08,508 - INFO - [{'quote': "Always gratifying to find out that one's nemesis is altogether lacking in style.", 'author': 'Lucifer Morningstar'}]
+2024-10-21 10:28:10,247 - INFO - [{'quote': 'Say you fall in love with a woman who has a cat. What are you gonna do? You accept the cat.', 'author': 'Dan Espinoza'}]
+2024-10-21 10:28:10,248 - INFO - 2 Data extraction successfully
+2024-10-21 10:28:12,750 - INFO - Total records transformed: 2
+2024-10-21 10:28:15,425 - INFO - Data To transform : [['Lucifer Morningstar', "Always gratifying to find out that one's nemesis is altogether lacking in style."], ['Dan Espinoza', 'Say you fall in love with a woman who has a cat. What are you gonna do? You accept the cat.']]
+2024-10-21 10:28:15,456 - INFO - Successfully loaded 2 records into the database.
+2024-10-21 10:29:06,901 - INFO - [{'quote': "You see, what I hate more than anything is a liar. A charlatan. Someone who doesn't believe in what they say.", 'author': 'Lucifer Morningstar'}]
+2024-10-21 10:29:11,651 - INFO - [{'quote': "Ah, well, no need to thank me for my heroism. Well, maybe just a little. No one's stopping you.", 'author': 'Lucifer Morningstar'}]
+2024-10-21 10:29:11,652 - INFO - 2 Data extraction successfully
+2024-10-21 10:29:14,108 - INFO - Total records transformed: 2
+2024-10-21 10:29:16,913 - INFO - Data To transform : [['Lucifer Morningstar', "You see, what I hate more than anything is a liar. A charlatan. Someone who doesn't believe in what they say."], ['Lucifer Morningstar', "Ah, well, no need to thank me for my heroism. Well, maybe just a little. No one's stopping you."]]
+2024-10-21 10:29:16,939 - INFO - Successfully loaded 2 records into the database.
+2024-10-21 10:30:08,454 - INFO - [{'quote': "When you have children, you always have family. They will always be your priority, your responsibility. And a man, a man provides. And he does it even when he's not appreciated or respected or even loved. He simply bears up and he does it. Because he's a man.", 'author': 'Chloe Decker'}]
+2024-10-21 10:30:10,068 - INFO - [{'quote': "People sometimes kill the people with whom they're in love. The heart's mysterious.", 'author': 'Lucifer Morningstar'}]
+2024-10-21 10:30:10,069 - INFO - 2 Data extraction successfully
+2024-10-21 10:30:12,508 - INFO - Total records transformed: 2
+2024-10-21 10:30:14,887 - INFO - Data To transform : [['Chloe Decker', "When you have children, you always have family. They will always be your priority, your responsibility. And a man, a man provides. And he does it even when he's not appreciated or respected or even loved. He simply bears up and he does it. Because he's a man."], ['Lucifer Morningstar', "People sometimes kill the people with whom they're in love. The heart's mysterious."]]
+2024-10-21 10:30:14,923 - INFO - Successfully loaded 2 records into the database.
+2024-10-21 10:31:06,492 - INFO - [{'quote': "What about the name Zoriel? That's a good name for a warrior. We can call him Zori for short. Or Ezekiel. Zek.", 'author': 'Amenadiel'}]
+2024-10-21 10:31:08,216 - INFO - [{'quote': 'I want you to teach me your secret. I want you to show me how to be a tool.', 'author': 'Lucifer Morningstar'}]
+2024-10-21 10:31:08,218 - INFO - 2 Data extraction successfully
+2024-10-21 10:31:10,950 - INFO - Total records transformed: 2
+2024-10-21 10:31:13,291 - INFO - Data To transform : [['Amenadiel', "What about the name Zoriel? That's a good name for a warrior. We can call him Zori for short. Or Ezekiel. Zek."], ['Lucifer Morningstar', 'I want you to teach me your secret. I want you to show me how to be a tool.']]
+2024-10-21 10:31:13,325 - INFO - Successfully loaded 2 records into the database.
+2024-10-21 10:32:06,893 - INFO - [{'quote': "When in doubt, go with the classics. That's what I always say.", 'author': 'Lucifer Morningstar'}]
+2024-10-21 10:32:08,840 - INFO - [{'quote': "We can't control what happens to us, only how it affects us and the choices we make.", 'author': 'Chloe Decker'}]
+2024-10-21 10:32:08,842 - INFO - 2 Data extraction successfully
+2024-10-21 10:32:11,684 - INFO - Total records transformed: 2
+2024-10-21 10:32:14,038 - INFO - Data To transform : [['Lucifer Morningstar', "When in doubt, go with the classics. That's what I always say."], ['Chloe Decker', "We can't control what happens to us, only how it affects us and the choices we make."]]
+2024-10-21 10:32:14,066 - INFO - Successfully loaded 2 records into the database.
+2024-10-21 10:33:07,903 - INFO - [{'quote': "When you have children, you always have family. They will always be your priority, your responsibility. And a man, a man provides. And he does it even when he's not appreciated or respected or even loved. He simply bears up and he does it. Because he's a man.", 'author': 'Chloe Decker'}]
+2024-10-21 10:33:09,649 - INFO - [{'quote': 'Sometimes we need to lose something before we can understand its value.', 'author': 'Linda Martin'}]
+2024-10-21 10:33:09,658 - INFO - 2 Data extraction successfully
+2024-10-21 10:33:12,466 - INFO - Total records transformed: 2
+2024-10-21 10:33:15,062 - INFO - Data To transform : [['Chloe Decker', "When you have children, you always have family. They will always be your priority, your responsibility. And a man, a man provides. And he does it even when he's not appreciated or respected or even loved. He simply bears up and he does it. Because he's a man."], ['Linda Martin', 'Sometimes we need to lose something before we can understand its value.']]
+2024-10-21 10:33:15,089 - INFO - Successfully loaded 2 records into the database.
+2024-10-21 10:34:07,116 - INFO - [{'quote': "No one expects you to change overnight. It's hard to be one of the good guys. Look, I screw up, too. I've made plenty of mistakes believe me. But I don't quit… and I know that counts for something. At least you're trying, right?", 'author': 'Dan Espinoza'}]
+2024-10-21 10:34:08,442 - INFO - [{'quote': "Those wings out there in the human world, Luci, they're too powerful. A piece of divinity.", 'author': 'Amenadiel'}]
+2024-10-21 10:34:08,443 - INFO - 2 Data extraction successfully
+2024-10-21 10:34:11,211 - INFO - Total records transformed: 2
+2024-10-21 10:34:13,819 - INFO - Data To transform : [['Dan Espinoza', "No one expects you to change overnight. It's hard to be one of the good guys. Look, I screw up, too. I've made plenty of mistakes believe me. But I don't quit… and I know that counts for something. At least you're trying, right?"], ['Amenadiel', "Those wings out there in the human world, Luci, they're too powerful. A piece of divinity."]]
+2024-10-21 10:34:13,844 - INFO - Successfully loaded 2 records into the database.
+2024-10-21 10:35:05,868 - INFO - [{'quote': "Sorry if it's a bit chilly. Most people think I burn hot. It's actually quite the opposite.", 'author': 'Lucifer Morningstar'}]
+2024-10-21 10:35:07,167 - INFO - [{'quote': "People don't arrive broken. They start with passion and yearning till something comes along that disabuses them of those notions.", 'author': 'Lucifer Morningstar'}]
+2024-10-21 10:35:07,168 - INFO - 2 Data extraction successfully
+2024-10-21 10:35:09,790 - INFO - Total records transformed: 2
+2024-10-21 10:35:12,591 - INFO - Data To transform : [['Lucifer Morningstar', "Sorry if it's a bit chilly. Most people think I burn hot. It's actually quite the opposite."], ['Lucifer Morningstar', "People don't arrive broken. They start with passion and yearning till something comes along that disabuses them of those notions."]]
+2024-10-21 10:35:12,636 - INFO - Successfully loaded 2 records into the database.
+2024-10-21 10:36:06,510 - INFO - [{'quote': "People don't have power over us. We give it to them.", 'author': 'Lucifer Morningstar'}]
+2024-10-21 10:36:07,819 - INFO - [{'quote': "If it were that easy to kill me, I'd have been dead a long time ago!", 'author': 'Cain'}]
+2024-10-21 10:36:07,821 - INFO - 2 Data extraction successfully
+2024-10-21 10:36:10,437 - INFO - Total records transformed: 2
+2024-10-21 10:36:13,996 - INFO - Data To transform : [['Lucifer Morningstar', "People don't have power over us. We give it to them."], ['Cain', "If it were that easy to kill me, I'd have been dead a long time ago!"]]
+2024-10-21 10:36:14,021 - INFO - Successfully loaded 2 records into the database.
+2024-10-21 10:37:05,495 - INFO - [{'quote': 'I refuse to be a scapegoat for which something I bear no responsibility. It’s a theme in my life.', 'author': 'Lucifer Morningstar'}]
+2024-10-21 10:37:06,722 - INFO - [{'quote': 'I want you to teach me your secret. I want you to show me how to be a tool.', 'author': 'Lucifer Morningstar'}]
+2024-10-21 10:37:06,724 - INFO - 2 Data extraction successfully
+2024-10-21 10:37:09,427 - INFO - Total records transformed: 2
+2024-10-21 10:37:11,876 - INFO - Data To transform : [['Lucifer Morningstar', 'I refuse to be a scapegoat for which something I bear no responsibility. It’s a theme in my life.'], ['Lucifer Morningstar', 'I want you to teach me your secret. I want you to show me how to be a tool.']]
+2024-10-21 10:37:11,901 - INFO - Successfully loaded 2 records into the database.
+2024-10-21 10:38:09,497 - INFO - [{'quote': 'I am a Devil of my word.', 'author': 'Lucifer Morningstar'}]
+2024-10-21 10:38:10,705 - INFO - [{'quote': "Why don't you tell me something? How did she end up dying in a hailstorm of bullets and you get away without a scratch? I think that's interesting, don't you?", 'author': 'Chloe Decker'}]
+2024-10-21 10:38:10,706 - INFO - 2 Data extraction successfully
+2024-10-21 10:38:13,476 - INFO - Total records transformed: 2
+2024-10-21 10:38:15,983 - INFO - Data To transform : [['Lucifer Morningstar', 'I am a Devil of my word.'], ['Chloe Decker', "Why don't you tell me something? How did she end up dying in a hailstorm of bullets and you get away without a scratch? I think that's interesting, don't you?"]]
+2024-10-21 10:38:16,013 - INFO - Successfully loaded 2 records into the database.
+2024-10-21 10:39:06,741 - INFO - [{'quote': "Well, that is a shame. 'Cause you and my backside used to get on very well.", 'author': 'Lucifer Morningstar'}]
+2024-10-21 10:39:08,478 - INFO - [{'quote': "What about the name Zoriel? That's a good name for a warrior. We can call him Zori for short. Or Ezekiel. Zek.", 'author': 'Amenadiel'}]
+2024-10-21 10:39:08,480 - INFO - 2 Data extraction successfully
+2024-10-21 10:39:11,473 - INFO - Total records transformed: 2
+2024-10-21 10:39:13,921 - INFO - Data To transform : [['Lucifer Morningstar', "Well, that is a shame. 'Cause you and my backside used to get on very well."], ['Amenadiel', "What about the name Zoriel? That's a good name for a warrior. We can call him Zori for short. Or Ezekiel. Zek."]]
+2024-10-21 10:39:13,946 - INFO - Successfully loaded 2 records into the database.
+2024-10-21 10:40:05,943 - INFO - [{'quote': "People don't have power over us. We give it to them.", 'author': 'Lucifer Morningstar'}]
+2024-10-21 10:40:07,353 - INFO - [{'quote': 'I find people who are rude usually feel powerless in their own lives. Terrified of not being in control.', 'author': 'Linda Martin'}]
+2024-10-21 10:40:07,354 - INFO - 2 Data extraction successfully
+2024-10-21 10:40:09,847 - INFO - Total records transformed: 2
+2024-10-21 10:40:14,858 - INFO - Data To transform : [['Lucifer Morningstar', "People don't have power over us. We give it to them."], ['Linda Martin', 'I find people who are rude usually feel powerless in their own lives. Terrified of not being in control.']]
+2024-10-21 10:40:14,893 - INFO - Successfully loaded 2 records into the database.
+2024-10-21 10:41:07,106 - INFO - [{'quote': 'That tingling sensation running up your spine… inevitability. And the bit running down your leg? Fear.', 'author': 'Lucifer Morningstar'}]
+2024-10-21 10:41:08,672 - INFO - [{'quote': 'My life imploded because of you. My marriage, my Job, my snacks. I know you ate my pudding. It was labelled!', 'author': 'Dan Espinoza'}]
+2024-10-21 10:41:08,673 - INFO - 2 Data extraction successfully
+2024-10-21 10:41:11,170 - INFO - Total records transformed: 2
+2024-10-21 10:41:13,461 - INFO - Data To transform : [['Lucifer Morningstar', 'That tingling sensation running up your spine… inevitability. And the bit running down your leg? Fear.'], ['Dan Espinoza', 'My life imploded because of you. My marriage, my Job, my snacks. I know you ate my pudding. It was labelled!']]
+2024-10-21 10:41:13,491 - INFO - Successfully loaded 2 records into the database.
+2024-10-21 10:42:05,937 - INFO - [{'quote': "My mum's gonna kill me. And before you say it, that's not a metaphor. She's literally going to kill me. She's not the forgiving type.", 'author': 'Lucifer Morningstar'}]
+2024-10-21 10:42:07,371 - INFO - [{'quote': "All my time with Dr. Linda has been about exploring the denial that I'm in, but I've overcome that now, I've had an honest-to-Devil epiphany. Now all my problems should just, you know, go away.", 'author': 'Lucifer Morningstar'}]
+2024-10-21 10:42:07,372 - INFO - 2 Data extraction successfully
+2024-10-21 10:42:10,280 - INFO - Total records transformed: 2
+2024-10-21 10:42:12,963 - INFO - Data To transform : [['Lucifer Morningstar', "My mum's gonna kill me. And before you say it, that's not a metaphor. She's literally going to kill me. She's not the forgiving type."], ['Lucifer Morningstar', "All my time with Dr. Linda has been about exploring the denial that I'm in, but I've overcome that now, I've had an honest-to-Devil epiphany. Now all my problems should just, you know, go away."]]
+2024-10-21 10:42:12,991 - INFO - Successfully loaded 2 records into the database.
+2024-10-21 10:43:06,851 - INFO - [{'quote': 'I love LA. Even the homeless have an IMDB page.', 'author': 'Lucifer Morningstar'}]
+2024-10-21 10:43:07,950 - INFO - [{'quote': 'Look, people like you. they find you helpful, like duct tape or a trusty socket wrench.', 'author': 'Lucifer Morningstar'}]
+2024-10-21 10:43:07,952 - INFO - 2 Data extraction successfully
+2024-10-21 10:43:10,834 - INFO - Total records transformed: 2
+2024-10-21 10:43:13,250 - INFO - Data To transform : [['Lucifer Morningstar', 'I love LA. Even the homeless have an IMDB page.'], ['Lucifer Morningstar', 'Look, people like you. they find you helpful, like duct tape or a trusty socket wrench.']]
+2024-10-21 10:43:13,275 - INFO - Successfully loaded 2 records into the database.
