@@ -1,0 +1,3 @@
+STRUCT,UNNEST,
+Big query is serverless,columunar stroage,
+serverless architect -partition & clusetering
