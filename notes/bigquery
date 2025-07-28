@@ -4,3 +4,5 @@ serverless architect -partition & clusetering
 big query load job- to load data from storage bucket of google to bigquery
 bq command in line tool
 bigquery api -python
+
+batch vs real time  (job load vs streaming API)
