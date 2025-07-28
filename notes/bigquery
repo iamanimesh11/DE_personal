@@ -1,3 +1,6 @@
 STRUCT,UNNEST,
 Big query is serverless,columunar stroage,
 serverless architect -partition & clusetering
+big query load job- to load data from storage bucket of google to bigquery
+bq command in line tool
+bigquery api -python
