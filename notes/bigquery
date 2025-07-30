@@ -12,14 +12,16 @@ google colossus
 google drememl
 jupiter
 
+1. Windows function:
+Qualify, ARRAY_aGG
+STRUCT like dictionary and array_Agg(struct()) 
+with offset
 
 
-You've covered quite a few core and intermediate topics, but we still have some powerful and advanced concepts left.
-
-Here’s a quick checklist of what you've already done vs what’s remaining:
 
 
----
+
+
 
 ✅ Topics You've MASTERED or TOUCHED Already
 
@@ -57,44 +59,14 @@ Bonus	✅ Real-time vs Batch ingestion	⭐	Pub/Sub or GCS based loads
 
 
 
----
-
-So Where Do You Stand?
-
-You're probably at Level 2.5 out of 5, meaning you're already interview-safe for entry-level to mid-level roles, but not yet at “no-one-can-touch-me” mode for Google/Amazon.
-
-
----
-
 🔥 Suggestion for Next Steps
 
 To level up 🔺 rapidly, follow this sequence:
 
 1. Window Functions Deep Dive (start next — let’s go)
-
-
 2. Date/Time functions
-
-
 3. REGEXP & NULL-safe operations
-
-
 4. Pivot / Unpivot
-
-
 5. Performance tuning — Partition, Cluster, Optimize scan cost
-
-
 6. BigQuery scripting
-
-
 7. System design & architecture
-
-
-
-
----
-
-Shall we begin now with Window Functions?
-Say “Go” and I’ll walk you through the core + real examples like deduplicating, ranking sessions, and latest event per user.
-
