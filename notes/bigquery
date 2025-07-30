@@ -1,14 +1,12 @@
-STRUCT,UNNEST,
-Big query is serverless,columunar stroage,
-serverless architect -partition & clusetering
-big query load job- to load data from storage bucket of google to bigquery
-bq command in line tool
-bigquery api -python
-
-batch vs real time  (job load vs streaming API)
-
-user-defined functions
-json_valur() for json data
+1. STRUCT,UNNEST,
+2. Big query is serverless,columunar stroage,
+3. serverless architect -partition & clusetering
+4. big query load job- to load data from storage bucket of google to bigquery
+5. bq command in line tool
+6 .bigquery api -python
+7. batch vs real time  (job load vs streaming API)
+8. user-defined functions
+9. json_valur() for json data
 
 google colossus
 google drememl
