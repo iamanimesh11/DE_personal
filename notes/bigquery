@@ -11,3 +11,90 @@
 google colossus
 google drememl
 jupiter
+
+
+
+You've covered quite a few core and intermediate topics, but we still have some powerful and advanced concepts left.
+
+Here’s a quick checklist of what you've already done vs what’s remaining:
+
+
+---
+
+✅ Topics You've MASTERED or TOUCHED Already
+
+Category	Topic	Status
+
+Beginner	What is BigQuery, Tables, Datasets	✅ Done
+Beginner	UNNEST and Arrays	✅ Done
+Beginner	STRUCT and Nested JSON Basics	✅ Done
+Intermediate	Subqueries and Funnel Logic	✅ Done
+Intermediate	CTEs (WITH queries)	✅ Seen in funnel example
+Intermediate	Filtering inside UNNEST	✅ Done
+Intermediate	Aggregations with ARRAY_AGG	✅ Touched in logic
+
+
+
+---
+
+🔥 Topics Still to MASTER
+
+Category	Topic	Priority	Description
+
+Intermediate	✅ Window Functions (ROW_NUMBER, etc.)	⭐⭐⭐	Core for analytics & deduplication
+Intermediate	✅ Date/Time Functions	⭐⭐	Essential for time-series analytics
+Intermediate	✅ NULL handling, SAFE_CAST, etc.	⭐	Useful in error-prone real-world data
+Advanced	✅ REGEXP Functions	⭐⭐	Pattern extraction, parsing email, phone, etc.
+Advanced	✅ Pivot/Unpivot	⭐⭐	Report-style transformations
+Advanced	✅ Scripting in BigQuery (DECLARE, LOOP)	⭐	Logic flows inside SQL
+Advanced	✅ User-defined Functions (UDFs)	⭐⭐	JavaScript/SQL based functions
+Advanced	✅ Query Optimization	⭐⭐⭐	Interview-level stuff — partitioning, cost control
+Advanced	✅ BigQuery ML	⭐⭐	Bonus for ML-focused roles
+Advanced	✅ External Tables, Federated Sources	⭐	From GCS, Google Drive, etc.
+Advanced	✅ Materialized Views vs Scheduled Queries	⭐⭐	Used in dashboards
+Bonus	✅ System Design with BigQuery	⭐⭐	Compare BQ with Snowflake, Redshift, etc.
+Bonus	✅ Real-time vs Batch ingestion	⭐	Pub/Sub or GCS based loads
+
+
+
+---
+
+So Where Do You Stand?
+
+You're probably at Level 2.5 out of 5, meaning you're already interview-safe for entry-level to mid-level roles, but not yet at “no-one-can-touch-me” mode for Google/Amazon.
+
+
+---
+
+🔥 Suggestion for Next Steps
+
+To level up 🔺 rapidly, follow this sequence:
+
+1. Window Functions Deep Dive (start next — let’s go)
+
+
+2. Date/Time functions
+
+
+3. REGEXP & NULL-safe operations
+
+
+4. Pivot / Unpivot
+
+
+5. Performance tuning — Partition, Cluster, Optimize scan cost
+
+
+6. BigQuery scripting
+
+
+7. System design & architecture
+
+
+
+
+---
+
+Shall we begin now with Window Functions?
+Say “Go” and I’ll walk you through the core + real examples like deduplicating, ranking sessions, and latest event per user.
+
