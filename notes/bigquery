@@ -13,9 +13,11 @@ google drememl
 jupiter
 
 1. Windows function:
-Qualify, ARRAY_aGG
+Qualify, ARRAY_aGG ,array()
 STRUCT like dictionary and array_Agg(struct()) 
-with offset
+with offset,lag and lead,
+rank and dense rank
+ntile()
 
 
 
