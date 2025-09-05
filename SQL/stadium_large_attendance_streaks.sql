@@ -44,4 +44,24 @@ Write a SQL query to return all days that are part of large attendance streaks:
 | 7  | 2017-01-07  | 199    |
 | 8  | 2017-01-09  | 188    |
 
-If you want
+-- Flag large attendance days and identify streaks
+WITH flagged AS (
+    SELECT *,
+           CASE WHEN people >= 100 THEN 1 ELSE 0 END AS is_large
+    FROM Stadium
+),
+grouped AS (
+    SELECT *,
+           ROW_NUMBER() OVER (ORDER BY id) 
+           - ROW_NUMBER() OVER (PARTITION BY is_large ORDER BY id) AS grp
+    FROM flagged
+),
+filtered AS (
+    -- Keep only large attendance days
+    SELECT *
+    FROM grouped
+    WHERE is_large = 1
+)
+SELECT id, visit_date, people
+FROM filtered
+ORDER BY id;
