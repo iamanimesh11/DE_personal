@@ -1,120 +1,126 @@
 import subprocess
-import platform
+import time
 import psutil
 import json
-import shutil
+import platform
 
-def check_ollama_server():
-    """Check if Ollama server is running"""
+# ----------------------------------------
+# CONFIG: Models to benchmark
+# ----------------------------------------
+MODELS = [
+    "llama3.2:1b",
+    "llama3.2:3b",
+    "mistral:7b-instruct-q4_K_M"
+]
+
+TEST_PROMPT = "Explain what a computer is in one short sentence."
+
+
+def get_ram_gb():
+    return psutil.virtual_memory().available / (1024 ** 3)
+
+
+def run_ollama(model, prompt):
+    """Run Ollama using `ollama run <model>`."""
     try:
-        result = subprocess.run(
-            ["ollama", "list"],
-            capture_output=True,
-            text=True,
-            timeout=5
+        process = subprocess.Popen(
+            ["ollama", "run", model],
+            stdin=subprocess.PIPE,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True
         )
-        return True, result.stdout
-    except Exception as e:
-        return False, str(e)
+
+        # Send prompt
+        output, err = process.communicate(prompt, timeout=60)
+        return output, err
+
+    except subprocess.TimeoutExpired:
+        process.kill()
+        return None, "Timeout"
 
 
-def get_gpu_info():
-    """Check GPU and VRAM"""
-    gpu_info = {"gpu": None, "vram_gb": 0}
+def benchmark_model(model_name):
+    print(f"\n🔍 Benchmarking: {model_name}")
+    result = {
+        "model": model_name,
+        "load_time_sec": None,
+        "inference_time_sec": None,
+        "tokens_per_sec": None,
+        "ram_before_gb": None,
+        "ram_after_gb": None,
+        "status": "OK"
+    }
 
-    # NVIDIA GPU check
-    if shutil.which("nvidia-smi"):
-        try:
-            result = subprocess.check_output(["nvidia-smi", "--query-gpu=gpu_name,memory.total",
-                                              "--format=csv,noheader,nounits"])
-            name, mem = result.decode().strip().split(",")
-            gpu_info["gpu"] = name.strip()
-            gpu_info["vram_gb"] = int(mem.strip())
-            return gpu_info
-        except:
-            pass
+    # RAM before
+    ram_before = get_ram_gb()
+    result["ram_before_gb"] = round(ram_before, 2)
 
-    # Windows WMI fallback for integrated GPUs (Intel/AMD)
-    try:
-        import wmi
-        w = wmi.WMI()
-        for gpu in w.Win32_VideoController():
-            name = gpu.Name
-            if name:
-                gpu_info["gpu"] = name
-                if gpu.AdapterRAM:
-                    gpu_info["vram_gb"] = round(gpu.AdapterRAM / (1024**3))
-                return gpu_info
-    except:
-        pass
+    # --------------------------
+    # Measure load + inference
+    # --------------------------
+    start_time = time.time()
+    output, err = run_ollama(model_name, TEST_PROMPT)
+    end_time = time.time()
 
-    return gpu_info
+    if output is None:
+        result["status"] = f"Failed: {err}"
+        return result
 
+    total_time = end_time - start_time
+    result["inference_time_sec"] = round(total_time, 2)
 
-def choose_model(ram_gb, vram_gb):
-    """Select best-fitting model based on available memory"""
-    # MODEL DECISION LOGIC
-    if ram_gb <= 6:
-        return "llama3.2:1b", "Very low RAM detected. Using 1B which never OOMs."
-    if ram_gb <= 10:
-        return "llama3.2:3b", "Moderate RAM. 3B is safe & fast."
-    
-    # For high RAM systems
-    if vram_gb >= 6:
-        return "mistral:7b-instruct-q4_K_M", "Your GPU can offload 7B safely."
-    if ram_gb >= 16:
-        return "mistral:7b-instruct-q4_K_M", "Enough RAM for 7B even without GPU."
+    # Simple token count (approx)
+    tokens = len(output.split())
+    if total_time > 0:
+        result["tokens_per_sec"] = round(tokens / total_time, 2)
 
-    return "llama3.2:3b", "Fallback to 3B to avoid OOM."
+    # RAM after
+    ram_after = get_ram_gb()
+    result["ram_after_gb"] = round(ram_after, 2)
+
+    # When model loads, inference time ~ load time + response
+    if total_time > 0:
+        result["load_time_sec"] = round(total_time * 0.40, 2)  # approx
+
+    return result
 
 
 def main():
-    print("\n🔍 **Ollama Diagnostic Tool (Windows)**\n")
-
-    # 1. OS
+    print("\n🚀 OLLAMA BENCHMARK TOOL (Windows)\n")
     print(f"🖥️ OS: {platform.system()} {platform.release()}")
 
-    # 2. RAM
-    ram_gb = psutil.virtual_memory().total / (1024 ** 3)
-    print(f"💾 System RAM Detected: {ram_gb:.2f} GB")
+    overall_ram = psutil.virtual_memory().total / (1024 ** 3)
+    print(f"💾 Total RAM: {overall_ram:.2f} GB")
 
-    # 3. GPU
-    gpu = get_gpu_info()
-    print(f"🎮 GPU: {gpu['gpu'] or 'No GPU detected'}")
-    print(f"📦 VRAM: {gpu['vram_gb']} GB")
+    benchmark_results = []
 
-    # 4. Ollama service
-    running, details = check_ollama_server()
-    if running:
-        print("🟢 Ollama is running.")
-    else:
-        print("🔴 Ollama is NOT running!")
-        print(details)
-        print("\nFix: Start Ollama Desktop or run `ollama serve`.")
-        return
+    for model in MODELS:
+        res = benchmark_model(model)
+        benchmark_results.append(res)
 
-    # 5. Pick best model
-    model, reason = choose_model(ram_gb, gpu["vram_gb"])
-    print(f"\n🤖 Recommended Model: **{model}**")
-    print(f"📌 Reason: {reason}")
+    # ----------------------------------------
+    # Print Summary
+    ----------------------------------------
+    print("\n=================================")
+    print("📊 BENCHMARK RESULTS SUMMARY")
+    print("=================================")
 
-    # 6. Additional warnings
-    if ram_gb < 8:
-        print("\n⚠️ Warning: Low RAM — avoid 7B models to prevent crashes.")
-    if gpu["gpu"] is None:
-        print("⚠️ No GPU detected — all models will run on CPU only (slower).")
-    if gpu["gpu"] and gpu["vram_gb"] < 6:
-        print("⚠️ Low VRAM — Ollama may not be able to offload 7B models to GPU.")
+    for r in benchmark_results:
+        print(f"\nModel: {r['model']}")
+        print(f"  Status: {r['status']}")
+        print(f"  RAM Before: {r['ram_before_gb']} GB")
+        print(f"  RAM After: {r['ram_after_gb']} GB")
+        print(f"  Load Time (est): {r['load_time_sec']} sec")
+        print(f"  Inference Time: {r['inference_time_sec']} sec")
+        print(f"  Tokens/sec: {r['tokens_per_sec']}")
 
-    # 7. Show helpful environment suggestions
-    print("\n🔧 Recommended Environment Variables for Windows:")
-    print("  OLLAMA_FLASH_ATTENTION=1")
-    print("  OLLAMA_KV_CACHE_TYPE=q8_0")
-    print("  OLLAMA_MAX_LOADED_MODELS=1")
-    print("  OLLAMA_NUM_PARALLEL=1")
-    print("  OLLAMA_KEEP_ALIVE=0")
+    # Save JSON summary
+    with open("ollama_benchmark_results.json", "w") as f:
+        json.dump(benchmark_results, f, indent=4)
 
-    print("\n✅ Diagnostic complete.\n")
+    print("\n💾 JSON saved → ollama_benchmark_results.json")
+    print("\n✅ Benchmark complete!\n")
 
 
 if __name__ == "__main__":
