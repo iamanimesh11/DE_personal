@@ -1,73 +1,121 @@
-# actions/query_vector_db.py
+import subprocess
+import platform
+import psutil
+import json
+import shutil
 
-import logging
-from pathlib import Path
-from langchain_community.vectorstores import FAISS
-from langchain_huggingface import HuggingFaceEmbeddings
-from langchain_core.prompts import PromptTemplate
-from langchain_community.llms import Ollama
-
-# Setup logger
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.INFO)
-handler = logging.StreamHandler()
-formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
-handler.setFormatter(formatter)
-logger.addHandler(handler)
-
-# Base project directory (one level above actions/)
-BASE_DIR = Path(__file__).parent.parent  # D:\vector_document
-VECTOR_DB_PATH = BASE_DIR / "vector_db"
-
-def query_vector_db(query: str):
+def check_ollama_server():
+    """Check if Ollama server is running"""
     try:
-        # Load stored FAISS index
-        embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
-        db = FAISS.load_local(str(VECTOR_DB_PATH), embeddings, allow_dangerous_deserialization=True)
-        logger.info("✅ FAISS vector database loaded successfully.")
+        result = subprocess.run(
+            ["ollama", "list"],
+            capture_output=True,
+            text=True,
+            timeout=5
+        )
+        return True, result.stdout
     except Exception as e:
-        logger.error(f"❌ Error loading FAISS vector database: {e}")
-        return None
+        return False, str(e)
 
+
+def get_gpu_info():
+    """Check GPU and VRAM"""
+    gpu_info = {"gpu": None, "vram_gb": 0}
+
+    # NVIDIA GPU check
+    if shutil.which("nvidia-smi"):
+        try:
+            result = subprocess.check_output(["nvidia-smi", "--query-gpu=gpu_name,memory.total",
+                                              "--format=csv,noheader,nounits"])
+            name, mem = result.decode().strip().split(",")
+            gpu_info["gpu"] = name.strip()
+            gpu_info["vram_gb"] = int(mem.strip())
+            return gpu_info
+        except:
+            pass
+
+    # Windows WMI fallback for integrated GPUs (Intel/AMD)
     try:
-        # Search for most relevant chunks
-        docs = db.similarity_search(query, k=3)
-        if not docs:
-            logger.warning("⚠️ No relevant documents found.")
-            return None
-        context = "\n\n".join([d.page_content for d in docs])
-        logger.info("📄 Retrieved context successfully.")
-    except Exception as e:
-        logger.error(f"❌ Error during similarity search: {e}")
-        return None
+        import wmi
+        w = wmi.WMI()
+        for gpu in w.Win32_VideoController():
+            name = gpu.Name
+            if name:
+                gpu_info["gpu"] = name
+                if gpu.AdapterRAM:
+                    gpu_info["vram_gb"] = round(gpu.AdapterRAM / (1024**3))
+                return gpu_info
+    except:
+        pass
 
-    try:
-        # Load LLM
-        llm = Ollama(model="mistral:7b-instruct-q4_K_M")
+    return gpu_info
 
-        # Define prompt
-        prompt = PromptTemplate(
-            input_variables=["context", "question"],
-            template=(
-                "You are a helpful assistant. Use the following context to answer the question.\n\n"
-                "Context:\n{context}\n\nQuestion: {question}\n\nAnswer:"
-            ),
-        ) 
 
-        # Combine prompt + LLM into a runnable chain
-        chain = prompt | llm
+def choose_model(ram_gb, vram_gb):
+    """Select best-fitting model based on available memory"""
+    # MODEL DECISION LOGIC
+    if ram_gb <= 6:
+        return "llama3.2:1b", "Very low RAM detected. Using 1B which never OOMs."
+    if ram_gb <= 10:
+        return "llama3.2:3b", "Moderate RAM. 3B is safe & fast."
+    
+    # For high RAM systems
+    if vram_gb >= 6:
+        return "mistral:7b-instruct-q4_K_M", "Your GPU can offload 7B safely."
+    if ram_gb >= 16:
+        return "mistral:7b-instruct-q4_K_M", "Enough RAM for 7B even without GPU."
 
-        # Invoke the chain
-        response = chain.invoke({"context": context, "question": query})
+    return "llama3.2:3b", "Fallback to 3B to avoid OOM."
 
-        logger.info("💬 Answer generated successfully.")
-        logger.info(f"Answer: {response}")
-        return response
-    except Exception as e:
-        logger.error(f"❌ Error generating response from LLM: {e}")
-        return None
+
+def main():
+    print("\n🔍 **Ollama Diagnostic Tool (Windows)**\n")
+
+    # 1. OS
+    print(f"🖥️ OS: {platform.system()} {platform.release()}")
+
+    # 2. RAM
+    ram_gb = psutil.virtual_memory().total / (1024 ** 3)
+    print(f"💾 System RAM Detected: {ram_gb:.2f} GB")
+
+    # 3. GPU
+    gpu = get_gpu_info()
+    print(f"🎮 GPU: {gpu['gpu'] or 'No GPU detected'}")
+    print(f"📦 VRAM: {gpu['vram_gb']} GB")
+
+    # 4. Ollama service
+    running, details = check_ollama_server()
+    if running:
+        print("🟢 Ollama is running.")
+    else:
+        print("🔴 Ollama is NOT running!")
+        print(details)
+        print("\nFix: Start Ollama Desktop or run `ollama serve`.")
+        return
+
+    # 5. Pick best model
+    model, reason = choose_model(ram_gb, gpu["vram_gb"])
+    print(f"\n🤖 Recommended Model: **{model}**")
+    print(f"📌 Reason: {reason}")
+
+    # 6. Additional warnings
+    if ram_gb < 8:
+        print("\n⚠️ Warning: Low RAM — avoid 7B models to prevent crashes.")
+    if gpu["gpu"] is None:
+        print("⚠️ No GPU detected — all models will run on CPU only (slower).")
+    if gpu["gpu"] and gpu["vram_gb"] < 6:
+        print("⚠️ Low VRAM — Ollama may not be able to offload 7B models to GPU.")
+
+    # 7. Show helpful environment suggestions
+    print("\n🔧 Recommended Environment Variables for Windows:")
+    print("  OLLAMA_FLASH_ATTENTION=1")
+    print("  OLLAMA_KV_CACHE_TYPE=q8_0")
+    print("  OLLAMA_MAX_LOADED_MODELS=1")
+    print("  OLLAMA_NUM_PARALLEL=1")
+    print("  OLLAMA_KEEP_ALIVE=0")
+
+    print("\n✅ Diagnostic complete.\n")
 
 
 if __name__ == "__main__":
-    user_query = "Where can you go to submit an IT Helpdesk ticket? I need solution in stepwise"
-    query_vector_db(user_query)
+    main()
