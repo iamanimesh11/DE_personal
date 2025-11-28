@@ -1,0 +1,46 @@
+class Node:
+    def __init__(self,data):
+        self.data=data
+        self.next=None
+
+class LinkedList:
+    def __init__(self):
+        self.head=None
+        
+    def insert_end(self,data):
+        new_node=Node(data)
+        
+        if self.head is None:
+            print("yes self.head is none")
+            self.head=new_node
+            return
+        print(f"in class node : {self.__dict__}")
+        temp=self.head
+        print(f" temp var is {temp.__dict__}")
+        while temp.next: 
+            print("im in while loop")  
+            temp=temp.next
+        print(f"temp.next is {temp.next}")
+        temp.next=new_node
+        print(f"temp.next is {temp.next.__dict__}")
+    
+    def print_list(self):
+        temp=self.head
+        while temp:
+            print(temp.data,end=" ")
+            temp=temp.next
+        print()
+    
+
+ll=LinkedList()
+ll.print_list()
+print("###### new func calling again ###")
+ll.insert_end(10)
+print("###### new func calling again ###")
+ll.insert_end(20)
+print("###### new func calling again ###")
+ll.insert_end(30)
+ll.print_list()
+
+
+        
