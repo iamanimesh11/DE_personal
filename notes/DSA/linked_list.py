@@ -151,9 +151,7 @@ class LinkedList:
         
       last.next=self.head
       k=k%length
-      print(f"k is {k}")
       steps_to_new_Tail=length-k-1
-      print(f"Steps :{steps_to_new_Tail}")
       new_tail=self.head
       for _ in range(steps_to_new_Tail):
         print(f"new tail is :{new_tail.__dict__}")
@@ -161,10 +159,52 @@ class LinkedList:
         
       new_head=new_tail.next
       new_tail.next=None
-      
+      self.head=new_head
       return new_head
       
+    
+    def make_cycle_atINDEX(self,pos):
+      if pos<0:
+        return
+      
+      cycle_Start=None
+      temp=self.head
+      index=0 
+      
+      while temp and temp.next:
+        if index==pos:
+          cycle_Start=temp
+        temp=temp.next
+        index+=1
+      
+      if cycle_Start:
+        temp.next=cycle_Start
+    
+    
+    def detect_cycle(self):
+
+      slow=self.head
+      fast=self.head
+      
+      while fast and fast.next:
+        slow =slow.next
+        fast=fast.next.next
+        if slow==fast:
+          return slow
+          print("True")
+      print(False)
+      return None
+      
+      
+    def remove_cycle(self):
+        slow=self.head
+        fast=self.head
+        while slow!=fast:
           
+            
+      
+      
+      
       
 ll=LinkedList()
 ll.print_list()
@@ -189,5 +229,6 @@ ll.reverse_ll()
 ll.print_list()
 # ll.reverse_ll_recursive()
 print("#### calling rotate list")
-ll.rotate_list_by_k(2)
+ll.rotate_list_by_k(5)
 ll.print_list()
+ll.detect_cycle2()
