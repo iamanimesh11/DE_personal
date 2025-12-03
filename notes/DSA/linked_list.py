@@ -137,15 +137,44 @@ class LinkedList:
       node.next=None
       return new_head
   
+    def rotate_list_by_k(self,k):
+      
+      if not self.head or not self.head.next or k ==0:
+        return self.head
+      
+      length=1
+      last=self.head
+      while last.next:
+        last=last.next
+        length+=1
+      print(f"length is {length}")
+        
+      last.next=self.head
+      k=k%length
+      print(f"k is {k}")
+      steps_to_new_Tail=length-k-1
+      print(f"Steps :{steps_to_new_Tail}")
+      new_tail=self.head
+      for _ in range(steps_to_new_Tail):
+        print(f"new tail is :{new_tail.__dict__}")
+        new_tail=new_tail.next
+        
+      new_head=new_tail.next
+      new_tail.next=None
+      
+      return new_head
+      
           
       
 ll=LinkedList()
 ll.print_list()
 print("###### new func calling again ###")
-ll.insert_end(4)
-ll.insert_end(3)
-ll.insert_end(2)
-ll.insert_end(1)
+ll.insert_end(10)
+ll.insert_end(20)
+ll.insert_end(30)
+ll.insert_end(40)
+ll.insert_end(50)
+
 # ll.insert_atINDEX(4,50)
 ll.print_list()
 count=ll.count_node_recursively(ll.head)
@@ -155,7 +184,10 @@ ll.print_list()
 middle=ll.find_middle()
 print(f"middle is : {middle.data}")
 ll.reverse_ll()
-ll.print_list()
-ll.reverse_ll_recursive()
-ll.print_list()
+ll.reverse_ll()
 
+ll.print_list()
+# ll.reverse_ll_recursive()
+print("#### calling rotate list")
+ll.rotate_list_by_k(2)
+ll.print_list()
