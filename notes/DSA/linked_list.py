@@ -155,7 +155,7 @@ class LinkedList:
       steps_to_new_Tail=length-k-1
       new_tail=self.head
       print(f"k is {steps_to_new_Tail}")
-      for _ in range(steps_to_new_Tail):
+      for _ in range(steps_to_new_Tail): 
         print(f"new tail is :{new_tail.__dict__}")
         new_tail=new_tail.next
       print(f"after loop is new tail is {new_tail.__dict__}")
@@ -215,8 +215,10 @@ class LinkedList:
           
         prev.next=None
             
-      
-      
+    def check_palindrome(self):
+      print(self.head.next.__dict__)
+      x=self.find_middle()
+      print(x.data)
       
       
 ll=LinkedList()
@@ -242,10 +244,11 @@ ll.reverse_ll()
 ll.print_list()
 # ll.reverse_ll_recursive()
 print("#### calling rotate list")
-ll.rotate_list_by_k(2)
+ll.rotate_list_by_k(5)
 ll.print_list()
 ll.detect_cycle()
 ll.make_cycle_atINDEX(2)
 ll.detect_cycle()
 ll.remove_cycle()
 ll.detect_cycle()
+ll.check_palindrome()
