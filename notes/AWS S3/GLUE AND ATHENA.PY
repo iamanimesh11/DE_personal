@@ -13,7 +13,6 @@ WHERE year = 2025 AND month = 1
 
 csv to parquet using glue job:
 
-
 # ===== Import Libraries =====
 import sys
 from awsglue.transforms import *
@@ -21,7 +20,7 @@ from awsglue.utils import getResolvedOptions
 from awsglue.context import GlueContext
 from pyspark.context import SparkContext
 from awsglue.job import Job
-from pyspark.sql.functions import lit
+from pyspark.sql.functions import input_file_name, regexp_extract
 from awsglue.dynamicframe import DynamicFrame
 
 # ===== Parse Job Arguments =====
@@ -36,31 +35,37 @@ job.init(args['JOB_NAME'], args)
 
 # ===== 1️⃣ Read CSV from Glue Catalog =====
 datasource0 = glueContext.create_dynamic_frame.from_catalog(
-    database="sales_demo_db",    # Your Glue database
-    table_name="sales_sales"      # Your CSV table in Glue
+    database="sales_demo_db",      # Your Glue database
+    table_name="sales_sales"       # Your CSV table
 )
 
-# ===== 2️⃣ (Optional) Add Partition Columns =====
-# Convert DynamicFrame to Spark DataFrame
+# ===== 2️⃣ Convert to DataFrame for transformations =====
 df = datasource0.toDF()
 
-# Add 'year' and 'month' columns for partitioning
-df = df.withColumn("year", lit("2025"))   # change as needed
-df = df.withColumn("month", lit("01"))   # change as needed
+# ===== 3️⃣ Extract year and month from S3 path =====
+# input_file_name() gives full S3 path of each row
+df = df.withColumn("full_path", input_file_name())
 
-# Convert back to DynamicFrame
+# Extract year and month using regex
+df = df.withColumn("year", regexp_extract("full_path", r"year=([0-9]+)", 1))
+df = df.withColumn("month", regexp_extract("full_path", r"month=([0-9]+)", 1))
+
+# Drop helper column if needed
+df = df.drop("full_path")
+
+# ===== 4️⃣ Convert back to DynamicFrame =====
 dyf_final = DynamicFrame.fromDF(df, glueContext, "dyf_final")
 
-# ===== 3️⃣ Write as Parquet with Partitions =====
+# ===== 5️⃣ Write as Parquet with partitions =====
 glueContext.write_dynamic_frame.from_options(
     frame=dyf_final,
     connection_type="s3",
     connection_options={
         "path": "s3://my-de-lake-animesh11/sales_parquet/",  # Output S3 path
-        "partitionKeys": ["year", "month"]                   # Create folder-based partitions
+        "partitionKeys": ["year", "month"]                   # Automatic partitions
     },
-    format="parquet"   # Convert CSV → Parquet
+    format="parquet"
 )
 
-# ===== 4️⃣ Commit Job =====
+# ===== 6️⃣ Commit Job =====
 job.commit()
