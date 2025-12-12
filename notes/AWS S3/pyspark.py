@@ -1,120 +1,92 @@
-Here is your **clean, minimal, crystal-clear summary note** — the only steps you ever need to remember to set up and run PySpark correctly on Windows + Anaconda + Jupyter.
+Here is your **short, clean, future-ready summary note** for setting up PySpark on Ubuntu (WSL) + accessing Windows drives + running CSV → Parquet.
 
 ---
 
-# 🟩 **PYSPARK SETUP SUMMARY (WINDOWS + ANACONDA)**
+# ✅ **PySpark Setup Summary (Ubuntu + Conda + Java 17 + Jupyter)**
 
-### *(Save this — this is your master reference)*
-
----
-
-# ✅ **1. Create and activate environment**
+### **1. Create and activate conda environment**
 
 ```bash
-conda create -n pyspark_env python=3.11
+conda create -n pyspark_env python=3.10 -y
 conda activate pyspark_env
 ```
 
----
-
-# ✅ **2. Install PySpark + Jupyter**
+### **2. Install Java 17 (required for PySpark 4.x)**
 
 ```bash
-conda install -c conda-forge pyspark
-conda install -c conda-forge findspark
-conda install -c conda-forge jupyter
+sudo apt update
+sudo apt install openjdk-17-jdk -y
 ```
 
----
+### **3. Set JAVA_HOME**
 
-# ✅ **3. Install correct Java (PySpark 4.x needs Java 17)**
+Add to `~/.bashrc`:
 
 ```bash
-conda install -c conda-forge openjdk=17
+export JAVA_HOME="/usr/lib/jvm/java-17-openjdk-amd64"
+export PATH="$JAVA_HOME/bin:$PATH"
 ```
 
----
-
-# ✅ **4. Set environment variables (VERY IMPORTANT)**
-
-These make sure Spark uses the correct Python and Java.
-
-Run once:
+Reload:
 
 ```bash
-setx PYSPARK_PYTHON "D:\conda\envs\pyspark_env\python.exe"
-setx PYSPARK_DRIVER_PYTHON "D:\conda\envs\pyspark_env\python.exe"
-setx SPARK_HOME "D:\conda\envs\pyspark_env\Lib\site-packages\pyspark"
-setx JAVA_HOME "D:\conda\envs\pyspark_env"
+source ~/.bashrc
 ```
 
-Restart terminal.
-
----
-
-# ✅ **5. Register kernel to Jupyter**
+### **4. Install PySpark + Jupyter**
 
 ```bash
-python -m ipykernel install --user --name pyspark_env --display-name "PySpark (conda)"
+pip install pyspark ipykernel
+python -m ipykernel install --user --name pyspark_env --display-name "PySpark (Conda)"
 ```
 
-Now you can pick **PySpark (conda)** inside Jupyter.
-
----
-
-# ✅ **6. Start Jupyter from inside environment**
+### **5. Start Jupyter**
 
 ```bash
-conda activate pyspark_env
 jupyter notebook
 ```
 
-Open a notebook → choose **PySpark (conda)**.
+Select kernel → **PySpark (Conda)**
 
 ---
 
-# ✅ **7. Always run this FIRST cell in every notebook**
+# 📂 **Accessing Windows D drive from Ubuntu**
+
+Windows `D:\folder\file.csv` becomes:
+
+```
+/mnt/d/folder/file.csv
+```
+
+Use **forward slashes**, never backslashes.
+
+---
+
+# 🔄 **CSV → Parquet Conversion (working version)**
+
+### **Read CSV**
 
 ```python
-import os
+df = spark.read.csv("/mnt/d/AWS_DE/data.csv", header=True, inferSchema=True)
+```
 
-os.environ["PYSPARK_PYTHON"] = r"D:\conda\envs\pyspark_env\python.exe"
-os.environ["PYSPARK_DRIVER_PYTHON"] = r"D:\conda\envs\pyspark_env\python.exe"
-os.environ["SPARK_HOME"] = r"D:\conda\envs\pyspark_env\Lib\site-packages\pyspark"
+### **Write Parquet**
 
-from pyspark.sql import SparkSession
+```python
+df.write.mode("overwrite").parquet("/mnt/d/AWS_DE/parquet_output")
+```
 
-spark = SparkSession.builder \
-    .master("local[*]") \
-    .appName("PySpark Notebook") \
-    .getOrCreate()
+### **Verify**
 
-spark
+```python
+df2 = spark.read.parquet("/mnt/d/AWS_DE/parquet_output")
+df2.show()
 ```
 
 ---
 
-# 🎉 **8. Test**
+# ⭐ **This is all you need to remember.
 
-```python
-df = spark.createDataFrame([(1,"Animesh"), (2,"LG")], ["id", "name"])
-df.show()
-```
+Following these points = Spark always works.**
 
----
-
-# 🟦 **If PySpark ever gives error again**
-
-Check these 3 things:
-
-1️⃣ `java -version` → should show Java 17
-2️⃣ Python path → should be conda env
-3️⃣ Run `df.show()` → should NOT show “Python was not found”
-
----
-
-# 📌 Done.
-
-This is everything you ever need to remember.
-
-If you want, I can format this as a **PDF**, **Markdown file**, or **Notebook template**.
+If you want, I can also write a **one-click script** to automate the environment setup.
