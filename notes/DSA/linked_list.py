@@ -229,6 +229,25 @@ class LinkedList:
           curr.next=curr.next.next
         else:
           curr=curr.next
+   
+    def remvoe_duplicate_un_sortedLL(self):
+      print("calling duplicate on unsorted ll3")
+      curr=self.head
+      seen=set()
+      prev=None
+      while curr:
+        print(f"curr is : {curr.__dict__}")
+        if prev is not None :
+          print(f"prev is : {prev.__dict__}")
+        else:
+          print(f"prev is : None")
+          
+        if curr.data  in seen:
+          prev.next=curr.next
+        else:
+          seen.add(curr.data)
+          prev=curr 
+        curr=curr.next 
       
       
 ll=LinkedList()
@@ -236,6 +255,7 @@ ll.print_list()
 print("###### new func calling again ###")
 ll.insert_end(10)
 ll.insert_end(20)
+ll.insert_end(30)
 ll.insert_end(30)
 ll.insert_end(40)
 ll.insert_end(50)
@@ -248,8 +268,8 @@ print(f"count is :{count}")
 ll.print_list()
 middle=ll.find_middle()
 print(f"middle is : {middle.data}")
-ll.reverse_ll()
-ll.reverse_ll()
+# ll.reverse_ll()
+# ll.reverse_ll()
 
 ll.print_list()
 # ll.reverse_ll_recursive()
@@ -261,4 +281,15 @@ ll.make_cycle_atINDEX(2)
 ll.detect_cycle()
 ll.remove_cycle()
 ll.detect_cycle()
-ll.check_palindrome()
+# ll.check_palindrome()
+ll3=LinkedList()
+
+ll3.insert_end(1)
+ll3.insert_end(3)
+ll3.insert_end(2)
+ll3.insert_end(3)
+ll3.insert_end(1)
+ll3.remvoe_duplicate_un_sortedLL()
+ll3.print_list()
+
+
