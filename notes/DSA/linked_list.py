@@ -250,6 +250,19 @@ class LinkedList:
         curr=curr.next 
       
       
+    def remove_duplicate_un_sortedll_without_set(self):
+      # time complexity =o(n2)
+      curr=self.head
+      while curr:
+        runner=curr
+        while runner.next:
+          if runner.next.data==curr.data:
+            runner.next=runner.next.next    
+          else:
+            runner=runner.next
+        curr=curr.next
+          
+      
 ll=LinkedList()
 ll.print_list()
 print("###### new func calling again ###")
@@ -289,7 +302,7 @@ ll3.insert_end(3)
 ll3.insert_end(2)
 ll3.insert_end(3)
 ll3.insert_end(1)
-ll3.remvoe_duplicate_un_sortedLL()
+ll3.remove_duplicate_un_sortedll_without_set()
 ll3.print_list()
 
 
