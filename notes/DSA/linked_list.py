@@ -113,17 +113,16 @@ class LinkedList:
                 fast=fast.next.next
             return slow
 
-    def reverse_ll(self):
-      curr=self.head
+    def reverse_ll(self,head):
+      curr=head
       prev=None
-      print("#############3loop starts#######")
       while curr:
           next=curr.next
           curr.next=prev
           prev=curr
           curr=next
   
-      self.head=prev    
+      return prev  
     
     def reverse_ll_recursive(self):
       self.head=self._reverse_Recursive(self.head)
@@ -217,8 +216,19 @@ class LinkedList:
             
     def check_palindrome(self):
       print(self.head.next.__dict__)
-      x=self.find_middle()
-      print(x.data)
+      middle=self.find_middle()
+      
+      second_half=self.reverse_ll(middle)
+      print(f"second hald is {second_half.__dict__}")
+      return self.identical_ll(second_half)
+      
+    def remvoe_duplicate_sortedLL(self):
+      curr=self.head
+      while curr and curr.next:
+        if curr.data ==curr.next.data:
+          curr.next=curr.next.next
+        else:
+          curr=curr.next
       
       
 ll=LinkedList()
