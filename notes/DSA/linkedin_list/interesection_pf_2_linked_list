@@ -1,0 +1,61 @@
+class Node:
+    def __init__(self,data):
+        self.data=data
+        self.next=None
+
+class LinkedList:
+    def __init__(self):
+        self.head=None
+        
+    def insert_end(self,data):
+        new_node=Node(data)
+        
+        if self.head is None:
+            print("yes self.head is none")
+            self.head=new_node
+            return
+
+        temp=self.head
+        while temp.next: 
+            temp=temp.next
+        temp.next=new_node
+
+
+    def print_list(self):
+        temp=self.head
+        while temp:
+            print(temp.data,end=" ")
+            temp=temp.next
+        print()
+
+    
+    def interestion_point_of_2_ll(self,ll2):
+
+      if not self or not ll2.head :
+        return None
+    
+      print("im in")
+          
+
+
+ll3=LinkedList()
+
+ll3.insert_end(1)
+ll3.insert_end(2)
+ll3.insert_end(3)
+ll3.insert_end(8)
+ll3.insert_end(9)
+ll3.insert_end(10)
+
+ll4=LinkedList()
+ll4.insert_end(4)
+ll4.insert_end(5)
+ll4.insert_end(8)
+ll4.insert_end(9)
+ll4.insert_end(10)
+
+ll3.print_list()
+
+ll4.print_list()
+
+ll3.interestion_point_of_2_ll(ll4)
