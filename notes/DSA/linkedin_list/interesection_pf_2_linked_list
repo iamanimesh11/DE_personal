@@ -1,3 +1,7 @@
+# Creating an object
+# Setting the threshold of logger to DEBUG
+import  logging 
+
 class Node:
     def __init__(self,data):
         self.data=data
@@ -34,9 +38,33 @@ class LinkedList:
       if not self or not ll2.head :
         return None
     
-      print("im in")
+      pa=self.head
+      pb=ll2.head
+      print(pa.__dict__)
+      print(pb.__dict__)
+      
+      i=0
+      while pa != pb:
+        i=i+1
+        print(f"index :{i}")
+        if pa is not None:
+          print(f"pa is :{pa.data}")
+        else:
+          print(f"pa is :none")
           
+        pa= pa.next if pa else ll2.head
+        
+        if pb is not None:
+          print(f"pa is :{pb.data}")
+        else:
+            print(f"pb is : none")
 
+        pb=pb.next if pb else self.head
+      
+      print(pa)
+      return pa
+          
+      
 
 ll3=LinkedList()
 
@@ -55,7 +83,8 @@ ll4.insert_end(9)
 ll4.insert_end(10)
 
 ll3.print_list()
-
 ll4.print_list()
 
 ll3.interestion_point_of_2_ll(ll4)
+ll3.print_list()
+ll4.print_list()
