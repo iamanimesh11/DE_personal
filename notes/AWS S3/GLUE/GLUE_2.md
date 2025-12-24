@@ -144,7 +144,7 @@ ATHENA DDL can be used to create external table by defining the strucutre of tab
 for example:
 Example 1: CSV table (with partition projection)
 S3 layout
-```
+```sql
 s3://sales-bucket/sales_csv/
   year=2024/month=09/day=01/
     data.csv
@@ -212,7 +212,7 @@ s3://sales-bucket/sales_parquet/
 ---
 
 Athena DDL (Parquet)
-```
+```sql
 CREATE EXTERNAL TABLE IF NOT EXISTS sales_parquet (
   order_id      string,
   customer_id   string,
@@ -248,7 +248,7 @@ TBLPROPERTIES (
 ---
 
 Query (Parquet)
-```
+```sql
 SELECT order_id, amount
 FROM sales_parquet
 WHERE year=2024 AND month=9 AND day=1;
