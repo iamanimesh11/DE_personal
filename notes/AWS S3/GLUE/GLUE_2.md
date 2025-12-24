@@ -278,3 +278,125 @@ athena does not depend on crawler or sotred parttiion value in table as it know 
 # ⭐Advance Transformation in Glue
 Joining multiple datasets,Filtering, cleaning, removing duplicates,Handling nulls & data quality,Aggregations,Derived/Calculated fields,Window functions (advanced Spark concept),Writing partitioned Parquet output
 
+create a new dataset:
+Customer Details
+Make a new CSV:
+```csv
+id,city,age
+1,Delhi,26
+2,Pune,28
+```
+Upload it to:s3://my-de-lake-animesh11/customers/
+Then create a crawler:customers-crawler
+Source:s3://my-de-lake-animesh11/customers/
+Database:sales_demo_db
+
+This creates a table customers
+Now we can join sales + customers in Glue ETL.
+ Create an Advanced Glue Job
+
+Create a new Glue Job:
+
+sales_transform_advanced
+
+Select Script editor (so we can manually write code).
+ Perform Real Transformations (JOIN + CLEAN + AGGREGATION)
+
+Paste this script:
+
+import sys
+from pyspark.sql import functions as F
+from awsglue.context import GlueContext
+from pyspark.context import SparkContext
+from awsglue.job import Job
+from awsglue.utils import getResolvedOptions
+
+args = getResolvedOptions(sys.argv, ['JOB_NAME'])
+
+sc = SparkContext()
+glueContext = GlueContext(sc)
+spark = glueContext.spark_session
+job = Job(glueContext)
+job.init(args['JOB_NAME'], args)
+
+# 🔹 Read sales parquet (processed layer)
+sales_df = spark.read.parquet("s3://my-de-lake-animesh11/sales_parquet/")
+
+# 🔹 Read customer dataset
+cust_df = spark.read.option("header", "true").csv("s3://my-de-lake-animesh11/customers/")
+
+# Convert types
+cust_df = cust_df.withColumn("id", F.col("id").cast("int")) \
+                 .withColumn("age", F.col("age").cast("int"))
+
+# 🔹 JOIN datasets
+joined = sales_df.join(cust_df, "id", "left")
+
+# 🔹 CLEANING: Replace nulls
+cleaned = joined.fillna({"city": "Unknown", "age": 0})
+
+# 🔹 DERIVED COLUMNS
+final_df = cleaned.withColumn("name_upper", F.upper(F.col("name"))) \
+                  .withColumn("sales_tax", F.col("sales") * 0.18) \
+                  .withColumn("total_sales", F.col("sales") + F.col("sales") * 0.18)
+
+# 🔹 AGGREGATION: Sales by city
+agg_df = final_df.groupBy("city").agg(
+    F.sum("sales").alias("total_city_sales"),
+    F.count("*").alias("num_customers")
+)
+
+# Write curated outputs
+final_df.write.mode("overwrite").parquet("s3://my-de-lake-animesh11/sales_curated/")
+agg_df.write.mode("overwrite").parquet("s3://my-de-lake-animesh11/sales_city_summary/")
+
+job.commit()
+
+---
+
+🔥 What This Script Actually Does
+1️⃣ Read processed sales data: Your Parquet data.
+2️⃣ Read customer data:The new CSV dataset.
+3️⃣ Join on id:This simulates a real star-schema or fact-dimension join.
+4️⃣ Clean data: Replace NULLs.
+5️⃣ Create new business columns:uppercase name,sales tax,total sales
+6️⃣ Aggregation Generates:
+sales by city
+number of customers per city
+
+7️⃣ Writes TWO curated outputs
+sales_curated (clean + enriched)
+sales_city_summary (aggregated insight)
+
+This is EXACTLY how real enterprise ETL runs.
+
+ ⭐crawler for Summary/Curated Tables
+Create a crawler for:s3://my-de-lake-animesh11/sales_city_summary/
+This creates: sales_city_summary
+
+⭐ Query in Athena
+
+Query 1 — Joined + Cleaned + Enriched Table:
+SELECT id, name_upper, city, sales, total_sales
+FROM sales_curated;
+
+Query 2 — Aggregated Summary:
+SELECT * FROM sales_city_summary;
+Expected:
+city	total_city_sales	num_customers
+Delhi	5000	1
+Pune	6000	1
+
+
+#⭐ Athena Performance Tuning -optimization
+important for alrge data to save cost and all
+
+1.partition pruning : should  scan only needed partitions
+2.never do select *
+3. parquet + snappy compression -glue etl job already output parquet with snappy compression.
+❓❓❓❓❓4.athena is slow not because of data size but becuas eof too many small s3 files create massive metadata overhead -so always colesce or repartition your glue output into fewer ,larger parquet files
+
+means when spark write ,it can write file per patitiion baisis.so too many small such file can create slowness and expensive for athena to query .so it would be bette rif have few large files so no opening or reading  time for many small files.
+
+solution is :coalesce(1) mena ro tell spark please write one file only,makes query fast and cheap
+solution2 is:repartition for big data like sayig split data into 10 big chunks grouped by city .df.repartition
