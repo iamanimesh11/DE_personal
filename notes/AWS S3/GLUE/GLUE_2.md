@@ -267,3 +267,14 @@ it will make the query eventually slow and increase query planning time.
 
 use it whwrever partition is patternet alwways not changes .so it better to use 
 so its good when time base dparttions,large numbe rof partitions,append only datamstable schema,athena haeavy workload
+
+
+so whener new partition is added like month=1 and month=2 already existed when added month=3.athena wont run it until crawler run or manually add partition  so athena could see only the glue already discovered.
+after partition project->
+athena does not depend on crawler or sotred parttiion value in table as it know the rules of pattern now
+
+
+
+# ⭐Advance Transformation in Glue
+Joining multiple datasets,Filtering, cleaning, removing duplicates,Handling nulls & data quality,Aggregations,Derived/Calculated fields,Window functions (advanced Spark concept),Writing partitioned Parquet output
+
