@@ -66,7 +66,7 @@ so best practice is using incremenatal adds for very karge tables.
 
 means just adding a single partition ,
 
-like new data rrives for :s3://sales-data/year=2025/month/01/
+like new data rrives for : `s3://sales-data/year=2025/month/01/`
 and so running 
 ```sql
 ALTER TABLE sales ADD PARTITION (year =2025 ,month=1)
@@ -77,9 +77,14 @@ LOCATION 's3://sales-data/year=2025/month/01/';
 
  ⭐ ATHENA VS GLUE VS REDSHIFT VS REDSHIFT SPECTRUM
 
+ Question is all about depend on where does the data live and what do i want to do with it ?
+ 
+
 Service	  |      Description                | Data Location   |
--------- -|---------------------------------|-----------------|
+----------|---------------------------------|-----------------|
 |ATHENA  	|   Serverless SQL on S3          | S3 only         |
 |Glue     |	  ETL  ENGINE                   | S3 ->S3(ETL)    |
 |Redshift |	  Data warehouse (stores data)  | Inside Redshift |
 |Spectrum	|   Redshift querying S3          | S3+redshift     |
+
+Athena is read only Analytics on S3
