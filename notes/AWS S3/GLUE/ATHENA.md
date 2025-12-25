@@ -27,6 +27,7 @@ create table sales_parquet with (
 format ='PARQUET',partitioned_by=ARRAY['year]) as 
 select *,year(order_Date) as year from sales_raw;
 ```
+if not given location to store,it  stor defaut to s3://aws-athena-query-results-<account>/
 
 athena cost depends on scan data not number of rows,query time and so 🤑
 
@@ -60,5 +61,26 @@ MSCK REPAIR TABLE SALES;
 ```
 IT SCAN S3 FOLDER STRUCTRE and auto register partitions in glue,
 uses for data arrive daily and folder are auto created
-
 its cost heavy for large datasets
+so best practice is using incremenatal adds for very karge tables.
+
+means just adding a single partition ,
+
+like new data rrives for :s3://sales-data/year=2025/month/01/
+and so running 
+```sql
+ALTER TABLE sales ADD PARTITION (year =2025 ,month=1)
+LOCATION 's3://sales-data/year=2025/month/01/';
+```
+
+---
+
+ ⭐ ATHENA VS GLUE VS REDSHIFT VS REDSHIFT SPECTRUM
+
+  ---|---
+ ATHENA | Serverless SQL on S3
+ Glue  |ETL ENGINE
+ Redshift | Data warehouse (stores data)
+ Spectrum | Redshift querying S3  
+
+ 
