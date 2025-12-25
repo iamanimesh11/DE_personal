@@ -400,3 +400,91 @@ means when spark write ,it can write file per patitiion baisis.so too many small
 
 solution is :coalesce(1) mena ro tell spark please write one file only,makes query fast and cheap
 solution2 is:repartition for big data like sayig split data into 10 big chunks grouped by city .df.repartition
+
+
+---
+
+# ⭐ workflow automation in aws (event based +Scheduled pipelines)
+so data pipelines run automatically on schedules or whenver new data arrvies.
+
+automation tools:
+1. EventBridge (s3 triggers +scheduled events)
+2. AWS GLUE workflow(ETL Orchestration)
+3. step functions (complex pipelines)
+
+## Part A-triger glue job automatically when new data arrive in S3.
+EventBridge -> Rules -> create rule : trigger_sales_job_on_s3_upload
+event pattern-choose :aws events ,s3,event type-putobject
+bucket -bucketname
+prefix - sales/
+
+means whenever file is uploaded to sales folder -> trigger event
+
+### set target:
+Choose target: AWS Glue Job
+select job:csv_to_parquet_Sales
+
+create rule
+🟢Done
+
+## part b -schedule glue job (daily/hourly Ingestion)
+eventbridge -> create schedule 
+ex. run curated job every day at midnight - 0 0 * * ? *
+targe: sales_generated_curated
+
+production system run 20-200 job like this per day
+
+## part c - build a glue workflow  (mini dag)
+GLUE workflow allow to chain ETL jobs.
+
+        sales workflow
+              |
+              |------ csv_to_parquet_sales (Creates prcessed layer)
+              |
+              |------ sales_Transform_Advanced (Creates curated +summary tables)
+
+❓ how to create:
+Glue -> workflow -> add workflow
+
+1. Add trigger 1:
+```
+   runs the first job: csv_to_parquet_sales
+```
+
+3. Add trigger 2:
+   trigger after job 1 success.
+```
+   sales_transform_advanced
+```
+
+final workflow +event based architecture:
+
+S3 UPLOAD (new sales.csv)
+      |
+eventbridge rule
+      |
+glue workkflow (2 jobs)
+      |
+job 1  csv ->parquet (processed layer)
+      |
+job2 join +clean +Aggregreate (curated layer)
+      |
+athen queries always up to date
+
+
+**NOTE**  
+GLUE WORKFLOW =airlfow dag(but limited to glue jobs only)
+eventbridge -triggers(like snesor in airflow) like s3 sensor ,time snsor,cloudwatch sensor .reacts to new file arrival ,time based schedule,sns events,service events.
+think event trigger not orchestration
+
+
+## ❓ whats step functions are ?
+more powerfu than airflow or flue workflow.its not sut an orchestrator.its state machine that can coordinate any aws service
+
+🔥 step fucntions can: 
+run glue jobs ,lambda func,wiat for external callback,handle retrie,errors,branches,run parallel task,run ml models,integrate with api gateway,automate multistep business logic.
+
+Glue workflow isn't capable to do above things:
+
+**note : step fucntion can connect entire AWS ecosystem**
+
