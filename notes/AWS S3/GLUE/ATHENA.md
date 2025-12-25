@@ -77,10 +77,9 @@ LOCATION 's3://sales-data/year=2025/month/01/';
 
  ⭐ ATHENA VS GLUE VS REDSHIFT VS REDSHIFT SPECTRUM
 
-  ---|---
- ATHENA | Serverless SQL on S3
- Glue  |ETL ENGINE
- Redshift | Data warehouse (stores data)
- Spectrum | Redshift querying S3  
-
- 
+Service	  |      Description                | Data Location   |
+-------- -|---------------------------------|-----------------|
+|ATHENA  	|   Serverless SQL on S3          | S3 only         |
+|Glue     |	  ETL  ENGINE                   | S3 ->S3(ETL)    |
+|Redshift |	  Data warehouse (stores data)  | Inside Redshift |
+|Spectrum	|   Redshift querying S3          | S3+redshift     |
