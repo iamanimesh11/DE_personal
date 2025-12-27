@@ -229,30 +229,14 @@ WAREHOUSE (Redshift)
    |
    |---> Spectrum (query leftover S3)
 
+```
+```
 **Note** : 
-
-RAW DATA (S3)
-   |
-   |---> Athena (explore)
-   |
-   |---> Glue (transform)
-   |
-   v
-ANALYTICS READY (Parquet in S3)
-   |
-   |---> Athena (cheap analysis)
-   |
-   v
-WAREHOUSE (Redshift)
-   |
-   |---> Spectrum (query leftover S3)
-
-
 Athena → Read S3
 Glue → Change S3
 Redshift → Store & serve analytics
 Spectrum → Redshift reading S3
-\
+
 ```
 
 ## 🔹Athena Core Topic  Security, IAM & Lake Formation (EXAM-MANDATORY)
