@@ -152,17 +152,16 @@ as no server ,loading,just sql on s3.
 
 ! Athena =read only analytics on s3
 
-
-case : when change in data requires(ETL)like clearning,joining multiple data,
-apply python logic,build pipelines
+## case : when change in data requires(ETL)like clearning,joining multiple data,apply python logic,build pipelines
 If transformation is:
-
-Simple SQL → Athena CTAS
-Complex logic / Python / Spark → AWS Glue
+- Simple SQL → Athena CTAS
+- Complex logic / Python / Spark → AWS Glue
 | Service | Role         |
 | ------- | ------------ |
 | Athena  | Query data   |
 | Glue    | Process data |
+
+---
 
 Now case if business wants dashboards:
 Problem: athen query are slow for dashboard,multipl user hittig queries and need faster response.
