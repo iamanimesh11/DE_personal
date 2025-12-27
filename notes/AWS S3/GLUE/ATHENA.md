@@ -1,37 +1,95 @@
-# amazon athena -notes
-serverless interactive query service that makes query data direclty in s3 using sql without managing servers.
-❓ why:
-data is already in s3 and loading into redshift /rds cost time and money 
-🌲solution :athena -query in place ,no etl requried for exploration
-athena runs on glue data catalog table and results can be stored back in S3
-⚠️athena cannot query databases direclty like rds ,dynamodb ,data must exist in S3.
+# Amazon Athena — Notes
 
-pricing :
-athena pricing is based on 💰data scennaed per query,optimization is mandatory
+Amazon Athena is a **serverless, interactive query service** that allows you to query data **directly in Amazon S3 using SQL**, without managing any servers.
 
-athen ause column only ,only partition matched ,entire file if not columnar like in parquet scan only spcific column rather than whole file like csv.
+---
 
-athena table are :
-external table
-metadata only 
-deleting daa does not delete data
+## ❓ Why Use Athena?
+
+- Data already exists in **Amazon S3**
+- Loading data into **Redshift** or **RDS**:
+  - Takes time
+  - Increases cost
+
+---
+
+## 🌲 Solution: Athena
+
+- Query data **in place** (directly from S3)
+- **No ETL required** for data exploration
+- Uses **AWS Glue Data Catalog** for table metadata
+- Query results can be **stored back in S3**
+
+---
+
+## ⚠️ Limitations
+
+- Athena **cannot query databases directly**, such as:
+  - Amazon RDS
+  - Amazon DynamoDB
+- Data **must exist in S3**
+
+---
+
+## 💰 Pricing
+
+- Pricing is based on **data scanned per query**
+- **Query optimization is mandatory** to reduce cost
+
+---
+
+## 🚀 Performance & Optimization
+
+- Athena scans **only required columns**
+- Uses **partition pruning**:
+  - Only matching partitions are scanned
+- **Columnar formats** (Parquet, ORC):
+  - Scans only required columns
+- **Row-based formats** (CSV, JSON):
+  - Entire file is scanned even if only one column is selected
+
+---
+
+## 📊 Athena Tables
+
+- Tables are **external tables**
+- Store **metadata only**
+- Deleting a table **does not delete the underlying data** in S3
 
 
-## CTAS (Create table as select
-used for :
-transforming data
-converting format
-creating analytics ready tables
+
+# CTAS (CREATE TABLE AS SELECT)
+
+CTAS is used for:
+- Transforming data
+- Converting data formats
+- Creating analytics-ready tables
+
+---
+
+## 🧪 CTAS Example
 ```sql
-create table sales_parquet with (
-format ='PARQUET',partitioned_by=ARRAY['year]) as 
-select *,year(order_Date) as year from sales_raw;
+CREATE TABLE sales_parquet
+WITH (
+  format = 'PARQUET',
+  partitioned_by = ARRAY['year']
+) AS
+SELECT
+  *,
+  year(order_date) AS year
+FROM sales_raw;
 ```
 if not given location to store,it  stor defaut to s3://aws-athena-query-results-<account>/
 
-athena cost depends on scan data not number of rows,query time and so 🤑
+## 💰 Athena Cost Model
 
-partiiton pruning fail :
+- Athena pricing depends on **data scanned per query**
+- Cost is **not based on**:
+- Number of rows
+- Query execution time
+- Proper partitioning and columnar formats reduce cost 🤑
+  
+## ⚠️ Partition Pruning Failure
 when column like year is int but passed a string in query so type mismatch and make athena scan all partition
 
 athena read compression data directly already.
@@ -45,7 +103,7 @@ partitioned by (year INT)
 STORED AS PARQUET
 LOCATION 's3://sales-data/';
 ```
-it doesn register partitions
+⚠️ This doesn register partitions
 
 registering partitions
 -manual:(not sclaable)
@@ -87,4 +145,105 @@ Service	  |      Description                | Data Location   |
 |Redshift |	  Data warehouse (stores data)  | Inside Redshift |
 |Spectrum	|   Redshift querying S3          | S3+redshift     |
 
-Athena is read only Analytics on S3
+
+So case file exist in s3 only and wanrs to run sql on these files.
+then ✅ Amazon Athena
+as no server ,loading,just sql on s3.
+
+! Athena =read only analytics on s3
+
+
+case : when change in data requires(ETL)like clearning,joining multiple data,
+apply python logic,build pipelines
+If transformation is:
+
+Simple SQL → Athena CTAS
+Complex logic / Python / Spark → AWS Glue
+| Service | Role         |
+| ------- | ------------ |
+| Athena  | Query data   |
+| Glue    | Process data |
+
+Now case if business wants dashboards:
+Problem: athen query are slow for dashboard,multipl user hittig queries and need faster response.
+Question:
+
+👉 Should dashboards query S3 directly?
+❌ No.
+Answer:✅ Amazon Redshift
+Why?
+Stores data internally
+Optimized for BI
+Handles concurrency
+👉 Redshift = final analytics layer
+
+Now You Have BOTH Redshift AND S3 Data
+Situation:
+Old data already loaded in Redshift
+New data still in S3
+You want to JOIN them
+Question:👉 Do I move S3 data into Redshift?
+❌ Not always.
+Answer:✅ Redshift Spectrum
+Why?
+Query S3 from Redshift
+No data movement
+Unified SQL
+👉 Spectrum = Redshift’s eyes into S3
+
+**Note** : 
+
+RAW DATA (S3)
+   |
+   |---> Athena (explore)
+   |
+   |---> Glue (transform)
+   |
+   v
+ANALYTICS READY (Parquet in S3)
+   |
+   |---> Athena (cheap analysis)
+   |
+   v
+WAREHOUSE (Redshift)
+   |
+   |---> Spectrum (query leftover S3)
+
+
+Athena → Read S3
+Glue → Change S3
+Redshift → Store & serve analytics
+Spectrum → Redshift reading S3
+\
+
+
+🔹Athena Core Topic  Security, IAM & Lake Formation (EXAM-MANDATORY)
+
+security is enforced via s3+Glue+IAM,athena doesn't has data.
+
+Three layer of security
+🔐 Layer 1: IAM(who can query)
+who can run athena queries ,can access workgroups.
+example: athena:StartQueryExecution,athena:GetQueryResults
+📌 Exam line:
+IAM controls query execution, not data access
+
+🔐 Layer 2: S3 (What data can be read?)
+Which buckets Athena can read,Where query results can be written
+Required permissions: s3:GetObject (source data),s3:PutObject (query results)
+❌ Missing result bucket permission = query fails
+
+🔐 Layer 3: Glue Data Catalog (What tables exist?)
+Database visibility,Table access,Schema visibility
+Permissions:,glue:GetDatabase,glue:GetTable
+
+Athena workgroups(cost+Security)
+it allow separate users/team,s3 result bucket ,queryy limits
+
+| Requirement              | Use            |
+| ------------------------ | -------------- |
+| Who can query Athena     | IAM            |
+| Which S3 data accessible | S3 policy      |
+| Which tables visible     | Glue           |
+| Column/row level access  | Lake Formation |
+| Cost control             | Workgroups     |
