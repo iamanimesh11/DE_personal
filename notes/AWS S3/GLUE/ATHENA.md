@@ -146,20 +146,26 @@ Service	  |      Description                | Data Location   |
 |Spectrum	|   Redshift querying S3          | S3+redshift     |
 
 
-So case file exist in s3 only and wanrs to run sql on these files.
-then ✅ Amazon Athena
-as no server ,loading,just sql on s3.
+## When data exists only in S3 and you want to run SQL on it
 
+**Use:** ✅ **Amazon Athena**  
+- No servers  
+- No loading  
+- Just SQL directly on S3  
+
+> **Athena = read-only analytics on S3**
 ! Athena =read only analytics on s3
 
 ## case : when change in data requires(ETL)like clearning,joining multiple data,apply python logic,build pipelines
 If transformation is:
 - Simple SQL → Athena CTAS
 - Complex logic / Python / Spark → AWS Glue
+
+
 | Service | Role         |
-| ------- | ------------ |
-| Athena  | Query data   |
-| Glue    | Process data |
+|--------|--------------|
+| Athena | Query data   |
+| Glue   | Process data |
 
 ---
 
