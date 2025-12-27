@@ -170,11 +170,13 @@ If transformation is:
 ---
 
 Now case if business wants dashboards:
-Problem: athen query are slow for dashboard,multipl user hittig queries and need faster response.
+
+Problem: athen query are slow for dashboard,multiple user hittig queries and need faster response.
 Question:
 
 👉 Should dashboards query S3 directly?
 ❌ No.
+
 Answer:✅ Amazon Redshift
 Why?
 Stores data internally
