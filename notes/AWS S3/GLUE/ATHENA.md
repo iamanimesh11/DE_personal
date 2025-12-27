@@ -178,25 +178,56 @@ Question:
 ❌ No.
 
 Answer:✅ Amazon Redshift
-Why?
-Stores data internally
-Optimized for BI
-Handles concurrency
-👉 Redshift = final analytics layer
 
-Now You Have BOTH Redshift AND S3 Data
-Situation:
-Old data already loaded in Redshift
-New data still in S3
-You want to JOIN them
-Question:👉 Do I move S3 data into Redshift?
-❌ Not always.
-Answer:✅ Redshift Spectrum
-Why?
-Query S3 from Redshift
-No data movement
-Unified SQL
-👉 Spectrum = Redshift’s eyes into S3
+**Why?**
+- Stores data internally  
+- Optimized for BI workloads  
+- Handles high concurrency  
+> **Redshift = final analytics layer**
+
+---
+
+## When you have BOTH Redshift and S3 data
+
+### Situation
+- Old data already in Redshift  
+- New data still in S3  
+- You want to JOIN them  
+
+### Question
+👉 Do I move S3 data into Redshift?  
+❌ **Not always**
+
+### Answer
+✅ **Redshift Spectrum**
+
+**Why?**
+- Query S3 directly from Redshift  
+- No data movement  
+- Unified SQL  
+
+> **Spectrum = Redshift’s eyes into S3**
+
+---
+
+## Data Flow Architecture
+
+```text
+RAW DATA (S3)
+   |
+   |---> Athena (explore)
+   |
+   |---> Glue (transform)
+   |
+   v
+ANALYTICS READY (Parquet in S3)
+   |
+   |---> Athena (cheap analysis)
+   |
+   v
+WAREHOUSE (Redshift)
+   |
+   |---> Spectrum (query leftover S3)
 
 **Note** : 
 
