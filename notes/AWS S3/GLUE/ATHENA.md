@@ -257,31 +257,67 @@ Spectrum → Redshift reading S3
 
 ## 🔹Athena Core Topic  Security, IAM & Lake Formation (EXAM-MANDATORY)
 
-security is enforced via s3+Glue+IAM,athena doesn't has data.
+## Athena Security Overview
 
-Three layer of security
-🔐 Layer 1: IAM(who can query)
-who can run athena queries ,can access workgroups.
-example: athena:StartQueryExecution,athena:GetQueryResults
-📌 Exam line:
-IAM controls query execution, not data access
+Security is enforced via S3 + Glue + IAM.  
+Athena does not store data; it only queries data stored elsewhere.
 
-🔐 Layer 2: S3 (What data can be read?)
-Which buckets Athena can read,Where query results can be written
-Required permissions: s3:GetObject (source data),s3:PutObject (query results)
-❌ Missing result bucket permission = query fails
+---
 
-🔐 Layer 3: Glue Data Catalog (What tables exist?)
-Database visibility,Table access,Schema visibility
-Permissions:,glue:GetDatabase,glue:GetTable
+## Three Layers of Security
 
-Athena workgroups(cost+Security)
-it allow separate users/team,s3 result bucket ,queryy limits
+### 🔐 Layer 1: IAM — Who can query?
+- Controls who can run Athena queries
+- Controls access to Athena workgroups
+
+Example permissions:
+- `athena:StartQueryExecution`
+- `athena:GetQueryResults`
+
+📌 Exam Tip:  
+> IAM controls query execution, not data access
+
+---
+
+### 🔐 Layer 2: S3 — What data can be read?
+- Which S3 buckets Athena can read
+- Where query results can be written
+
+Required permissions:
+- `s3:GetObject` → source data
+- `s3:PutObject` → query results
+
+❌ Missing permission on the result bucket = query fails
+
+---
+
+### 🔐 Layer 3: Glue Data Catalog — What tables exist?
+- Database visibility
+- Table access
+- Schema visibility
+
+Required permissions:
+- `glue:GetDatabase`
+- `glue:GetTable`
+
+---
+
+## Athena Workgroups (Cost + Security)
+
+Athena workgroups allow:
+- Separation of users or teams
+- Separate S3 buckets for query results
+- Query limits and cost control
+
+---
+
+## Responsibility Matrix
 
 | Requirement              | Use            |
-| ------------------------ | -------------- |
+|--------------------------|----------------|
 | Who can query Athena     | IAM            |
 | Which S3 data accessible | S3 policy      |
 | Which tables visible     | Glue           |
 | Column/row level access  | Lake Formation |
 | Cost control             | Workgroups     |
+
