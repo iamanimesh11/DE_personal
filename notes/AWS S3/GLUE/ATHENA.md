@@ -253,9 +253,9 @@ Glue → Change S3
 Redshift → Store & serve analytics
 Spectrum → Redshift reading S3
 \
+```
 
-
-🔹Athena Core Topic  Security, IAM & Lake Formation (EXAM-MANDATORY)
+## 🔹Athena Core Topic  Security, IAM & Lake Formation (EXAM-MANDATORY)
 
 security is enforced via s3+Glue+IAM,athena doesn't has data.
 
