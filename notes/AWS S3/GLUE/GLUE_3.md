@@ -120,6 +120,7 @@ example: Glue inferred id as string,Spark expects bigint
 3. glue spark job is strict  ,it still expect same type /
 
 correct fix:explicitly control the schema
+
 option1 : applymapping()
 `mapped_df = ApplyMapping.apply(
     frame=source_df,
@@ -131,6 +132,16 @@ option1 : applymapping()
 `
 foces glue to treat id as bigint
 
+✖️🔴OutOfMemory / Executor Failures
+Job runs → fails mid-way,
+Error mentions executor lost / GC overhead
+
+causes: too large files,many partitions,wrong worker type
+✅ Fix:
+- Increase worker type (G.1X → G.2X)
+- Reduce shuffle
+- Repartition wisely
+Glue job memory issues → scale workers, not retries
 
 
 
