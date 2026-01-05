@@ -13,7 +13,7 @@ Firehose is closer to:
 
 Just:ingest → buffer → deliver
 
---
+---
 
 ## 🧠 Firehose Mental Picture (Physical Analogy)
 
@@ -215,11 +215,156 @@ Why Firehose?
 
 ---
 
-## 🧠 Final mental shortcut (never forget)
+### 🧠 Final mental shortcut (never forget)
 
 > **If you need to THINK → Streams**
 
 > **If you just need to MOVE data → Firehose**
 
+---
 
-![alt text](image.png)
+## 🧠 Firehose Buffering Model (The heart of Kinesis Firehose)
+
+Firehose never sends data immediately.It waits, groups, and then delivers.
+ 
+❓Why?
+* Fewer S3 PUTs
+* Lower cost
+* Better file sizes
+* Higher throughput
+
+Immediate delivery would be expensive and inefficient.
+
+2️⃣ Firehose buffers based on two conditions:
+
+🧱 Buffer Size
+```
+How much data is collected
+Example: 64 MB
+```
+
+⏱️ Buffer Interval
+```
+How long Firehose waits
+Example: 300 seconds
+```
+👉 Whichever happens first triggers delivery
+
+❓why both ?
+* If only size existed:
+`Low traffic → data never delivered`
+* If only time existed:`High traffic → too many small files`
+
+So AWS uses both to balance:`latency vs efficiency`
+
+## 📦 Why Firehose Buffering Controls File Size Quality
+
+1. BAD BUFFERING -> tiny files problem
+
+Example (BAD configuration)
+* Buffer size = 1 MB
+* Buffer time = 60 seconds
+* Incoming rate = low or bursty
+
+What happens?
+>  Every minute → small file → S3
+
+Result after 1 day:
+* Thousands of tiny files (KBs / MBs)
+* Athena must open each file
+* Query becomes slow & expensive
+
+
+
+
+
+3️⃣ Good buffering → optimal files
+```
+Buffer size = 128 MB
+Buffer time = 5 minutes
+Steady data flow
+```
+Firehose behavior:
+```
+Collect data → wait → flush large file
+```
+
+Result:
+* Few large Parquet/JSON files
+* Athena scans efficiently -Lower cost, Faster queries
+
+> Firehose buffering decides whether Athena flies or crawls.
+
+### ❓What does buffer size ,time actually means -example
+
+🧪 Example: LOW / BURSTY traffic
+
+Assume,each record = `10kb` and traffic = `10` records per second .
+```
+10 records × 10 KB = 100 KB per second
+```
+In 60 seconds,
+```
+100 KB/sec × 60 sec = 6,000 KB ≈ 6 MB
+
+but buffer size is only  `1 mb`
+So buffer size will fill before 60 seconds, right?
+```
+
+**When does buffer size hit 1 MB?**
+```
+Time to fill buffer:
+1024 KB ÷ 100 KB/sec ≈ 10 seconds
+```
+
+#### 🔥Firehose behavior
+
+Every 10 seconds,
+```
+1 MB collected → flushed to S3 → buffer reset
+```
+So in 1 minute, S3 gets:
+```
+60 sec ÷ 10 sec = 6 files
+```
+* Files per minute = 6
+* Files per hour = 6 × 60 = 360
+
+Files per day:
+```
+360 × 24 = 8,640 files
+❌ 8,640 tiny files (1 MB each)
+```
+This is the small files problem and make athena costly .
+
+
+### ✅ Now SAME traffic, GOOD buffering
+
+Change only this:
+```
+Buffer size = 128 MB
+Buffer time = 5 minutes
+```
+Now,
+Data rate = 100 KB/sec
+
+Time to fill 128 MB:
+```
+128,000 KB ÷ 100 KB/sec = 1,280 sec ≈ 21 minutes
+```
+But buffer time = 5 minutes → triggers first.
+
+So every 5 minutes:
+```
+~30 MB file written to S3
+```
+Files per day:
+
+`24 hours × 12 files/hour = 288 files`
+
+✅ Much fewer files
+✅ Much faster Athena
+✅ Lower cost
+
+🧠 One-liner to lock it in
+> Firehose buffering decides whether Athena flies or crawls.
