@@ -100,6 +100,7 @@ if one key value appears too often,example : country =`india` appears in 60% row
 
 ✅better to use when small dimension table,avoid join shufflinh ❌not for large table( Ilncreases cost)
 
+---
 
 ## Sort keys (data skipping )
 
@@ -108,11 +109,20 @@ if one key value appears too often,example : country =`india` appears in 60% row
 ❓ why order matters ? -> as store data in blocks and read data blcok-by-block not row-by -row
 
 
+> DISTKEY= node placement
+> SORTKEY = row order inside a node
+
+REDSHIFT store data in blocks and read data block by block ,not row by row means doesn't scan every row and check onditions one by one instead data splits into blocks.
+each block has min and max values which helps tp distinguish the blocks called as `block pruning`
 
 ### Compund sort key
 
+rows are sorted left -to-right ,column by column. basicALLY means first sort by first column and in case of same then applyies second column name as region
+
 * best when queries with filter on first column
-* time based queries
+* mostly uses with time based queries
+
+it fails on query like `where customerid =101` as order_Date not used and no pruning benefit
 
 ```
 example: SORTKEY(order_Date,region)
@@ -122,3 +132,78 @@ example: SORTKEY(order_Date,region)
 
 * equal importance to all columns
 * multiple filter patterns
+
+baiscally rows beung arranged using a grid not a straight line. no single column dominate
+
+Ex. 
+```
+Order_Date |region
+-----------|------
+25-01-01   | IN
+25-01-02   | US
+25-01-01   | US
+2025-01-02 | IN
+
+In compound it's easy to use and efficient but query where region= 'US' bad ,has to scan many blocks
+
+So interleaved  make refshift store data so that :
+  -  rows with same date cluster
+  -  rows with same region also cluster
+
+basically partal ordering for both ,not perfect ordering
+
+
+Mmeory hack-if can't predict which column users will filter on then to use INTERLEAVED
+```
+
+---
+
+
+# copy command
+
+redshift is distributed system ,so how to load datra efficiently
+
+`Insert INTO sales Values(...);` is just single-threaded,no parallelism as one node does most work
+
+SO NOT designe dfor row-by-row inserts.
+
+> **COPY** =parallel bulk load into Redshift from S3
+
+so copy command read data from s3 and split files into chunks and each node load data in parallel,applie disturbution style while loading.
+
+S3 is mandatory ,supporrs high throughput parallel reads 
+
+---
+
+# Redshift Spectrum
+
+Lots of data in huge and dont want to copy into redshift to save cost but still want SQL,Join with Redshift tables
+
+**Athena** is serverless but cannot join with redshift tables.so athena works alone,redshift works alone
+
+So,spectrum allows to query data directly in s3 using sql without loading it into redshift
+
+
+⭐ Performance rule:
+
+fast only when data is in parquet,partitioned in s3,query select few columns not all
+
+❌ but why even needed that spectrum and redshift when have athena ,glue
+
+real world case -two types of data:
+
+1. Hot data (busienss critita;)
+   last few days sales
+   used by dashbaordsl finance ,ops team
+   need fast joins and queries
+>>> store in **amazon redshift**
+
+2. cold/hisotrical data . 
+   old data,rarely queired,huge(tb),mostly for audit ,trend,ML
+>>> store in S3 (cheap storge)
+
+❓ question:give me last 7 days sales(redshift) + same week last year(s3 historical data) in one query
+
+athena only approach would fail as no real time join,dashbaor dcant wait,complex orchestration,slow decision business
+and athena cannot join with redshift tables
+
