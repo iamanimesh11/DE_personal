@@ -41,3 +41,5 @@ No joins.No scans (ideally).No analytics.
 
 #### so its like giant distributed hash table works on key,value
 
+
+
