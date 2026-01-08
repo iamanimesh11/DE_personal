@@ -121,4 +121,99 @@ composite primary key - partition key(pk) +sort key
 ```
 PK=country
 ```
+
+
+# EXAMPLE CASE
+
+> Store user orders for an e-commerce app
+
+for que like :
+* get all order of a user
+* get orders in time range
+* get latest order
+* handle million of users
+
+CREATE A TABLE -> PK=user_id, SK=order_timestamp(str/num)
+
+primary key =(user_id,order_timestamp)
+
+#### so,DynamoDB store all item with same PK on same parttion ,sk keep them sorted inside that partition
+
 bad as million of user -> same pk, all traffic in one partition
+
+> lARGE RATE vol is fine but high req rate on one PK is dangerous ⚡
+
+## Reading data :
+
+1. GetItem - fastest ,but limited:
+   * means give me one exact item must be provided full primary key
+   * dynamodb hash pk ->find partition,binary search sk -> fetch item 
+2. Query -give multiple item with one partiiton
+  mandatory - partition key =exact match,optional =sort key
+
+filterepression apply after data is read ,so cost remain same
+
+3. scan - slow and expensive
+   reads all parititon,check every item and consume massive RCUs
+
+
+## DynamoDB index
+
+not like in relational database but **alternate table* with a differrent primary key,baiscallh different  data struc
+
+brain hack:-> index =/ pointer but another table automaicallt maintained by AWS
+
+* index have own pk/sk and capacity
+* costs money
+
+  Its needed becquae ,can't efificiently do :
+
+  ```
+  amount >500
+  status ='Delivered'
+  product_id='P123'
+  ```
+
+  becuase it understand ony PK/SK ,others is scan (bad)
+
+  🔥indexes exist to add new access patterns
+
+  Types  : LSI (local secondary index) ,GSI (global seocndary index)
+  
+### LSI 
+
+basically same PK but different SK , 
+
+in case when query is for another attribute that is not present - can be used 
+
+like in case 'get all orders of user sorted by **order_amount** instead of time 
+
+💫LSI must be created at TABLE CREATION TIME, can't add 
+
+LSI share RCU.WCU  wuth base table.
+
+#### why don't multiple sort keys 
+
+❌doesn't allow becuase it physiclally stores the data in only one sorted order per partition
+
+dynamodb avoid pointer which uses in rdbms for speed and scale
+
+### GSI -GLOBAL SECONDARY INDEX
+
+-> Has OWN PARTITION KEY AND SORT KEY
+
+example case : get all order where status ="delivered" ,so across all users.
+
+base table is impossible .
+LSI is impossile (same pk)
+
+features:
+ * can be created ,deleted,anytime
+ * supports new access patterns
+
+so, new query requirement afte production -choose **GSI**
+
+
+⭐ So ,LSI reorganize data inside the same partition .GSI created a new way to access data across partitions
+
+**WHAT DOES CONSISTENCY MEANS**
