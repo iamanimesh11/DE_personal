@@ -217,3 +217,86 @@ so, new query requirement afte production -choose **GSI**
 ⭐ So ,LSI reorganize data inside the same partition .GSI created a new way to access data across partitions
 
 **WHAT DOES CONSISTENCY MEANS**
+
+consistency here means when data is being read does latest write immedialty appears or not?
+
+Strong : immediately,no delay
+* strong reads consume double RCUs
+  
+evenutal: after short delay ,read return data - defauly in dynamodb
+
+Physical Placement:
+ LSI:Local Secondary Index
+ * lives in same partition,same node physical ,same write path,, so **Strong consistency is possible**
+
+GSI: live in different partition,diff node,separate scaling  so there is replication lag
+
+
+## Whats RCUs and WCUs ?
+
+WCU (write capacity unit) -> 1 wcu = 1 kb write per second
+>basically writes are rounded up
+
+RCU (read capacity unit) ->
+* strong consistent read = 1RCU = 4kb/s
+* evenutal consistent read = 1 rcu = 8kb/s
+* so eventual read are cheaper ,stronger reads cost 2x so expensive
+
+## Index impact on capacity 
+
+base table +index =multiple writes
+so  if 1 tabke and 2 gsi then  1 write will includes 3 writes so write cost multiplied
+
+💫Reads:
+ * reading from GSI uses GSI RCUs
+ * reading from LSI uses table RCUs
+
+## capacity modes: 
+
+### provisioned capacity -specify RCUs,WCUs  -> when trafic is predictable
+### on demand capacity 
+
+
+## throttling:
+when request > provisioned RCUs/WCUs makes bust exceed limits
+symptoms : `provisionedthroughputexceededexception` ,so better is to beter pk design ,use on demand or add write sharding
+
+# scaling ,hot,partition and design patterns
+
+dynamodb auto create more partition only when PKs are well distributed as it has fixed storage limit 
+
+solution of hot partition is to make randomness basically add sharding
+
+GSI index can become hot partition as well like key Status as Active
+
+
+##  dynamoDB  streams
+
+basically to do sth when data changes in dynamoDB
+
+DynamoDB streams change data capture (CDC) ,it :
+* record every change to items
+* near real time
+* ordered per partition
+* Strean capture :INSERT,MODIFY,REMOVE
+
+  basically it works like:
+  ```
+  write happens -> changes written to stream -> consumer reads stream -> action performed
+  ```
+
+⚡so consumer mostly is `lambda`
+
+ech record contains: event type,timestamp,item data (depends on config)
+
+Stream view types :
+* keys_only -pk and sk
+* new_image -item after change
+* old_image - item before change
+* new_and_old_image - before+after (for comparison)
+
+
+> orderingis possible within a partition key and at least once delivery ,not global ordering
+> stream=/ long term audit kinda,only for 24 hours -retention limit
+> streams aren't enabled by default
+
