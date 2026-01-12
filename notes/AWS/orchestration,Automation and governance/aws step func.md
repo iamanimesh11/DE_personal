@@ -34,7 +34,7 @@ fail -> controlled failrue
   * exactly once exectution
   * detailed execution hisotry
 
-> ETL .BATCH PIPELINES -> STANDARD
+> ETL ,BATCH PIPELINES -> STANDARD
 
 * express workflows
    * at lease once execution
