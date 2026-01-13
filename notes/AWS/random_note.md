@@ -38,5 +38,14 @@ when we want to retrieev photo ,app sen a get request with unique id .system loo
 
 object sorage use hash table
 
+---
 
+Date 13-1-26
+```
+AWS EBS -elastic book store
+AWS OPESEARC
+AWS SYSTEM MANAGER
+Amazon Elastic File System (EFS) is a managed, scalable, and elastic file storage service for AWS that provides shared file access (using NFS) for Linux-based workloads,
+
+```
 
