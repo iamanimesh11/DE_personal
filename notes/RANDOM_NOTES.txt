@@ -1,0 +1,7 @@
+## SCD  slowly changing dimension TYPES ->when dimension data changes
+
+SCD 0 -> no change
+SCD 1 -> REPLACE (old data overwritten,no history) ,EX fix spelling mistake in name
+SCD 2 -> New row :past + present ,Add new row for every change and maintain full history ,ex: address
+SCD 3 -> NEW COLUMN :current +prev + original =>limited history (only last change) ,ex : prev dept
+SCD 4: -> history table  -> separate hist table
