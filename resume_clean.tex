@@ -38,9 +38,9 @@
 \raggedright
 \setlength{\tabcolsep}{0in}
 
-% Sections formatting — consistent with rest of document
+% Sections formatting — normalsize, bold, uppercase — no size jump
 \titleformat{\section}{
-  \vspace{-4pt}\scshape\raggedright\large\bfseries
+  \vspace{-4pt}\raggedright\normalsize\bfseries\uppercase
 }{}{0em}{}[\color{gray!50}\titlerule \vspace{-5pt}]
 
 \pdfgentounicode=1
@@ -48,9 +48,9 @@
 %-------------------------
 % Custom commands
 
-% All bullet items use \small consistently
+% Bullet items at normalsize — consistent body text
 \newcommand{\resumeItem}[1]{
-  \item\small{#1 \vspace{-2pt}}
+  \item{#1 \vspace{-2pt}}
 }
 
 \newcommand{\classesList}[4]{
@@ -105,7 +105,7 @@
 %-----------SUMMARY-----------
 \vspace{3pt}
 
-\small\textit{Software Developer with a focus on data engineering and cloud data platforms. Experienced in building ETL workflows, data ingestion pipelines, and backend integrations using Python, SQL, and APIs. Skilled in working with modern cloud ecosystems including \textbf{AWS, Azure, and Snowflake}, with hands-on experience designing scalable data pipelines using Spark, Airflow, and Kafka through independent projects. Passionate about developing reliable, cloud-native data systems that enable data-driven decision making.}
+Software Developer with a focus on data engineering and cloud data platforms. Experienced in building ETL workflows, data ingestion pipelines, and backend integrations using Python, SQL, and APIs. Skilled in working with modern cloud ecosystems including \textbf{AWS, Azure, and Snowflake}, with hands-on experience designing scalable data pipelines using Spark, Airflow, and Kafka through independent projects. Passionate about developing reliable, cloud-native data systems that enable data-driven decision making.
 \vspace{-10pt}
 
 
@@ -113,7 +113,6 @@
 \section{Skills}
 \vspace{5pt}
 
-\small
 \begin{multicols}{2}
 \begin{itemize}[leftmargin=*, itemsep=2pt]
   \item \textbf{Languages:} Python, SQL, Shell Scripting
@@ -178,9 +177,9 @@
 \section{Certifications}
 \vspace{3pt}
 \begin{itemize}[noitemsep, topsep=0pt]
-  \small\item AWS Certified Data Engineer Associate \hfill {\small 2026}
-  \small\item Master Retrieval-Augmented Generation (RAG) -- LinkedIn \hfill {\small 2025}
-  \small\item Snowflake Hands-On Essentials Workshops \hfill {\small 2025}
+  \item AWS Certified Data Engineer Associate \hfill {2026}
+  \item Master Retrieval-Augmented Generation (RAG) -- LinkedIn \hfill {2025}
+  \item Snowflake Hands-On Essentials Workshops \hfill {2025}
 \end{itemize}
 
 \end{document}
