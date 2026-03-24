@@ -45,6 +45,9 @@
 
 \pdfgentounicode=1
 
+% Ensure \textbf never changes font size — bold only, same size as context
+\renewcommand{\textbf}[1]{{\fontseries{b}\selectfont #1}}
+
 %-------------------------
 % Custom commands
 
@@ -71,7 +74,7 @@
 \newcommand{\resumeProjectHeading}[2]{
   \item
   \begin{tabular*}{1.001\textwidth}{l@{\extracolsep{\fill}}r}
-    \small #1 & \small #2 \\
+    {\small #1} & {\small #2} \\
   \end{tabular*}
 }
 
