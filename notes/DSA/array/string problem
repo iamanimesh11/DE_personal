@@ -1,0 +1,110 @@
+====================================
+LEETCODE - STRING PROBLEMS
+Target: Easy to Intermediate
+Total: ~55 Problems
+====================================
+
+STREAK RULES
+- Daily target: 1-2 problems
+- Finish one category before moving to next
+- Every Sunday: re-attempt 2-3 old problems cold
+- Order: Arrays -> Strings -> Linked Lists -> Trees
+------------------------------------
+
+CATEGORY 1: Basic String Manipulation
+1.  Reverse String
+2.  Reverse Words in a String
+3.  Valid Anagram
+4.  First Unique Character in a String
+5.  Longest Common Prefix
+6.  Count and Say
+7.  Roman to Integer
+8.  Integer to Roman
+
+------------------------------------
+
+CATEGORY 2: Two Pointers on Strings
+9.  Valid Palindrome
+10. Valid Palindrome II
+11. Reverse Vowels of a String
+12. Is Subsequence
+13. Merge Strings Alternately
+
+------------------------------------
+
+CATEGORY 3: Sliding Window on Strings
+14. Longest Substring Without Repeating Characters
+15. Permutation in String
+16. Find All Anagrams in a String
+17. Minimum Window Substring
+18. Longest Repeating Character Replacement
+19. Maximum Number of Vowels in a Substring of Given Length
+
+------------------------------------
+
+CATEGORY 4: HashMap / Frequency Count
+20. Group Anagrams
+21. Ransom Note
+22. Word Pattern
+23. Isomorphic Strings
+24. Custom Sort String
+25. Sort Characters By Frequency
+
+------------------------------------
+
+CATEGORY 5: String Matching / Searching
+26. Find the Index of the First Occurrence in a String
+27. Repeated Substring Pattern
+28. Longest Palindromic Substring
+29. Palindromic Substrings (Count)
+30. Check if Two Strings Are Equivalent
+
+------------------------------------
+
+CATEGORY 6: Stack-based String Problems
+31. Valid Parentheses
+32. Remove All Adjacent Duplicates in String
+33. Decode String
+34. Simplify Path
+35. Remove Outer Parentheses
+
+------------------------------------
+
+CATEGORY 7: String + Math / Encoding
+36. Add Strings
+37. Multiply Strings
+38. Compare Version Numbers
+39. Excel Sheet Column Number
+40. Excel Sheet Column Title
+
+------------------------------------
+
+CATEGORY 8: Greedy on Strings
+41. Reorganize String
+42. Task Scheduler
+43. Minimum Number of Steps to Make Two Strings Anagram
+44. Largest Number (Array of nums -> string)
+45. Break a Palindrome
+
+------------------------------------
+
+CATEGORY 9: Prefix / Suffix / Trie-lite
+46. Longest Word in Dictionary
+47. Replace Words
+48. Implement strStr()
+49. Count of Substrings Containing Every Vowel and K Consonants
+50. Number of Substrings Containing All Three Characters
+
+------------------------------------
+
+CATEGORY 10: Miscellaneous Must-Do
+51. Length of Last Word
+52. Reverse String II
+53. Reverse Words in a String III
+54. String Compression
+55. Decode Ways
+
+====================================
+Search by name on leetcode.com
+Check off each one as you complete it
+====================================
