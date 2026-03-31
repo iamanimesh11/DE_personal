@@ -1,0 +1,115 @@
+====================================
+LEETCODE - ARRAY PROBLEMS
+Target: Easy to Intermediate
+Total: 60 Problems
+====================================
+
+STREAK RULES
+- Daily target: 1-2 problems
+- Finish one category before moving to next
+- Every Sunday: re-attempt 2-3 old problems cold
+- Order: Arrays -> Strings -> Linked Lists -> Trees
+------------------------------------
+
+CATEGORY 1: Two Pointers
+1.  Valid Palindrome
+2.  Two Sum II - Input Array Is Sorted
+3.  3Sum
+4.  Container With Most Water
+5.  Trapping Rain Water
+
+------------------------------------
+
+CATEGORY 2: Sliding Window
+6.  Best Time to Buy and Sell Stock
+7.  Maximum Average Subarray I
+8.  Longest Subarray of 1's After Deleting One Element
+9.  Maximum Number of Vowels in a Substring of Given Length
+10. Minimum Size Subarray Sum
+11. Longest Substring Without Repeating Characters
+12. Permutation in String
+13. Fruit Into Baskets
+
+------------------------------------
+
+CATEGORY 3: Prefix Sum
+14. Running Sum of 1D Array
+15. Find Pivot Index
+16. Range Sum Query - Immutable
+17. Subarray Sum Equals K
+18. Product of Array Except Self
+19. Number of Ways to Split Array
+
+------------------------------------
+
+CATEGORY 4: Kadane's Algorithm (Max Subarray Pattern)
+20. Maximum Subarray
+21. Maximum Product Subarray
+22. Best Time to Buy and Sell Stock (revisit with DP lens)
+23. Maximum Sum Circular Subarray
+
+------------------------------------
+
+CATEGORY 5: Sorting & Greedy
+24. Sort Colors
+25. Merge Intervals
+26. Insert Interval
+27. Non-overlapping Intervals
+28. Meeting Rooms (Premium - skip if no access)
+29. Minimum Number of Arrows to Burst Balloons
+
+------------------------------------
+
+CATEGORY 6: Binary Search on Array
+30. Binary Search
+31. Search Insert Position
+32. Find Minimum in Rotated Sorted Array
+33. Search in Rotated Sorted Array
+34. Find First and Last Position of Element in Sorted Array
+35. Koko Eating Bananas
+
+------------------------------------
+
+CATEGORY 7: Matrix / 2D Array
+36. Matrix Diagonal Sum
+37. Spiral Matrix
+38. Rotate Image
+39. Set Matrix Zeroes
+40. Search a 2D Matrix
+41. Game of Life
+
+------------------------------------
+
+CATEGORY 8: HashMap + Array
+42. Two Sum
+43. Contains Duplicate
+44. Group Anagrams
+45. Top K Frequent Elements
+46. Intersection of Two Arrays II
+47. Majority Element
+48. Longest Consecutive Sequence
+
+------------------------------------
+
+CATEGORY 9: Stack-based Array Problems
+49. Daily Temperatures
+50. Next Greater Element I
+51. Next Greater Element II
+52. Largest Rectangle in Histogram
+53. Car Fleet
+
+------------------------------------
+
+CATEGORY 10: Miscellaneous Must-Do
+54. Move Zeroes
+55. Remove Duplicates from Sorted Array
+56. Find All Numbers Disappeared in an Array
+57. Maximum Consecutive Ones III
+58. Squares of a Sorted Array
+59. Find the Duplicate Number
+60. Missing Number
+
+====================================
+Search by name on leetcode.com
+Check off each one as you complete it
+====================================
