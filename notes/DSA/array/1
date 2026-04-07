@@ -1,11 +1,21 @@
-{3: 1}
-{3: 2}
-{3: 3}
-{3: 3, 1: 1}
-{3: 3, 1: 1, 2: 1}
-{1: 2, 2: 1}
-{1: 3, 2: 1}
-{1: 3, 2: 2}
-{1: 3, 2: 2, 3: 1}
-{2: 1, 3: 2}
-{2: 1, 3: 2, 4: 1}
+def replacezero(arr):
+    left=0
+    maxlen=0
+    count=0
+    for right in range(len(arr)):
+
+        if arr[right]==0:
+            count+=1
+
+        while count>2:
+            if arr[left]==0:
+              count+=1
+            left+=1
+        
+        maxlen=max(maxlen,right-left+1)
+        print(maxlen)
+
+    return maxlen
+
+arr=[1,1,1,0,0,0,1,1,1,1,0]
+replacezero(arr)
