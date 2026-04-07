@@ -1,1 +1,17 @@
+def totalFruit(self, fruits: List[int]) -> int:
 
+        left=0
+        unique={}
+        maxlen=0
+
+        for right in range(len(fruits)):
+            c=fruits[right]
+            unique[c] = unique.get(c,0)+1
+
+            while len(unique)>2:
+                del unique[fruits[left]]
+                left+=1
+        for item,value in unique.items():
+            maxlen+=value
+            
+        return maxlen
