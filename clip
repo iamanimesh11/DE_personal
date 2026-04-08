@@ -1,14 +1,7 @@
-with   orderrevenue as (
-select o.order_id,
-sum(price*quantity*(1-o.discount/100.0) )as revenue
-from products p
-join order_items o
-on p.product_id=o.product_id
-group by o.order_id
-)
 
-select o.customer_id, ord.order_id , o.order_date,ord.revenue as order_total,
-sum(ord.revenue) over (partition by customer_id order by order_date) as running_total
-
-from orderrevenue ord join 
-orders o on ord.order_id=o.order_id
+select count(o.order_id),o.customer_id,avg(p.price*ot.quantity*(1-ot.discount/100.0))as revenue
+from orders o join order_items ot on o.order_id=ot.order_id
+join products p on p.product_id =ot.product_id
+group by customer_id 
+having avg(p.price*ot.quantity*(1-ot.discount/100.0)) >=5000 
+and count(o.order_id)>2 
