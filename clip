@@ -6,7 +6,8 @@ products p
 on p.product_id=o.product_id
 )
 
-select category,sum(revenue)
+select category,sum(revenue) as total_revenue
 from cte 
 group by category
-
+having sum(revenue) >10000
+order by sum(revenue) desc
