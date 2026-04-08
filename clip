@@ -1,13 +1,11 @@
-with cte as (
-select customer_id,max(order_date) as recent_Date
-from orders 
-where  status="returned"
-group by customer_id
-)
 
-select c.customer_id,cu.name
-from cte c 
-join customers cu 
-on c.customer_id=cu.customer_id
 
+SELECT order_date 
+FROM orders 
+WHERE MONTH(order_date) = (
+    SELECT TOP 1 MONTH(order_date)
+    FROM orders
+    GROUP BY MONTH(order_date)
+    ORDER BY COUNT(order_id) DESC
+);
 
