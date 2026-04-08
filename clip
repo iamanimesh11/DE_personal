@@ -1,13 +1,7 @@
-with cte as (
-select p.product_id ,p.category,p.price,o.quantity,o.discount,
-price*quantity*(1-o.discount/100) as revenue from
-products p 
- join order_items o 
-on p.product_id=o.product_id
-)
+select customer_id,order_id,order_date,
+lag(order_date) over (partition by customer_id order by order_date) as prev_date,
+DATEDIFF(day,lag(order_date) over (partition by customer_id order by order_date)
+, order_date)
 
-select category,sum(revenue) as total_revenue
-from cte 
-group by category
-having sum(revenue) >10000
-order by sum(revenue) desc
+from orders
+
