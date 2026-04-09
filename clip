@@ -1,12 +1,13 @@
-with customer_revenue as (
-select (o.order_id),o.customer_id,sum(p.price*ot.quantity*(1-ot.discount/100.0))
-as order_value
-from orders o join order_items ot on o.order_id=ot.order_id
-join products p on p.product_id =ot.product_id
-group by o.order_id,o.customer_id
+WITH product_revenue AS (
+    SELECT 
+        p.product_id, 
+        p.product_name,
+        SUM(p.price * o.quantity * (1 - o.discount / 100.0)) AS total_revenue
+    FROM products p 
+    JOIN order_items o ON p.product_id = o.product_id
+    GROUP BY p.product_id, p.product_name
 )
-
-select customer_id,sum(order_value),
-NTILE(3)  over (partition by customer_id order by sum(order_value)) as n 
-from customer_revenue 
-group by customer_id
+SELECT *,
+    RANK() OVER (ORDER BY total_revenue DESC) AS "rank",
+    DENSE_RANK() OVER (ORDER BY total_revenue DESC) AS "dense_rank"
+FROM product_revenue;
