@@ -1,9 +1,9 @@
-
-select o.order_id  ,p.product_name,
-o.product_id ,
-lead(p.product_name ) over (partition by o.order_id 
-order by  o.product_id) as next_order
-from order_items o 
-join products p 
-on o.product_id=p.product_id
-
++------------+---------------+------------------+
+| order_date | total_revenue | rolling_Avg      |
++------------+---------------+------------------+
+| 2024-01-10 |  14100.000000 | 14100.0000000000 |
+| 2024-01-20 |  15000.000000 | 14550.0000000000 |
+| 2024-02-15 |  71250.000000 | 33450.0000000000 |
+| 2024-03-05 |   2040.000000 | 25597.5000000000 |
+| 2024-04-01 |    750.000000 | 20628.0000000000 |
++------------+---------------+------------------+
