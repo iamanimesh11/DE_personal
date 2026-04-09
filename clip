@@ -1,30 +1,9 @@
 
-WITH order_revenue AS (
-    SELECT 
-        o.order_id, 
-        SUM(p.price * o.quantity * (1 - o.discount / 100.0)) AS total_revenue
-    FROM products p 
-    JOIN order_items o ON p.product_id = o.product_id
-    GROUP BY o.order_id
-    )
-, order_detail as (
-select p.order_id,
-p.total_revenue,
-o.order_date,
-o.customer_id
-from order_revenue p 
-join orders o on o.order_id=p.order_id
-
-)
-select * from (
-select customer_id,
-order_id,
-total_revenue,
- rank() over (partition by customer_id order by order_date) as rn
-from order_detail
-
-) a 
-where rn =1
-
-
+select o.order_id  ,p.product_name,
+o.product_id ,
+lead(p.product_name ) over (partition by o.order_id 
+order by  o.product_id) as next_order
+from order_items o 
+join products p 
+on o.product_id=p.product_id
 
