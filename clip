@@ -1,16 +1,328 @@
+https://onecompiler.com/mysql/44jrc9aj7
 
-select driver_id,count(*) as streak_length 
-from (
+CREATE TABLE drivers (
+    driver_id INT PRIMARY KEY,
+    name VARCHAR(50),
+    city VARCHAR(50),
+    join_date DATE,
+    vehicle_type VARCHAR(20)
+);
 
-select *,
-DATE_SUB(start_time, INTERVAL rn DAY) as group_id 
-from (
-select driver_id,start_time,
+INSERT INTO drivers VALUES
+(1, 'Arjun', 'Delhi', '2021-05-10', 'bike'),
+(2, 'Mehul', 'Mumbai', '2020-11-01', 'car'),
+(3, 'Pooja', 'Delhi', '2022-01-15', 'car'),
+(4, 'Ravi', 'Bangalore', '2019-08-20', 'auto'),
+(5, 'Simran', 'Mumbai', '2023-03-05', 'bike');
+CREATE TABLE riders (
+    rider_id INT PRIMARY KEY,
+    name VARCHAR(50),
+    city VARCHAR(50),
+    signup_date DATE
+);
 
-row_number() over (partition by driver_id order by start_time) as rn 
-from trips
-) a 
+INSERT INTO riders VALUES
+(101, 'Animesh', 'Delhi', '2022-06-01'),
+(102, 'Priya', 'Mumbai', '2021-09-15'),
+(103, 'Dev', 'Delhi', '2023-01-10'),
+(104, 'Aisha', 'Bangalore', '2020-04-22');
+CREATE TABLE trips (
+    trip_id INT PRIMARY KEY,
+    driver_id INT,
+    rider_id INT,
+    start_time DATETIME,
+    end_time DATETIME,
+    status VARCHAR(20),
+    fare DECIMAL(10, 2),
+    distance_km DECIMAL(5, 2),
+    FOREIGN KEY (driver_id) REFERENCES drivers(driver_id),
+    FOREIGN KEY (rider_id) REFERENCES riders(rider_id)
+);
 
-) p 
+INSERT INTO trips VALUES
+(1001, 1, 101, '2024-01-05 08:00:00', '2024-01-05 08:30:00', 'completed', 120.00, 8.5),
+(1002, 2, 102, '2024-01-05 09:00:00', '2024-01-05 09:45:00', 'completed', 210.00, 15.2),
+(1003, 1, 103, '2024-01-06 10:00:00', '2024-01-06 10:20:00', 'cancelled', 0.00, 0.0),
+(1004, 3, 101, '2024-01-07 07:30:00', '2024-01-07 08:00:00', 'completed', 95.00, 6.0),
+(1005, 2, 104, '2024-01-08 11:00:00', '2024-01-08 11:50:00', 'completed', 340.00, 22.1),
+(1006, 4, 102, '2024-01-09 06:00:00', '2024-01-09 06:25:00', 'completed', 80.00, 5.5),
+(1007, 1, 101, '2024-02-01 08:00:00', '2024-02-01 08:40:00', 'cancelled', 150.00, 10.0),
+(1008, 5, 103, '2024-02-03 17:00:00', '2024-02-03 17:30:00', 'cancelled', 0.00, 0.0),
+(1009, 3, 104, '2024-02-10 09:00:00', '2024-02-10 09:55:00', 'completed', 275.00, 18.3),
+(1010, 2, 101, '2024-03-01 08:00:00', '2024-03-01 09:00:00', 'completed', 420.00, 30.0);
 
-group by driver_id,group_id
+CREATE TABLE ratings (
+    rating_id INT PRIMARY KEY,
+    trip_id INT,
+    rated_by VARCHAR(10),
+    score INT,
+    FOREIGN KEY (trip_id) REFERENCES trips(trip_id)
+);
+
+INSERT INTO ratings VALUES
+(1, 1001, 'rider', 5),(2, 1001, 'driver', 4),(3, 1002, 'rider', 3),(4, 1002, 'driver', 5),
+(5, 1004, 'rider', 4),(6, 1005, 'rider', 5),(7, 1006, 'rider', 2),(8, 1007, 'rider', 5),
+(9, 1009, 'rider', 4),(10, 1010, 'rider', 3);
+
+
+-- Q1
+
+-- select driver_id,avg(fare) as avgfare
+-- from trips 
+-- group by driver_id
+-- having avg(fare)>150 and count(status="completed")>2 
+
+
+
+
+
+-- Q2 
+
+-- select driver_id,count(trip_id) as total_trips,
+-- sum(case when status="cancelled" then 1 else 0 end) as cancelled,
+
+-- sum(case when status="cancelled" then 1 else 0  end)*1.0/count(trip_id)
+-- as cancellation_rate
+
+-- from trips 
+-- group by driver_id
+-- having count(trip_id)>2
+
+
+
+-- q3 LAG: Consecutive Cancellation Flag
+
+-- select driver_id,trip_id,status,
+-- lag(status) over (partition by driver_id order by trip_id) as prev_status ,
+
+-- case when status ="cancelled" and
+-- lag(status) over (partition by driver_id order by trip_id)="cancelled"
+-- then 1 else 0 end as is_consecutive_cancel 
+-- from trips 
+
+
+-- select driver_id,	trip_id	,fare,
+
+-- sum(fare) over (partition by driver_id order by trip_id) as f ,
+-- avg(fare) over (partition by driver_id order by trip_id) as avgg 
+-- from  trips
+-- where status="completed"
+
+
+-- with ranked as (
+-- select rider_id,trip_id,fare,
+-- row_number() over (
+-- partition by rider_id
+-- order by start_time
+-- ) as rn_First,
+-- row_number() over (
+-- partition by rider_id
+-- order by start_time desc 
+-- ) as rn_last
+-- from trips 
+-- where status="completed"
+-- )
+
+
+-- select t.* ,
+-- f.fare as first_trip_Fare,
+-- s.fare as last_Trip_fare
+-- from ranked t
+-- left join  ranked f  
+-- on t.rider_id=f.rider_id 
+-- and f.rn_First=1
+-- left join ranked s 
+-- on t.rider_id=s.rider_id
+-- and s.rn_last=1
+
+-- select driver_id,name,total_earning,
+-- case when bucket=1 then 'low'
+-- when bucket=2 then 'mid'
+-- when bucket=3 then 'high'
+-- end as tier 
+-- from (
+-- select *, ntile(3) over (order by total_earning) as bucket from (
+
+-- select d.driver_id,d.name,coalesce(sum(t.fare), 0) as total_earning 
+-- from drivers d 
+-- left join trips  t 
+-- on d.driver_id=t.driver_id
+-- and t.status = "completed"
+-- group by driver_id,d.name
+-- ) t
+
+-- )a;
+
+-- select * from trips ;
+-- with distinct_days as (
+-- select  distinct driver_id,
+-- date(start_time) as trip_date
+-- from trips
+-- )
+-- ,
+-- numbered as (
+
+-- select driver_id,
+-- trip_date,
+-- row_number() over ( partition by driver_id order by trip_date) as rn 
+
+-- from distinct_days
+-- ),
+-- grouped as (
+
+-- select driver_id,trip_date,
+-- date_sub(trip_date, interval rn day ) as grp 
+-- from numbered
+-- ),
+
+-- streaks as (
+
+-- select driver_id,count(*) as streak_length from grouped
+-- group by driver_id,grp
+
+-- )
+
+-- select driver_id, max(streak_length) as longes_Steak 
+-- from streaks
+-- group by driver_id
+
+-- select * from trips;
+-- select * from ratings;
+
+-- with cte as (
+--     select 
+--         r.trip_id, 
+--         r.score,
+--         t.rider_id  -- I assume you'll need this to link it to a driver later!
+--     from ratings r
+--     join trips t 
+--         on r.trip_id = t.trip_id  -- Join trip to trip, not trip to person
+--     where r.rated_by = "rider"
+-- )
+-- select rider_id,
+-- avg(score) as avgscore 
+
+-- from cte
+-- group by rider_id
+
+-- select * from trips;
+
+
+-- SELECT DISTINCT
+--     t1.rider_id AS rider_1,
+--     t2.rider_id AS rider_2,
+--     t1.driver_id AS shared_driver_id
+-- FROM trips t1
+-- JOIN trips t2 
+--     ON t1.driver_id = t2.driver_id
+-- WHERE t1.rider_id < t2.rider_id;
+
+
+
+select * from riders;
+
+select * from trips;
+
+with cte as (
+    select 
+        r.city,
+        r.rider_id,
+        r.name,
+        sum(t.fare) as total_spend
+    from riders r
+    join trips t on r.rider_id = t.rider_id
+    group by r.city, r.rider_id, r.name
+),
+ranked_riders as (
+    select 
+        *,
+        rank() over (partition by city order by total_spend desc) as rnk 
+    from cte
+)
+select * 
+from ranked_riders 
+where rnk = 1; -- This ensures you only see the top person
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
