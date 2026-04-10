@@ -1,9 +1,16 @@
-+------------+---------------+------------------+
-| order_date | total_revenue | rolling_Avg      |
-+------------+---------------+------------------+
-| 2024-01-10 |  14100.000000 | 14100.0000000000 |
-| 2024-01-20 |  15000.000000 | 14550.0000000000 |
-| 2024-02-15 |  71250.000000 | 33450.0000000000 |
-| 2024-03-05 |   2040.000000 | 25597.5000000000 |
-| 2024-04-01 |    750.000000 | 20628.0000000000 |
-+------------+---------------+------------------+
+
+select driver_id,count(*) as streak_length 
+from (
+
+select *,
+DATE_SUB(start_time, INTERVAL rn DAY) as group_id 
+from (
+select driver_id,start_time,
+
+row_number() over (partition by driver_id order by start_time) as rn 
+from trips
+) a 
+
+) p 
+
+group by driver_id,group_id
