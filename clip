@@ -2,4 +2,4 @@ curl -X POST "https://www.ulip.dpiit.gov.in/ulip/v1.0.0/LDB/01" -H "Authorizatio
 
 
 
-curl -X POST "https://www.ulip.dpiit.gov.in/ulip/v1.0.0/user/login" -H "Content-Type: application/json" -H "Accept: application/json" -d "{\"username\":\"YOUR_USERNAME\",\"password\":\"YOUR_PASSWORD\"}"
+curl -X POST "https://www.ulip.dpiit.gov.in/ulip/v1.0.0/user/login" -H "Content-Type: application/json" -H "Accept: application/json" -d "{\"username\":\"bxzz_lg_usr\",\"password\":\"BxIceXEa1C\"}"
