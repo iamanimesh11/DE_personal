@@ -44,7 +44,7 @@ INSERT INTO trips VALUES
 (1004, 3, 101, '2024-01-07 07:30:00', '2024-01-07 08:00:00', 'completed', 95.00, 6.0),
 (1005, 2, 104, '2024-01-08 11:00:00', '2024-01-08 11:50:00', 'completed', 340.00, 22.1),
 (1006, 4, 102, '2024-01-09 06:00:00', '2024-01-09 06:25:00', 'completed', 80.00, 5.5),
-(1007, 1, 101, '2024-02-01 08:00:00', '2024-02-01 08:40:00', 'completed', 150.00, 10.0),
+(1007, 1, 101, '2024-02-01 08:00:00', '2024-02-01 08:40:00', 'cancelled', 150.00, 10.0),
 (1008, 5, 103, '2024-02-03 17:00:00', '2024-02-03 17:30:00', 'cancelled', 0.00, 0.0),
 (1009, 3, 104, '2024-02-10 09:00:00', '2024-02-10 09:55:00', 'completed', 275.00, 18.3),
 (1010, 2, 101, '2024-03-01 08:00:00', '2024-03-01 09:00:00', 'completed', 420.00, 30.0);
@@ -62,296 +62,354 @@ INSERT INTO ratings VALUES
 (5, 1004, 'rider', 4),(6, 1005, 'rider', 5),(7, 1006, 'rider', 2),(8, 1007, 'rider', 5),
 (9, 1009, 'rider', 4),(10, 1010, 'rider', 3);
 
-
--- Q1
-
--- select driver_id,avg(fare) as avgfare
--- from trips 
--- group by driver_id
--- having avg(fare)>150 and count(status="completed")>2 
-
-
-
-
-
--- Q2 
-
--- select driver_id,count(trip_id) as total_trips,
--- sum(case when status="cancelled" then 1 else 0 end) as cancelled,
-
--- sum(case when status="cancelled" then 1 else 0  end)*1.0/count(trip_id)
--- as cancellation_rate
-
--- from trips 
--- group by driver_id
--- having count(trip_id)>2
+-- =========================
+-- Q1 — GROUP BY + HAVING
+-- =========================
+SELECT d.name,
+       COUNT(*) AS completed_trips,
+       AVG(t.fare) AS avg_fare
+FROM trips t
+JOIN drivers d ON d.driver_id = t.driver_id
+WHERE t.status = 'completed'
+GROUP BY d.driver_id, d.name
+HAVING COUNT(*) > 2 AND AVG(t.fare) > 150;
 
 
-
--- q3 LAG: Consecutive Cancellation Flag
-
--- select driver_id,trip_id,status,
--- lag(status) over (partition by driver_id order by trip_id) as prev_status ,
-
--- case when status ="cancelled" and
--- lag(status) over (partition by driver_id order by trip_id)="cancelled"
--- then 1 else 0 end as is_consecutive_cancel 
--- from trips 
-
-
--- select driver_id,	trip_id	,fare,
-
--- sum(fare) over (partition by driver_id order by trip_id) as f ,
--- avg(fare) over (partition by driver_id order by trip_id) as avgg 
--- from  trips
--- where status="completed"
+-- =========================
+-- Q2 — Cancellation Rate
+-- =========================
+SELECT d.driver_id,
+       d.name,
+       COUNT(*) AS total_trips,
+       SUM(CASE WHEN status = 'cancelled' THEN 1 ELSE 0 END) AS cancelled,
+       ROUND(SUM(CASE WHEN status = 'cancelled' THEN 1 ELSE 0 END) * 1.0 / COUNT(*), 2) AS cancellation_rate
+FROM trips t
+JOIN drivers d ON d.driver_id = t.driver_id
+GROUP BY d.driver_id, d.name
+HAVING COUNT(*) >= 2
+ORDER BY cancellation_rate DESC;
 
 
--- with ranked as (
--- select rider_id,trip_id,fare,
--- row_number() over (
--- partition by rider_id
--- order by start_time
--- ) as rn_First,
--- row_number() over (
--- partition by rider_id
--- order by start_time desc 
--- ) as rn_last
--- from trips 
--- where status="completed"
--- )
+-- =========================
+-- Q3 — LAG
+-- =========================
+SELECT driver_id,
+       trip_id,
+       status,
+       LAG(status) OVER (PARTITION BY driver_id ORDER BY start_time) AS prev_status,
+       CASE 
+           WHEN status = 'cancelled' 
+            AND LAG(status) OVER (PARTITION BY driver_id ORDER BY start_time) = 'cancelled'
+           THEN 1 ELSE 0
+       END AS is_consecutive_cancel
+FROM trips;
 
 
--- select t.* ,
--- f.fare as first_trip_Fare,
--- s.fare as last_Trip_fare
--- from ranked t
--- left join  ranked f  
--- on t.rider_id=f.rider_id 
--- and f.rn_First=1
--- left join ranked s 
--- on t.rider_id=s.rider_id
--- and s.rn_last=1
-
--- select driver_id,name,total_earning,
--- case when bucket=1 then 'low'
--- when bucket=2 then 'mid'
--- when bucket=3 then 'high'
--- end as tier 
--- from (
--- select *, ntile(3) over (order by total_earning) as bucket from (
-
--- select d.driver_id,d.name,coalesce(sum(t.fare), 0) as total_earning 
--- from drivers d 
--- left join trips  t 
--- on d.driver_id=t.driver_id
--- and t.status = "completed"
--- group by driver_id,d.name
--- ) t
-
--- )a;
-
--- select * from trips ;
--- with distinct_days as (
--- select  distinct driver_id,
--- date(start_time) as trip_date
--- from trips
--- )
--- ,
--- numbered as (
-
--- select driver_id,
--- trip_date,
--- row_number() over ( partition by driver_id order by trip_date) as rn 
-
--- from distinct_days
--- ),
--- grouped as (
-
--- select driver_id,trip_date,
--- date_sub(trip_date, interval rn day ) as grp 
--- from numbered
--- ),
-
--- streaks as (
-
--- select driver_id,count(*) as streak_length from grouped
--- group by driver_id,grp
-
--- )
-
--- select driver_id, max(streak_length) as longes_Steak 
--- from streaks
--- group by driver_id
-
--- select * from trips;
--- select * from ratings;
-
--- with cte as (
---     select 
---         r.trip_id, 
---         r.score,
---         t.rider_id  -- I assume you'll need this to link it to a driver later!
---     from ratings r
---     join trips t 
---         on r.trip_id = t.trip_id  -- Join trip to trip, not trip to person
---     where r.rated_by = "rider"
--- )
--- select rider_id,
--- avg(score) as avgscore 
-
--- from cte
--- group by rider_id
-
--- select * from trips;
+-- =========================
+-- Q4 — Cumulative + Moving Avg
+-- =========================
+SELECT driver_id,
+       trip_id,
+       fare,
+       SUM(fare) OVER (PARTITION BY driver_id ORDER BY start_time) AS cumulative_earning,
+       AVG(fare) OVER (
+           PARTITION BY driver_id 
+           ORDER BY start_time
+           ROWS BETWEEN 2 PRECEDING AND CURRENT ROW
+       ) AS moving_avg_3
+FROM trips
+WHERE status = 'completed';
 
 
--- SELECT DISTINCT
---     t1.rider_id AS rider_1,
---     t2.rider_id AS rider_2,
---     t1.driver_id AS shared_driver_id
--- FROM trips t1
--- JOIN trips t2 
---     ON t1.driver_id = t2.driver_id
--- WHERE t1.rider_id < t2.rider_id;
+-- =========================
+-- Q5 — FIRST_VALUE / LAST_VALUE
+-- =========================
+SELECT rider_id,
+       trip_id,
+       fare,
+       FIRST_VALUE(fare) OVER (PARTITION BY rider_id ORDER BY start_time) AS first_trip_fare,
+       LAST_VALUE(fare) OVER (
+           PARTITION BY rider_id 
+           ORDER BY start_time 
+           ROWS BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING
+       ) AS latest_trip_fare
+FROM trips
+WHERE status = 'completed';
 
 
-
--- select * from riders;
-
--- select * from trips;
-
--- with cte as (
---     select 
---         r.city,
---         r.rider_id,
---         r.name,
---         sum(t.fare) as total_spend
---     from riders r
---     join trips t on r.rider_id = t.rider_id
---     group by r.city, r.rider_id, r.name
--- ),
--- ranked_riders as (
---     select 
---         *,
---         rank() over (partition by city order by total_spend desc) as rnk 
---     from cte
--- )
--- select * 
--- from ranked_riders 
--- where rnk = 1; -- This ensures you only see the top person
+-- =========================
+-- Q6 — NTILE
+-- =========================
+WITH earnings AS (
+    SELECT d.driver_id,
+           d.name,
+           COALESCE(SUM(t.fare), 0) AS total_earning
+    FROM drivers d
+    LEFT JOIN trips t 
+        ON d.driver_id = t.driver_id AND t.status = 'completed'
+    GROUP BY d.driver_id, d.name
+)
+SELECT *,
+       CASE NTILE(3) OVER (ORDER BY total_earning)
+            WHEN 1 THEN 'Low'
+            WHEN 2 THEN 'Mid'
+            ELSE 'High'
+       END AS tier
+FROM earnings;
 
 
+-- =========================
+-- Q7 — Recursive CTE
+-- =========================
+WITH RECURSIVE ordered AS (
+    SELECT rider_id, trip_id, fare, start_time,
+           ROW_NUMBER() OVER (PARTITION BY rider_id ORDER BY start_time) AS rn
+    FROM trips
+),
+cte AS (
+    SELECT rider_id, trip_id, fare, rn AS trip_sequence
+    FROM ordered
+    WHERE rn = 1
+    UNION ALL
+    SELECT o.rider_id, o.trip_id, o.fare, c.trip_sequence + 1
+    FROM cte c
+    JOIN ordered o 
+      ON c.rider_id = o.rider_id 
+     AND o.rn = c.trip_sequence + 1
+)
+SELECT * FROM cte;
 
 
+-- =========================
+-- Q8 — Gaps & Islands
+-- =========================
+WITH distinct_days AS (
+    SELECT DISTINCT driver_id, DATE(start_time) AS trip_date
+    FROM trips
+    WHERE status = 'completed'
+),
+grp AS (
+    SELECT driver_id,
+           trip_date,
+           DATE_SUB(trip_date, INTERVAL ROW_NUMBER() OVER (PARTITION BY driver_id ORDER BY trip_date) DAY) AS grp
+    FROM distinct_days
+)
+SELECT driver_id,
+       COUNT(*) AS longest_streak_days
+FROM grp
+GROUP BY driver_id, grp
+ORDER BY longest_streak_days DESC;
 
 
+-- =========================
+-- Q9 — Loyalty + Avg Rating
+-- =========================
+WITH trip_counts AS (
+    SELECT rider_id, COUNT(*) AS total_trips
+    FROM trips
+    GROUP BY rider_id
+),
+ratings_cte AS (
+    SELECT t.rider_id, AVG(r.score) AS avg_rating
+    FROM ratings r
+    JOIN trips t ON r.trip_id = t.trip_id
+    WHERE r.rated_by = 'rider'
+    GROUP BY t.rider_id
+)
+SELECT r.rider_id,
+       r.name,
+       CASE 
+           WHEN t.total_trips = 1 THEN 'One-timer'
+           WHEN t.total_trips BETWEEN 2 AND 3 THEN 'Regular'
+           ELSE 'Loyal'
+       END AS label,
+       rc.avg_rating
+FROM riders r
+LEFT JOIN trip_counts t ON r.rider_id = t.rider_id
+LEFT JOIN ratings_cte rc ON r.rider_id = rc.rider_id;
 
 
-
--- WITH RankedTrips AS (
---     SELECT 
---         d.driver_id,
---         d.name,
---         t.fare,
---         -- Assign a row number based on fare for each driver
---         ROW_NUMBER() OVER(PARTITION BY d.driver_id ORDER BY t.fare ASC) as row_asc,
---         -- Get the total count of trips for each driver
---         COUNT(*) OVER(PARTITION BY d.driver_id) as total_trips
---     FROM drivers d
---     JOIN trips t ON d.driver_id = t.driver_id
---     WHERE t.status = 'completed'
--- )
-
--- SELECT 
---     driver_id,
---     name,
---     avg(fare) AS median_fare
--- FROM RankedTrips
--- -- WHERE 
--- --     -- This logic captures the middle 1 or 2 rows
--- --     row_asc BETWEEN total_trips / 2.0 AND total_trips / 2.0 + 1
--- GROUP BY 
---     driver_id, name
-    
-    
--- WITH RiderLastTrip AS (
---     SELECT 
---         r.rider_id,
---         r.name,
---         MAX(t.start_time) AS last_trip_date,
---         -- Get the absolute latest date in the entire dataset
---         MAX(MAX(t.start_time)) OVER() AS latest_system_date
---     FROM riders r
---     JOIN trips t ON r.rider_id = t.rider_id
---     GROUP BY r.rider_id, r.name
--- )
-
--- SELECT 
---     rider_id, 
---     name, 
---     last_trip_date
--- FROM RiderLastTrip
--- WHERE DATEDIFF(latest_system_date, last_trip_date) > 60;
+-- =========================
+-- Q10 — Self Join
+-- =========================
+SELECT DISTINCT
+    t1.rider_id AS rider_1,
+    t2.rider_id AS rider_2,
+    t1.driver_id
+FROM trips t1
+JOIN trips t2 
+  ON t1.driver_id = t2.driver_id
+WHERE t1.rider_id < t2.rider_id;
 
 
--- WITH FareCalc AS (
---     SELECT 
---         driver_id,
---         -- Calculate avg_fare_per_km and handle decimal precision
---         SUM(fare) * 1.0 / NULLIF(SUM(distance_km), 0) AS avg_fare_per_km
---     FROM trips 
---     WHERE status = 'completed'
---     GROUP BY driver_id
--- )
--- SELECT 
---     d.vehicle_type,
---     d.driver_id,
---     d.name,
---     -- Rounding to 2 decimal places to match the 15.58 format
---     ROUND(f.avg_fare_per_km, 2) AS avg_fare_per_km,
---     RANK() OVER (PARTITION BY d.vehicle_type ORDER BY f.avg_fare_per_km DESC) AS rnk 
--- FROM FareCalc f
--- JOIN drivers d ON f.driver_id = d.driver_id
--- ORDER BY d.vehicle_type, rnk;
+-- =========================
+-- Q11 — DENSE_RANK
+-- =========================
+WITH spend AS (
+    SELECT r.city, r.rider_id, r.name, SUM(t.fare) AS total_spend
+    FROM riders r
+    JOIN trips t ON r.rider_id = t.rider_id
+    GROUP BY r.city, r.rider_id, r.name
+)
+SELECT *,
+       DENSE_RANK() OVER (PARTITION BY city ORDER BY total_spend DESC) AS rnk
+FROM spend
+WHERE total_spend IS NOT NULL;
 
-SELECT 
-    d.city,
-    SUM(t.fare) AS total_fare,
-    COUNT(t.trip_id) AS total_requests,
-    SUM(CASE WHEN t.status = 'completed' THEN 1 ELSE 0 END) AS total_completed,
-    SUM(CASE WHEN t.status = 'cancelled' THEN 1 ELSE 0 END) AS total_cancelled,
-    -- Calculate percentages directly
-    ROUND(SUM(CASE WHEN t.status = 'completed' THEN 1 ELSE 0 END) * 100.0 / NULLIF(COUNT(t.trip_id), 0), 2) AS complete_pc,
-    ROUND(SUM(CASE WHEN t.status = 'cancelled' THEN 1 ELSE 0 END) * 100.0 / NULLIF(COUNT(t.trip_id), 0), 2) AS failed_pc
+
+-- =========================
+-- Q12 — EXISTS
+-- =========================
+SELECT d.driver_id, d.name
+FROM drivers d
+WHERE EXISTS (
+    SELECT 1 FROM trips t
+    WHERE t.driver_id = d.driver_id AND t.status = 'completed'
+)
+AND NOT EXISTS (
+    SELECT 1 
+    FROM ratings r
+    JOIN trips t ON r.trip_id = t.trip_id
+    WHERE t.driver_id = d.driver_id
+);
+
+
+-- =========================
+-- Q13 — Pivot
+-- =========================
+SELECT DATE_FORMAT(start_time, '%Y-%m') AS month,
+       SUM(CASE WHEN d.vehicle_type = 'bike' THEN 1 ELSE 0 END) AS bike,
+       SUM(CASE WHEN d.vehicle_type = 'car' THEN 1 ELSE 0 END) AS car,
+       SUM(CASE WHEN d.vehicle_type = 'auto' THEN 1 ELSE 0 END) AS auto
+FROM trips t
+JOIN drivers d ON t.driver_id = d.driver_id
+WHERE t.status = 'completed'
+GROUP BY month;
+
+
+-- =========================
+-- Q14 — Sessionization
+-- =========================
+WITH cte AS (
+    SELECT *,
+           CASE 
+               WHEN TIMESTAMPDIFF(DAY,
+                    LAG(start_time) OVER (PARTITION BY rider_id ORDER BY start_time),
+                    start_time) > 7
+               THEN 1 ELSE 0
+           END AS new_session
+    FROM trips
+),
+sessionized AS (
+    SELECT *,
+           SUM(new_session) OVER (PARTITION BY rider_id ORDER BY start_time) + 1 AS session_id
+    FROM cte
+)
+SELECT rider_id, trip_id, start_time, session_id
+FROM sessionized;
+
+
+-- =========================
+-- Q15 — Percent Rank
+-- =========================
+SELECT t.trip_id,
+       d.city,
+       t.fare,
+       PERCENT_RANK() OVER (PARTITION BY d.city ORDER BY t.fare) AS pct_rank,
+       CASE 
+           WHEN PERCENT_RANK() OVER (PARTITION BY d.city ORDER BY t.fare) >= 0.9 
+           THEN 'outlier'
+           ELSE 'normal'
+       END AS label
+FROM trips t
+JOIN drivers d ON t.driver_id = d.driver_id
+WHERE t.status = 'completed';
+
+
+-- =========================
+-- Q16 — Rolling Revenue
+-- =========================
+WITH daily AS (
+    SELECT DATE(start_time) AS dt,
+           SUM(fare) AS daily_revenue
+    FROM trips
+    WHERE status = 'completed'
+    GROUP BY dt
+)
+SELECT *,
+       SUM(daily_revenue) OVER (
+           ORDER BY dt 
+           ROWS BETWEEN 6 PRECEDING AND CURRENT ROW
+       ) AS rolling_7day,
+       CASE 
+           WHEN daily_revenue = MAX(daily_revenue) OVER ()
+           THEN 'yes' ELSE 'no'
+       END AS is_peak
+FROM daily;
+
+
+-- =========================
+-- Q17 — Median
+-- =========================
+WITH ranked AS (
+    SELECT d.driver_id, d.name, t.fare,
+           ROW_NUMBER() OVER (PARTITION BY d.driver_id ORDER BY t.fare) AS rn,
+           COUNT(*) OVER (PARTITION BY d.driver_id) AS cnt
+    FROM trips t
+    JOIN drivers d ON t.driver_id = d.driver_id
+    WHERE status = 'completed'
+)
+SELECT driver_id, name,
+       AVG(fare) AS median_fare
+FROM ranked
+WHERE rn IN (FLOOR((cnt+1)/2), FLOOR((cnt+2)/2))
+GROUP BY driver_id, name;
+
+
+-- =========================
+-- Q18 — Churn
+-- =========================
+WITH last_trip AS (
+    SELECT rider_id,
+           MAX(start_time) AS last_trip,
+           MAX(MAX(start_time)) OVER () AS max_date
+    FROM trips
+    GROUP BY rider_id
+)
+SELECT r.rider_id, r.name, last_trip
+FROM last_trip lt
+JOIN riders r ON lt.rider_id = r.rider_id
+WHERE DATEDIFF(max_date, last_trip) > 60;
+
+
+-- =========================
+-- Q19 — Efficiency
+-- =========================
+WITH calc AS (
+    SELECT driver_id,
+           SUM(fare) / SUM(distance_km) AS avg_fare_per_km
+    FROM trips
+    WHERE status = 'completed'
+    GROUP BY driver_id
+)
+SELECT d.vehicle_type,
+       d.driver_id,
+       d.name,
+       ROUND(c.avg_fare_per_km, 2),
+       RANK() OVER (PARTITION BY d.vehicle_type ORDER BY c.avg_fare_per_km DESC) AS rnk
+FROM calc c
+JOIN drivers d ON d.driver_id = c.driver_id;
+
+
+-- =========================
+-- Q20 — Funnel
+-- =========================
+SELECT d.city,
+       COUNT(*) AS total,
+       SUM(CASE WHEN status = 'completed' THEN 1 ELSE 0 END) AS completed,
+       SUM(CASE WHEN status = 'cancelled' THEN 1 ELSE 0 END) AS cancelled,
+       ROUND(SUM(CASE WHEN status = 'completed' THEN 1 ELSE 0 END)*100.0/COUNT(*),2) AS completion_pct,
+       ROUND(SUM(CASE WHEN status = 'cancelled' THEN 1 ELSE 0 END)*100.0/COUNT(*),2) AS cancellation_pct
 FROM trips t
 JOIN drivers d ON d.driver_id = t.driver_id
 GROUP BY d.city;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
