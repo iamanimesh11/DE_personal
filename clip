@@ -8,13 +8,10 @@ curl -X POST "https://www.ulip.dpiit.gov.in/ulip/v1.0.0/user/login" -H "Content-
 @echo off
 setlocal
 
-REM 🔐 Replace with your token
 set TOKEN=YOUR_ACCESS_TOKEN
 
-REM 📁 Output folder
 if not exist output mkdir output
 
-REM 📄 Input file
 set INPUT_FILE=containers.txt
 
 for /f %%c in (%INPUT_FILE%) do (
@@ -29,10 +26,10 @@ for /f %%c in (%INPUT_FILE%) do (
 
     echo Saved: output\%%c.json
 
-    REM ⏱️ Wait 5 seconds
+    REM  Wait 5 seconds
     timeout /t 5 >nul
 )
 
 echo.
-echo ✅ All container data fetched!
+echo All container data fetched!
 pause
