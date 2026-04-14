@@ -1,35 +1,11 @@
-curl -X POST "https://www.ulip.dpiit.gov.in/ulip/v1.0.0/LDB/01" -H "Authorization: Bearer YOUR_ACCESS_TOKEN" -H "Content-Type: application/json" -H "Accept: application/json" -d "{\"containerNumber\":\"ACMP1000010\"}"
 
+select p.user_id,p.post_id ,
+p.posted_at,
+count(i.interaction_id) as total_interactions,
+sum(count(i.interaction_id)) 
+        over (partition by p.user_id order by p.posted_at) as cum_sum
+from posts p 
+join interactions i 
+on p.post_id=i.post_id
+GROUP by p.user_id,p.post_id,p.posted_at
 
-
-curl -X POST "https://www.ulip.dpiit.gov.in/ulip/v1.0.0/user/login" -H "Content-Type: application/json" -H "Accept: application/json" -d "{\"username\":\"bxzz_lg_usr\",\"password\":\"BxIceXEa1C\"}"
-
-
-@echo off
-setlocal
-
-set TOKEN=YOUR_ACCESS_TOKEN
-
-if not exist output mkdir output
-
-set INPUT_FILE=containers.txt
-
-for /f %%c in (%INPUT_FILE%) do (
-    echo Fetching data for %%c...
-
-    curl -X POST "https://www.ulipstaging.dpiit.gov.in/ulip/v1.0.0/LDB/01" ^
-    -H "Authorization: Bearer %TOKEN%" ^
-    -H "Content-Type: application/json" ^
-    -H "Accept: application/json" ^
-    -d "{\"containerNumber\":\"%%c\"}" ^
-    -o "output\%%c.json"
-
-    echo Saved: output\%%c.json
-
-    REM  Wait 5 seconds
-    timeout /t 5 >nul
-)
-
-echo.
-echo All container data fetched!
-pause
