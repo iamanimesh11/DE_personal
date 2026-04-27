@@ -1,2 +1,0 @@
-# command to  get size of tabble:
-SELECT pg_size_pretty(pg_total_relation_size('iot_lg.refrigerator_model_frostmaster')) AS actual_size;
