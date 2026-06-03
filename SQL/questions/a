@@ -1,0 +1,133 @@
+-- ==========================================
+-- CREATE TABLES
+-- ==========================================
+
+CREATE TABLE users (
+    user_id INT PRIMARY KEY,
+    name VARCHAR(100),
+    country VARCHAR(50),
+    plan VARCHAR(20),
+    joined_date DATE
+);
+
+CREATE TABLE content (
+    content_id VARCHAR(10) PRIMARY KEY,
+    title VARCHAR(255),
+    genre VARCHAR(50),
+    release_date DATE,
+    duration_min INT,
+    language VARCHAR(50)
+);
+
+CREATE TABLE watch_history (
+    watch_id VARCHAR(10) PRIMARY KEY,
+    user_id INT,
+    content_id VARCHAR(10),
+    watched_at TIMESTAMP,
+    watch_duration_min INT,
+    completed BOOLEAN,
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (content_id) REFERENCES content(content_id)
+);
+
+CREATE TABLE ratings (
+    rating_id VARCHAR(10) PRIMARY KEY,
+    user_id INT,
+    content_id VARCHAR(10),
+    score INT,
+    rated_at DATE,
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (content_id) REFERENCES content(content_id)
+);
+
+-- ==========================================
+-- INSERT USERS
+-- ==========================================
+
+INSERT INTO users (user_id, name, country, plan, joined_date) VALUES
+(1, 'Animesh', 'India', 'premium', '2023-01-10'),
+(2, 'Rohit', 'India', 'basic', '2023-01-15'),
+(3, 'Sara', 'USA', 'premium', '2023-02-01'),
+(4, 'Karan', 'India', 'basic', '2023-02-10'),
+(5, 'Nina', 'UK', 'premium', '2023-03-05'),
+(6, 'Dev', 'India', 'basic', '2023-03-20'),
+(7, 'Priya', 'India', 'premium', '2023-04-01'),
+(8, 'Alex', 'USA', 'basic', '2023-04-15');
+
+-- ==========================================
+-- INSERT CONTENT
+-- ==========================================
+
+INSERT INTO content (
+    content_id,
+    title,
+    genre,
+    release_date,
+    duration_min,
+    language
+) VALUES
+('C01', 'Dark Waters', 'Thriller', '2023-01-01', 122, 'English'),
+('C02', 'Dil Bechara', 'Romance', '2023-01-05', 108, 'Hindi'),
+('C03', 'The Crown', 'Drama', '2023-02-10', 55, 'English'),
+('C04', 'Mirzapur S3', 'Crime', '2023-02-15', 48, 'Hindi'),
+('C05', 'Cosmos', 'Documentary', '2023-03-01', 60, 'English'),
+('C06', 'Panchayat S2', 'Comedy', '2023-03-10', 40, 'Hindi'),
+('C07', 'Oppenheimer', 'Thriller', '2023-04-05', 180, 'English'),
+('C08', 'Lust Stories 2', 'Drama', '2023-04-20', 90, 'Hindi');
+
+-- ==========================================
+-- INSERT WATCH HISTORY
+-- ==========================================
+
+INSERT INTO watch_history (
+    watch_id,
+    user_id,
+    content_id,
+    watched_at,
+    watch_duration_min,
+    completed
+) VALUES
+('W01', 1, 'C01', '2023-01-15 20:00:00', 122, TRUE),
+('W02', 1, 'C02', '2023-01-20 21:00:00', 108, TRUE),
+('W03', 2, 'C01', '2023-01-16 19:00:00', 60, FALSE),
+('W04', 2, 'C04', '2023-02-20 20:00:00', 48, TRUE),
+('W05', 3, 'C03', '2023-02-15 18:00:00', 55, TRUE),
+('W06', 3, 'C05', '2023-03-05 10:00:00', 60, TRUE),
+('W07', 4, 'C02', '2023-02-12 21:00:00', 50, FALSE),
+('W08', 4, 'C06', '2023-03-15 20:00:00', 40, TRUE),
+('W09', 5, 'C07', '2023-04-10 17:00:00', 180, TRUE),
+('W10', 5, 'C08', '2023-04-25 21:00:00', 45, FALSE),
+('W11', 6, 'C04', '2023-03-25 20:00:00', 48, TRUE),
+('W12', 6, 'C06', '2023-04-01 21:00:00', 40, TRUE),
+('W13', 7, 'C07', '2023-04-10 19:00:00', 90, FALSE),
+('W14', 7, 'C08', '2023-04-22 20:00:00', 90, TRUE),
+('W15', 1, 'C07', '2023-04-08 18:00:00', 180, TRUE),
+('W16', 2, 'C06', '2023-04-05 21:00:00', 40, TRUE),
+('W17', 3, 'C07', '2023-04-12 20:00:00', 180, TRUE),
+('W18', 8, 'C01', '2023-04-16 20:00:00', 80, FALSE),
+('W19', 8, 'C05', '2023-04-20 10:00:00', 60, TRUE),
+('W20', 1, 'C08', '2023-04-28 21:00:00', 90, TRUE);
+
+-- ==========================================
+-- INSERT RATINGS
+-- ==========================================
+
+INSERT INTO ratings (
+    rating_id,
+    user_id,
+    content_id,
+    score,
+    rated_at
+) VALUES
+('R01', 1, 'C01', 5, '2023-01-16'),
+('R02', 1, 'C02', 4, '2023-01-21'),
+('R03', 2, 'C01', 3, '2023-01-17'),
+('R04', 3, 'C03', 5, '2023-02-16'),
+('R05', 3, 'C05', 4, '2023-03-06'),
+('R06', 4, 'C06', 5, '2023-03-16'),
+('R07', 5, 'C07', 5, '2023-04-11'),
+('R08', 6, 'C04', 4, '2023-03-26'),
+('R09', 7, 'C08', 3, '2023-04-23'),
+('R10', 1, 'C07', 5, '2023-04-09'),
+('R11', 3, 'C07', 4, '2023-04-13'),
+('R12', 8, 'C05', 5, '2023-04-21');
