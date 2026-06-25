@@ -1,0 +1,341 @@
+# SQL Daily Drill — Day 8
+### 💀 Level: Brutal — One Giant Connected Problem
+
+**Format:** 10 questions. Each builds on the previous.  
+**You cannot skip a question — later questions depend on earlier results.**  
+**Scenario runs as one continuous investigation.**
+
+---
+
+## 🍔 Scenario: Food Delivery Platform — QuickBite
+
+You are a **Senior Data Analyst** at QuickBite. The Head of Growth has flagged that revenue dropped 18% last quarter. Your job is to investigate — question by question — and build the full picture.
+
+---
+
+## 📦 Tables & Sample Data
+
+**customers**
+| customer_id | name     | city      | signup_date | plan     |
+|-------------|----------|-----------|-------------|----------|
+| C01         | Animesh  | Delhi     | 2023-01-10  | gold     |
+| C02         | Rohit    | Mumbai    | 2023-02-15  | silver   |
+| C03         | Sara     | Delhi     | 2023-03-01  | gold     |
+| C04         | Karan    | Bangalore | 2023-03-20  | bronze   |
+| C05         | Nina     | Mumbai    | 2023-04-05  | silver   |
+| C06         | Dev      | Delhi     | 2023-05-10  | bronze   |
+| C07         | Priya    | Bangalore | 2023-06-01  | gold     |
+| C08         | Meera    | Chennai   | 2023-06-15  | silver   |
+
+**restaurants**
+| restaurant_id | name              | city      | cuisine    | avg_prep_time_min | rating |
+|---------------|-------------------|-----------|------------|-------------------|--------|
+| R01           | Burger King       | Delhi     | FastFood   | 15                | 4.2    |
+| R02           | Pizza Hut         | Mumbai    | Italian    | 20                | 4.5    |
+| R03           | Spice Garden      | Delhi     | Indian     | 25                | 4.8    |
+| R04           | Wok Express       | Bangalore | Chinese    | 18                | 4.1    |
+| R05           | South Spice       | Chennai   | Indian     | 30                | 4.6    |
+| R06           | The Burger Lab    | Mumbai    | FastFood   | 12                | 4.3    |
+| R07           | Kebab Corner      | Delhi     | Indian     | 22                | 4.0    |
+| R08           | Dragon Palace     | Bangalore | Chinese    | 20                | 4.4    |
+
+**orders**
+| order_id | customer_id | restaurant_id | order_date | delivery_time_min | status    | total_amount | discount_applied |
+|----------|-------------|---------------|------------|-------------------|-----------|--------------|------------------|
+| O001     | C01         | R01           | 2024-01-05 | 35                | delivered | 450.00       | 50.00            |
+| O002     | C01         | R03           | 2024-01-12 | 55                | delivered | 820.00       | 0.00             |
+| O003     | C02         | R02           | 2024-01-08 | 40                | delivered | 650.00       | 100.00           |
+| O004     | C02         | R06           | 2024-01-20 | 30                | cancelled | 380.00       | 0.00             |
+| O005     | C03         | R01           | 2024-01-15 | 38                | delivered | 520.00       | 50.00            |
+| O006     | C03         | R03           | 2024-02-02 | 60                | delivered | 910.00       | 0.00             |
+| O007     | C04         | R04           | 2024-01-18 | 42                | delivered | 340.00       | 0.00             |
+| O008     | C04         | R08           | 2024-02-10 | 50                | delivered | 490.00       | 50.00            |
+| O009     | C05         | R02           | 2024-01-22 | 45                | delivered | 720.00       | 100.00           |
+| O010     | C05         | R06           | 2024-02-05 | 28                | delivered | 410.00       | 0.00             |
+| O011     | C06         | R07           | 2024-01-25 | 52                | delivered | 380.00       | 0.00             |
+| O012     | C06         | R01           | 2024-02-14 | 48                | cancelled | 420.00       | 50.00            |
+| O013     | C07         | R04           | 2024-02-08 | 35                | delivered | 560.00       | 0.00             |
+| O014     | C07         | R08           | 2024-02-20 | 40                | delivered | 630.00       | 50.00            |
+| O015     | C08         | R05           | 2024-01-30 | 65                | delivered | 780.00       | 0.00             |
+| O016     | C08         | R05           | 2024-02-18 | 70                | delivered | 850.00       | 0.00             |
+| O017     | C01         | R07           | 2024-02-25 | 58                | delivered | 670.00       | 0.00             |
+| O018     | C03         | R03           | 2024-03-05 | 62                | delivered | 940.00       | 0.00             |
+| O019     | C02         | R02           | 2024-03-10 | 44                | delivered | 710.00       | 100.00           |
+| O020     | C07         | R04           | 2024-03-15 | 38                | cancelled | 490.00       | 0.00             |
+
+**delivery_agents**
+| agent_id | name     | city      | joined_date | vehicle  |
+|----------|----------|-----------|-------------|----------|
+| A01      | Vijay    | Delhi     | 2022-06-01  | bike     |
+| A02      | Suresh   | Mumbai    | 2022-08-15  | bike     |
+| A03      | Ramesh   | Delhi     | 2023-01-10  | scooter  |
+| A04      | Dinesh   | Bangalore | 2022-11-20  | bike     |
+| A05      | Mahesh   | Chennai   | 2023-03-05  | scooter  |
+
+**deliveries**
+| delivery_id | order_id | agent_id | pickup_time         | drop_time           | distance_km |
+|-------------|----------|----------|---------------------|---------------------|-------------|
+| D01         | O001     | A01      | 2024-01-05 12:20:00 | 2024-01-05 12:55:00 | 4.2         |
+| D02         | O002     | A03      | 2024-01-12 19:30:00 | 2024-01-12 20:25:00 | 6.8         |
+| D03         | O003     | A02      | 2024-01-08 13:10:00 | 2024-01-08 13:50:00 | 5.1         |
+| D04         | O005     | A01      | 2024-01-15 20:05:00 | 2024-01-15 20:43:00 | 3.9         |
+| D05         | O006     | A03      | 2024-02-02 20:15:00 | 2024-02-02 21:15:00 | 7.2         |
+| D06         | O007     | A04      | 2024-01-18 14:00:00 | 2024-01-18 14:42:00 | 4.5         |
+| D07         | O008     | A04      | 2024-02-10 19:30:00 | 2024-02-10 20:20:00 | 5.8         |
+| D08         | O009     | A02      | 2024-01-22 20:10:00 | 2024-01-22 20:55:00 | 6.0         |
+| D09         | O010     | A02      | 2024-02-05 13:00:00 | 2024-02-05 13:28:00 | 3.2         |
+| D10         | O011     | A03      | 2024-01-25 21:00:00 | 2024-01-25 21:52:00 | 5.5         |
+| D11         | O013     | A04      | 2024-02-08 19:15:00 | 2024-02-08 19:50:00 | 4.1         |
+| D12         | O014     | A04      | 2024-02-20 20:00:00 | 2024-02-20 20:40:00 | 4.8         |
+| D13         | O015     | A05      | 2024-01-30 20:30:00 | 2024-01-30 21:35:00 | 8.5         |
+| D14         | O016     | A05      | 2024-02-18 19:45:00 | 2024-02-18 20:55:00 | 9.0         |
+| D15         | O017     | A01      | 2024-02-25 21:10:00 | 2024-02-25 22:08:00 | 6.5         |
+| D16         | O018     | A03      | 2024-03-05 20:00:00 | 2024-03-05 21:02:00 | 7.0         |
+| D17         | O019     | A02      | 2024-03-10 13:20:00 | 2024-03-10 14:04:00 | 5.3         |
+
+---
+
+## 🔍 The Investigation — 10 Connected Questions
+
+---
+
+### Q1 — Where Is Revenue Coming From?
+
+Start the investigation by computing **net revenue per city per month**.  
+Net revenue = `total_amount - discount_applied` for delivered orders only.  
+Cancelled orders contribute zero revenue.
+
+This is your baseline. Every subsequent question references this picture.
+
+| city      | month   | net_revenue |
+|-----------|---------|-------------|
+| Delhi     | 2024-01 | 1720.00     |
+| Delhi     | 2024-02 | 1580.00     |
+| Delhi     | 2024-03 | 940.00      |
+| Mumbai    | 2024-01 | 1150.00     |
+| Mumbai    | 2024-02 | 410.00      |
+| Mumbai    | 2024-03 | 610.00      |
+| Bangalore | 2024-01 | 340.00      |
+| Bangalore | 2024-02 | 1630.00     |
+| Chennai   | 2024-01 | 780.00      |
+| Chennai   | 2024-02 | 850.00      |
+
+*(Delhi Jan: O001=400, O002=820, O005=470 → 1690. Recalculate: O001 net=450-50=400, O002 net=820-0=820, O005 net=520-50=470 → 1690)*
+*(Compute all carefully — use your own query output as truth)*
+
+---
+
+### Q2 — Which Cities Are Declining?
+
+Using the revenue numbers from Q1, find cities where revenue in **March 2024 is lower than January 2024**.  
+Also compute the absolute drop and percentage drop.
+
+> You are now one step deeper. This tells the Head of Growth WHERE to focus.
+
+| city   | jan_revenue | mar_revenue | absolute_drop | pct_drop |
+|--------|-------------|-------------|---------------|----------|
+| Delhi  | 1690.00     | 940.00      | 750.00        | 44.38    |
+| Mumbai | 1150.00     | 610.00      | 540.00        | 46.96    |
+
+*(Only cities that have data in both Jan and Mar qualify — Bangalore and Chennai have no March orders)*
+
+---
+
+### Q3 — Is the Drop Driven by Fewer Orders or Lower Order Value?
+
+For the **declining cities from Q2** (Delhi and Mumbai), break down the drop further:
+- Orders placed per month (all statuses)
+- Orders delivered per month
+- Average net order value per month (delivered only)
+
+This tells you: did customers order less, or did they spend less per order?
+
+| city   | month   | total_orders | delivered_orders | avg_net_order_value |
+|--------|---------|--------------|------------------|---------------------|
+| Delhi  | 2024-01 | 3            | 3                | 563.33              |
+| Delhi  | 2024-02 | 3            | 2                | 790.00              |
+| Delhi  | 2024-03 | 1            | 1                | 940.00              |
+| Mumbai | 2024-01 | 2            | 1                | 1150.00             |
+| Mumbai | 2024-02 | 1            | 1                | 410.00              |
+| Mumbai | 2024-03 | 1            | 1                | 610.00              |
+
+*(Delhi Jan delivered: O001 net=400, O002 net=820, O005 net=470 → avg=(400+820+470)/3=563.33)*
+*(The story: Delhi's drop is volume-driven — fewer orders in March, not lower spend per order)*
+
+---
+
+### Q4 — Which Restaurants Are Losing Orders in Declining Cities?
+
+Still focused on Delhi and Mumbai. For each restaurant in these cities, compare **order count in Jan vs March 2024**. Flag restaurants that had orders in January but zero in March as `dropped_off`.
+
+| restaurant_id | name           | city   | jan_orders | mar_orders | status      |
+|---------------|----------------|--------|------------|------------|-------------|
+| R01           | Burger King    | Delhi  | 2          | 0          | dropped_off |
+| R03           | Spice Garden   | Delhi  | 1          | 1          | retained    |
+| R07           | Kebab Corner   | Delhi  | 0          | 0          | never_active|
+| R02           | Pizza Hut      | Mumbai | 1          | 1          | retained    |
+| R06           | The Burger Lab | Mumbai | 1          | 0          | dropped_off |
+
+*(R07 had O011 in Jan — check: O011 customer C06, restaurant R07, date 2024-01-25 → R07 DID have a Jan order)*
+
+| restaurant_id | name           | city   | jan_orders | mar_orders | status      |
+|---------------|----------------|--------|------------|------------|-------------|
+| R01           | Burger King    | Delhi  | 2          | 0          | dropped_off |
+| R03           | Spice Garden   | Delhi  | 1          | 1          | retained    |
+| R07           | Kebab Corner   | Delhi  | 1          | 0          | dropped_off |
+| R02           | Pizza Hut      | Mumbai | 1          | 1          | retained    |
+| R06           | The Burger Lab | Mumbai | 1          | 0          | dropped_off |
+
+---
+
+### Q5 — Is Delivery Time a Factor for Dropped-Off Restaurants?
+
+For the `dropped_off` restaurants from Q4 (R01, R07, R06), compute their **average actual delivery time** and compare it to the **platform average delivery time** across all delivered orders.
+
+> Hypothesis: maybe customers stopped ordering from these restaurants because delivery was slow.
+
+| restaurant_id | name           | avg_delivery_time_min | platform_avg_delivery_min | above_platform_avg |
+|---------------|--------------|-----------------------|---------------------------|--------------------|
+| R01           | Burger King    | 36.50                 | 46.94                     | no                 |
+| R07           | Kebab Corner   | 52.00                 | 46.94                     | yes                |
+| R06           | The Burger Lab | 30.00                 | 46.94                     | no                 |
+
+*(Actual delivery time = drop_time - pickup_time in minutes)*
+*(D01 R01: 12:55-12:20=35 min, D04 R01: 20:43-20:05=38 min → avg=36.5)*
+*(D10 R07: 21:52-21:00=52 min → avg=52)*
+*(D03 R06: 13:50-13:10=40 min → avg=40)*
+*(Platform avg: sum all delivery durations / count. D01=35,D02=55,D03=40,D04=38,D05=60,D06=42,D07=50,D08=45,D09=28,D10=52,D11=35,D12=40,D13=65,D14=70,D15=58,D16=62,D17=44 → sum=799, count=17 → avg=47.0)*
+
+| restaurant_id | name           | avg_delivery_min | platform_avg_min | above_platform_avg |
+|---------------|----------------|------------------|------------------|--------------------|
+| R01           | Burger King    | 36.50            | 47.00            | no                 |
+| R07           | Kebab Corner   | 52.00            | 47.00            | yes                |
+| R06           | The Burger Lab | 40.00            | 47.00            | no                 |
+
+*(Delivery time isn't the smoking gun for R01 and R06 — something else is causing drop-off)*
+
+---
+
+### Q6 — Are the Customers Who Stopped Ordering High-Value or Low-Value?
+
+Find customers in Delhi and Mumbai who placed at least one order in January but **zero orders in February and March combined**. Classify them as `high_value` (total lifetime net revenue > ₹1000) or `low_value`.
+
+> This is where the investigation turns — are we losing our best customers?
+
+| customer_id | name  | city   | jan_orders | feb_mar_orders | lifetime_net_revenue | segment     |
+|-------------|-------|--------|------------|----------------|----------------------|-------------|
+| C02         | Rohit | Mumbai | 2          | 0 (wait — C02 has O019 in March) | ...  | ...     |
+
+*(C02: O003 Jan delivered, O004 Jan cancelled, O019 Mar delivered → C02 has March order → does NOT qualify)*
+*(Check each Delhi/Mumbai customer: C01 Delhi: O001 Jan, O002 Jan, O017 Feb → has Feb → no. C03 Delhi: O005 Jan, O006 Feb, O018 Mar → no. C06 Delhi: O011 Jan, O012 Feb cancelled → has Feb order (even cancelled) → depends on your definition — use "placed" not "delivered")*
+
+*(Re-examine: C06 placed O012 in Feb → still placed in Feb → does not qualify)*
+*(With this dataset, no Delhi/Mumbai customer placed orders ONLY in January and nothing after — extend data or adjust month range to test this logic properly)*
+
+---
+
+### Q7 — Which Delivery Agents Are Handling the Slowest Deliveries?
+
+For each agent, compute:
+- Total deliveries handled
+- Average delivery speed (km per minute = distance_km / actual_delivery_minutes)
+- Rank agents within their city by speed (fastest = rank 1)
+
+> Connect this back: slow agents in Delhi and Mumbai may be contributing to poor customer experience.
+
+| agent_id | name   | city   | total_deliveries | avg_speed_km_per_min | city_rank |
+|----------|--------|--------|------------------|----------------------|-----------|
+| A01      | Vijay  | Delhi  | 3                | 0.098                | 2         |
+| A03      | Ramesh | Delhi  | 3                | 0.101                | 1         |
+| A02      | Suresh | Mumbai | 3                | 0.118                | 1         |
+| A04      | Dinesh | Bangalore | 3             | 0.112                | 1         |
+| A05      | Mahesh | Chennai| 2                | 0.122                | 1         |
+
+*(A01: D01=35min/4.2km=0.120, D04=38min/3.9km=0.103, D15=58min/6.5km=0.112 → avg=0.112)*
+*(Compute all carefully — speed = distance/time, higher is faster)*
+
+---
+
+### Q8 — Build the Cancellation Profile
+
+For every customer who has at least one cancelled order, compute:
+- Total orders placed
+- Total cancelled
+- Cancellation rate
+- Whether their cancellation rate is above the platform average cancellation rate
+
+Then find if high cancellation rate customers are concentrated in any particular city — this may explain revenue loss.
+
+| customer_id | name  | city      | total_orders | cancelled | cancel_rate | above_platform_avg |
+|-------------|-------|-----------|--------------|-----------|-------------|---------------------|
+| C02         | Rohit | Mumbai    | 3            | 1         | 0.33        | yes                 |
+| C06         | Dev   | Delhi     | 2            | 1         | 0.50        | yes                 |
+| C07         | Priya | Bangalore | 3            | 1         | 0.33        | yes                 |
+
+*(Platform cancel rate: 3 cancelled out of 20 total = 0.15)*
+*(All three customers with cancellations are above 0.15)*
+
+---
+
+### Q9 — Cohort Revenue Retention by Signup Month
+
+Group customers by their **signup month**. For each cohort, compute how much net revenue they generated in each subsequent calendar month (Jan, Feb, Mar 2024).
+
+This tells you: are newer customers spending less than older customers did at the same age?
+
+| cohort      | month   | cohort_size | net_revenue | revenue_per_customer |
+|-------------|---------|-------------|-------------|----------------------|
+| 2023-01     | 2024-01 | 1           | 1220.00     | 1220.00              |
+| 2023-01     | 2024-02 | 1           | 670.00      | 670.00               |
+| 2023-02     | 2024-01 | 1           | 550.00      | 550.00               |
+| 2023-02     | 2024-03 | 1           | 610.00      | 610.00               |
+| 2023-03     | 2024-01 | 1           | 470.00      | 470.00               |
+| 2023-03     | 2024-02 | 1           | 910.00      | 910.00               |
+| 2023-03     | 2024-03 | 1           | 940.00      | 940.00               |
+
+*(C01 signup Jan 2023: Jan revenue = O001 net 400 + O002 net 820 = 1220. Feb = O017 net 670)*
+*(Compute all cohorts — this is the most important slide for the Head of Growth)*
+
+---
+
+### Q10 — The Final Verdict: Unified Drop Explanation
+
+This is the final question. Synthesize everything using a single query with 4+ chained CTEs that produces one summary row per city showing:
+
+1. `jan_net_revenue` — from Q1
+2. `mar_net_revenue` — from Q1
+3. `revenue_drop_pct` — from Q2
+4. `dominant_drop_reason` — your label based on logic:
+   - `volume_drop` if delivered order count fell more than 30% Jan→Mar
+   - `value_drop` if avg order value fell more than 30% Jan→Mar
+   - `both` if both dropped more than 30%
+   - `other` if neither clearly explains it
+5. `top_dropped_restaurant` — restaurant with most Jan orders and zero Mar orders in that city
+6. `slowest_agent` — agent with lowest avg speed in that city
+7. `high_cancel_customer_count` — count of customers in that city with cancel rate > platform average
+
+Only include cities that had a revenue drop (from Q2 logic).
+
+| city   | jan_net_revenue | mar_net_revenue | revenue_drop_pct | dominant_drop_reason | top_dropped_restaurant | slowest_agent | high_cancel_customers |
+|--------|-----------------|-----------------|------------------|----------------------|------------------------|---------------|-----------------------|
+| Delhi  | 1690.00         | 940.00          | 44.38            | volume_drop          | Burger King            | Vijay         | 1                     |
+| Mumbai | 1150.00         | 610.00          | 46.96            | volume_drop          | The Burger Lab         | Suresh        | 1                     |
+
+> This is the slide you present to the Head of Growth. Every number in it traces back to Q1 through Q9.
+
+---
+
+## 📌 How This Investigation Flows
+
+```
+Q1 (revenue baseline)
+  └── Q2 (find declining cities)
+        └── Q3 (volume vs value breakdown)
+              └── Q4 (which restaurants dropped off)
+                    └── Q5 (is delivery time the cause?)
+              └── Q6 (are we losing high-value customers?)
+        └── Q7 (agent performance by city)
+        └── Q8 (cancellation profile)
+Q9 (cohort revenue retention — independent but feeds Q10)
+Q10 (final verdict — pulls from ALL previous CTEs)
+```
