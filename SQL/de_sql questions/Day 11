@@ -1,0 +1,893 @@
+SQL DAILY DRILL — DAY 11
+Data Engineering SQL — Pipeline & Data Quality Problems
+========================================================
+
+FOCUS: CDC handling · Deduplication · Incremental loads ·
+       SCD Type 2 merge · Schema drift · Data quality checks ·
+       Partition pruning awareness · Late arriving data
+
+No business narrative. Pure DE problems.
+Every question has a trap. Missing the trap = wrong answer.
+========================================================
+
+
+PROBLEM CONTEXT
+---------------
+You are a Data Engineer at a fintech company. You own the data
+pipeline that ingests raw transactional data from the source OLTP
+system into your data warehouse. The source sends data via CDC
+(Change Data Capture) — every INSERT, UPDATE, and DELETE on the
+source table produces a new row in your raw landing table.
+
+Your job: write SQL that handles real pipeline problems correctly.
+
+========================================================
+
+
+RAW TABLES (Landing Zone — what the pipeline dumps)
+----------------------------------------------------
+
+orders_cdc  (raw CDC log from source)
+| order_id | customer_id | amount  | status    | updated_at          | op     |
+|----------|-------------|---------|-----------|---------------------|--------|
+| O001     | C01         | 1200.00 | pending   | 2024-03-01 08:00:00 | INSERT |
+| O002     | C01         | 850.00  | pending   | 2024-03-01 09:00:00 | INSERT |
+| O003     | C02         | 2200.00 | pending   | 2024-03-01 10:00:00 | INSERT |
+| O001     | C01         | 1200.00 | delivered | 2024-03-01 14:00:00 | UPDATE |
+| O002     | C01         | 850.00  | cancelled | 2024-03-01 15:00:00 | UPDATE |
+| O004     | C03         | 500.00  | pending   | 2024-03-02 08:00:00 | INSERT |
+| O003     | C02         | 2200.00 | delivered | 2024-03-02 11:00:00 | UPDATE |
+| O001     | C01         | 1200.00 | returned  | 2024-03-02 13:00:00 | UPDATE |
+| O004     | C03         | 500.00  | delivered | 2024-03-02 16:00:00 | UPDATE |
+| O005     | C02         | 750.00  | pending   | 2024-03-03 09:00:00 | INSERT |
+| O002     | C01         | 850.00  | pending   | 2024-03-01 09:00:00 | INSERT |
+| O003     | C02         | 2200.00 | pending   | 2024-03-01 10:00:00 | INSERT |
+
+-- Note: O002 and O003 appear twice as INSERT with identical data.
+-- This is a pipeline re-run bug — duplicate raw inserts.
+
+customers_snapshot  (full snapshot delivered every day)
+| snapshot_date | customer_id | name    | city      | plan     | credit_limit |
+|---------------|-------------|---------|-----------|----------|--------------|
+| 2024-03-01    | C01         | Animesh | Delhi     | gold     | 50000        |
+| 2024-03-01    | C02         | Rohit   | Mumbai    | silver   | 30000        |
+| 2024-03-01    | C03         | Sara    | Bangalore | bronze   | 15000        |
+| 2024-03-02    | C01         | Animesh | Delhi     | gold     | 50000        |
+| 2024-03-02    | C02         | Rohit   | Mumbai    | gold     | 40000        |
+| 2024-03-02    | C03         | Sara    | Bangalore | bronze   | 15000        |
+| 2024-03-03    | C01         | Animesh | Delhi     | platinum | 75000        |
+| 2024-03-03    | C02         | Rohit   | Mumbai    | gold     | 40000        |
+| 2024-03-03    | C03         | Sara    | Bangalore | bronze   | 15000        |
+
+-- Note: C01 plan changed from gold → platinum on 2024-03-03
+--       C02 plan changed from silver → gold on 2024-03-02
+--       C03 never changed
+
+dim_customers  (your current SCD Type 2 dimension table in warehouse)
+| sk  | customer_id | name    | city      | plan   | credit_limit | valid_from | valid_to   | is_current |
+|-----|-------------|---------|-----------|--------|--------------|------------|------------|------------|
+| 1   | C01         | Animesh | Delhi     | gold   | 50000        | 2024-03-01 | NULL       | true       |
+| 2   | C02         | Rohit   | Mumbai    | silver | 30000        | 2024-03-01 | NULL       | true       |
+| 3   | C03         | Sara    | Bangalore | bronze | 15000        | 2024-03-01 | NULL       | true       |
+
+-- This is the state BEFORE processing the Mar 02 and Mar 03 snapshots.
+
+pipeline_audit  (tracks each pipeline run)
+| run_id | pipeline_name  | run_date   | status  | rows_loaded | last_loaded_at      |
+|--------|----------------|------------|---------|-------------|---------------------|
+| R01    | orders_cdc     | 2024-03-01 | success | 5           | 2024-03-01 23:00:00 |
+| R02    | orders_cdc     | 2024-03-02 | success | 4           | 2024-03-02 23:00:00 |
+| R03    | orders_cdc     | 2024-03-03 | failed  | 0           | NULL                |
+| R04    | customer_snap  | 2024-03-01 | success | 3           | 2024-03-01 22:00:00 |
+| R05    | customer_snap  | 2024-03-02 | success | 3           | 2024-03-02 22:00:00 |
+
+========================================================
+
+
+Q1 — Deduplicate CDC Log: Get Latest State of Each Order
+---------------------------------------------------------
+
+The orders_cdc table has multiple rows per order_id (INSERT + UPDATEs)
+plus duplicate INSERTs from pipeline re-runs.
+
+Write a query that returns exactly ONE row per order_id representing
+its current/latest state.
+
+Rules:
+- If op = 'DELETE' exists for an order, exclude that order entirely
+- Among duplicates with identical updated_at and op, keep any one
+  (they are true duplicates — content is same)
+- Among rows with different updated_at, keep the latest one
+
+
+QUERY:
+------
+WITH deduplicated AS (
+    SELECT DISTINCT
+        order_id,
+        customer_id,
+        amount,
+        status,
+        updated_at,
+        op
+    FROM orders_cdc
+),
+latest_per_order AS (
+    SELECT
+        order_id,
+        customer_id,
+        amount,
+        status,
+        updated_at,
+        op,
+        ROW_NUMBER() OVER (
+            PARTITION BY order_id
+            ORDER BY updated_at DESC
+        ) AS rn
+    FROM deduplicated
+)
+SELECT
+    order_id,
+    customer_id,
+    amount,
+    status,
+    updated_at,
+    op
+FROM latest_per_order
+WHERE rn = 1
+  AND op != 'DELETE';
+
+
+TRAP:
+-----
+If you skip the DISTINCT step and go straight to ROW_NUMBER, the
+duplicate INSERTs for O002 and O003 will both get rn=2 (same
+updated_at), and ROW_NUMBER will arbitrarily pick one — which
+happens to be correct here but is not guaranteed. On a large
+table with millions of duplicates this becomes a correctness bug.
+
+Always DISTINCT first on the full row, then window function.
+
+EXPECTED OUTPUT:
+| order_id | customer_id | amount  | status    | updated_at          |
+|----------|-------------|---------|-----------|---------------------|
+| O001     | C01         | 1200.00 | returned  | 2024-03-02 13:00:00 |
+| O002     | C01         | 850.00  | cancelled | 2024-03-01 15:00:00 |
+| O003     | C02         | 2200.00 | delivered | 2024-03-02 11:00:00 |
+| O004     | C03         | 500.00  | delivered | 2024-03-02 16:00:00 |
+| O005     | C02         | 750.00  | pending   | 2024-03-03 09:00:00 |
+
+
+========================================================
+
+
+Q2 — Incremental Load: Only Process New CDC Records Since Last Run
+------------------------------------------------------------------
+
+Your pipeline runs daily. On 2024-03-03 it failed (R03 in
+pipeline_audit). On 2024-03-04 it re-runs and needs to pick up
+ALL records it missed — not just today's, but also Mar 03's.
+
+Write a query that:
+1. Finds the last successful load timestamp from pipeline_audit
+   for the orders_cdc pipeline
+2. Returns all CDC records with updated_at > that timestamp
+3. Does NOT hardcode the date — must read from pipeline_audit
+
+
+QUERY:
+------
+WITH last_success AS (
+    SELECT MAX(last_loaded_at) AS last_run_at
+    FROM pipeline_audit
+    WHERE pipeline_name = 'orders_cdc'
+      AND status = 'success'
+)
+SELECT
+    cdc.*
+FROM orders_cdc cdc
+CROSS JOIN last_success ls
+WHERE cdc.updated_at > ls.last_run_at;
+
+
+TRAP:
+-----
+If you use MAX(run_date) instead of MAX(last_loaded_at) you get
+the wrong cutoff. run_date is the calendar date of the pipeline
+execution. last_loaded_at is the actual timestamp of the last
+record processed. These differ when pipeline runs at 11pm but
+records arrive at midnight — you would miss the gap.
+
+Also: if ALL runs have failed (last_success returns NULL),
+the WHERE clause becomes updated_at > NULL which returns zero
+rows silently. Always handle the NULL case:
+
+    WHERE cdc.updated_at > COALESCE(ls.last_run_at, '1900-01-01')
+
+EXPECTED OUTPUT:
+All CDC records with updated_at > 2024-03-02 23:00:00
+→ Only O005 (2024-03-03 09:00:00) qualifies from clean data.
+
+
+========================================================
+
+
+Q3 — SCD Type 2 Merge: Apply Snapshot Changes to Dimension Table
+-----------------------------------------------------------------
+
+You have dim_customers in its Mar 01 state. The Mar 02 snapshot
+arrived. Write a query that produces the CORRECT updated state of
+dim_customers after applying Mar 02 changes.
+
+Rules for SCD Type 2:
+- If a customer's tracked attributes changed → close the old row
+  (set valid_to = new snapshot_date - 1 day, is_current = false)
+  and INSERT a new row (valid_from = snapshot_date, valid_to = NULL,
+  is_current = true)
+- If nothing changed → do nothing (do not insert a duplicate row)
+- Tracked attributes: plan, credit_limit (name and city are not tracked)
+
+
+QUERY:
+------
+-- Step 1: Identify changed customers
+WITH mar02 AS (
+    SELECT *
+    FROM customers_snapshot
+    WHERE snapshot_date = '2024-03-02'
+),
+changed AS (
+    SELECT
+        m.customer_id,
+        m.name,
+        m.city,
+        m.plan        AS new_plan,
+        m.credit_limit AS new_credit_limit,
+        d.plan        AS old_plan,
+        d.credit_limit AS old_credit_limit,
+        d.sk
+    FROM mar02 m
+    JOIN dim_customers d
+        ON m.customer_id = d.customer_id
+        AND d.is_current = true
+    WHERE m.plan != d.plan
+       OR m.credit_limit != d.credit_limit
+),
+-- Step 2: Rows to close (existing current rows that changed)
+rows_to_close AS (
+    SELECT sk FROM changed
+),
+-- Step 3: New rows to insert for changed customers
+new_rows AS (
+    SELECT
+        customer_id,
+        name,
+        city,
+        new_plan        AS plan,
+        new_credit_limit AS credit_limit,
+        '2024-03-02'   AS valid_from,
+        NULL            AS valid_to,
+        true            AS is_current
+    FROM changed
+)
+-- Final: show what dim_customers looks like after merge
+SELECT
+    d.sk,
+    d.customer_id,
+    d.name,
+    d.city,
+    d.plan,
+    d.credit_limit,
+    d.valid_from,
+    CASE WHEN d.sk IN (SELECT sk FROM rows_to_close)
+         THEN '2024-03-01' ELSE d.valid_to END AS valid_to,
+    CASE WHEN d.sk IN (SELECT sk FROM rows_to_close)
+         THEN false ELSE d.is_current END AS is_current
+FROM dim_customers d
+
+UNION ALL
+
+SELECT
+    NULL AS sk,  -- new SK assigned by sequence in real pipeline
+    customer_id,
+    name,
+    city,
+    plan,
+    credit_limit,
+    valid_from,
+    valid_to,
+    is_current
+FROM new_rows
+ORDER BY customer_id, valid_from;
+
+
+TRAP:
+-----
+Beginners close the old row and insert the new one in the same
+UPDATE + INSERT. But if you forget the is_current = true filter
+in the JOIN you will match ALL historical rows for a customer
+(not just the current one) and produce multiple new rows per
+customer. Always filter is_current = true before joining.
+
+EXPECTED OUTPUT AFTER MERGE:
+| sk   | customer_id | plan     | credit_limit | valid_from | valid_to   | is_current |
+|------|-------------|----------|--------------|------------|------------|------------|
+| 1    | C01         | gold     | 50000        | 2024-03-01 | NULL       | true       |
+| 2    | C02         | silver   | 30000        | 2024-03-01 | 2024-03-01 | false      |
+| NULL | C02         | gold     | 40000        | 2024-03-02 | NULL       | true       |
+| 3    | C03         | bronze   | 15000        | 2024-03-01 | NULL       | true       |
+
+C01 unchanged on Mar 02 → no new row.
+C02 changed plan+credit → old row closed, new row inserted.
+C03 unchanged → no new row.
+
+
+========================================================
+
+
+Q4 — Schema Drift Detection Between Two Snapshots
+--------------------------------------------------
+
+Your pipeline receives daily snapshots of the customers table.
+Sometimes the source team adds or removes columns without telling
+you — this is called schema drift and it breaks your pipeline silently.
+
+You store column metadata in an audit table:
+
+schema_audit
+| audit_date | table_name | column_name  | data_type    |
+|------------|------------|--------------|--------------|
+| 2024-03-01 | customers  | customer_id  | VARCHAR(10)  |
+| 2024-03-01 | customers  | name         | VARCHAR(50)  |
+| 2024-03-01 | customers  | city         | VARCHAR(50)  |
+| 2024-03-01 | customers  | plan         | VARCHAR(20)  |
+| 2024-03-01 | customers  | credit_limit | INT          |
+| 2024-03-03 | customers  | customer_id  | VARCHAR(10)  |
+| 2024-03-03 | customers  | name         | VARCHAR(50)  |
+| 2024-03-03 | customers  | city         | VARCHAR(50)  |
+| 2024-03-03 | customers  | plan         | VARCHAR(20)  |
+| 2024-03-03 | customers  | credit_limit | BIGINT       |
+| 2024-03-03 | customers  | kyc_verified | BOOLEAN      |
+
+Write a query that compares Mar 01 schema vs Mar 03 schema and
+returns:
+- columns added (in Mar 03 but not Mar 01)
+- columns removed (in Mar 01 but not Mar 03)
+- columns with data type changed
+
+
+QUERY:
+------
+WITH mar01 AS (
+    SELECT column_name, data_type
+    FROM schema_audit
+    WHERE audit_date = '2024-03-01' AND table_name = 'customers'
+),
+mar03 AS (
+    SELECT column_name, data_type
+    FROM schema_audit
+    WHERE audit_date = '2024-03-03' AND table_name = 'customers'
+),
+added AS (
+    SELECT column_name, data_type, 'added' AS change_type
+    FROM mar03
+    WHERE column_name NOT IN (SELECT column_name FROM mar01)
+),
+removed AS (
+    SELECT column_name, data_type, 'removed' AS change_type
+    FROM mar01
+    WHERE column_name NOT IN (SELECT column_name FROM mar03)
+),
+type_changed AS (
+    SELECT
+        m1.column_name,
+        CONCAT(m1.data_type, ' → ', m3.data_type) AS data_type,
+        'type_changed' AS change_type
+    FROM mar01 m1
+    JOIN mar03 m3 ON m1.column_name = m3.column_name
+    WHERE m1.data_type != m3.data_type
+)
+SELECT * FROM added
+UNION ALL
+SELECT * FROM removed
+UNION ALL
+SELECT * FROM type_changed;
+
+
+TRAP:
+-----
+Using NOT IN for the removed check is dangerous if column_name
+can ever be NULL — NOT IN with a NULL in the subquery returns
+zero rows silently (NULL comparison trap). Use NOT EXISTS instead
+in production. Here column_name is a primary key so NOT IN is safe
+but know when to switch.
+
+EXPECTED OUTPUT:
+| column_name  | data_type            | change_type  |
+|--------------|----------------------|--------------|
+| kyc_verified | BOOLEAN              | added        |
+| credit_limit | INT → BIGINT         | type_changed |
+
+
+========================================================
+
+
+Q5 — Late Arriving Data: Correct an Already-Loaded Aggregate
+-------------------------------------------------------------
+
+Your daily revenue aggregate table was built from orders_cdc
+and loaded at 2024-03-02 23:00:00. After the load, O005
+(amount 750, status pending, Mar 03) arrived late. But also —
+O001 which you loaded as 'delivered' on Mar 01 was later
+updated to 'returned' on Mar 02 (after your load ran).
+
+You have already loaded this aggregate:
+
+daily_revenue  (already in warehouse)
+| revenue_date | total_delivered_amount | total_orders |
+|--------------|------------------------|--------------|
+| 2024-03-01   | 1200.00                | 1            |
+| 2024-03-02   | 2700.00                | 2            |
+
+Write a query that produces the CORRECTED version of daily_revenue
+by recomputing from the deduplicated CDC log (use Q1's output as
+source of truth).
+
+Do not DELETE and reload — produce a diff: show which dates need
+correction and what the correct values should be.
+
+
+QUERY:
+------
+WITH clean_orders AS (
+    -- Reuse Q1 deduplication logic
+    WITH deduplicated AS (
+        SELECT DISTINCT order_id, customer_id, amount, status, updated_at, op
+        FROM orders_cdc
+    ),
+    latest AS (
+        SELECT *,
+               ROW_NUMBER() OVER (
+                   PARTITION BY order_id ORDER BY updated_at DESC
+               ) AS rn
+        FROM deduplicated
+    )
+    SELECT * FROM latest WHERE rn = 1 AND op != 'DELETE'
+),
+correct_revenue AS (
+    SELECT
+        DATE(updated_at)               AS revenue_date,
+        SUM(CASE WHEN status = 'delivered'
+                 THEN amount ELSE 0 END) AS correct_delivered_amount,
+        COUNT(*)                        AS correct_total_orders
+    FROM clean_orders
+    GROUP BY DATE(updated_at)
+),
+diff AS (
+    SELECT
+        cr.revenue_date,
+        cr.correct_delivered_amount,
+        cr.correct_total_orders,
+        COALESCE(dr.total_delivered_amount, 0) AS loaded_amount,
+        COALESCE(dr.total_orders, 0)            AS loaded_orders,
+        cr.correct_delivered_amount
+            - COALESCE(dr.total_delivered_amount, 0) AS amount_diff,
+        CASE
+            WHEN cr.correct_delivered_amount
+                 != COALESCE(dr.total_delivered_amount, 0)
+              OR cr.correct_total_orders
+                 != COALESCE(dr.total_orders, 0)
+            THEN 'needs_correction'
+            ELSE 'ok'
+        END AS status
+    FROM correct_revenue cr
+    LEFT JOIN daily_revenue dr ON cr.revenue_date = dr.revenue_date
+)
+SELECT * FROM diff WHERE status = 'needs_correction';
+
+
+TRAP:
+-----
+Recomputing revenue using DATE(updated_at) is wrong for business
+revenue reporting — a returned order's updated_at is the return date,
+not the original sale date. In a real pipeline you would use
+DATE(original_order_date) for revenue attribution, not the CDC
+timestamp. This query is intentionally simplified — in production
+always join back to the original order_date from a clean orders table,
+not the CDC log timestamp.
+
+EXPECTED OUTPUT:
+| revenue_date | correct_delivered | loaded_amount | amount_diff | status           |
+|--------------|-------------------|---------------|-------------|------------------|
+| 2024-03-01   | 0.00              | 1200.00       | -1200.00    | needs_correction |
+| 2024-03-02   | 2700.00           | 2700.00       | 0.00        | ok               |
+
+O001 was returned → delivered amount on Mar 01 drops to 0.
+O003 and O004 delivered on Mar 02 → 2200 + 500 = 2700 → correct.
+
+
+========================================================
+
+
+Q6 — Partitioning Awareness: Rewrite a Query to Avoid Full Scan
+----------------------------------------------------------------
+
+Your orders_cdc table in the warehouse is PARTITIONED by
+DATE(updated_at). The following query is used in a daily job
+but it does a full table scan because the WHERE clause prevents
+partition pruning:
+
+-- SLOW VERSION (runs on 500M row table, full scan):
+SELECT order_id, status, amount
+FROM orders_cdc
+WHERE YEAR(updated_at) = 2024
+  AND MONTH(updated_at) = 3;
+
+Rewrite it to enable partition pruning. Then explain in a comment
+why the original fails and yours works.
+
+
+QUERY:
+------
+-- FAST VERSION (partition pruning enabled):
+SELECT order_id, status, amount
+FROM orders_cdc
+WHERE updated_at >= '2024-03-01 00:00:00'
+  AND updated_at <  '2024-04-01 00:00:00';
+
+-- WHY THE ORIGINAL IS SLOW:
+-- YEAR(updated_at) and MONTH(updated_at) wrap the partition key
+-- in a function. The query planner cannot resolve which partitions
+-- to skip without evaluating the function on every row.
+-- This forces a full table scan even though the table is partitioned.
+
+-- WHY THE REWRITE IS FAST:
+-- updated_at >= '2024-03-01' AND updated_at < '2024-04-01' uses
+-- the raw partition key directly in a range comparison.
+-- The planner can immediately identify which partitions fall in
+-- this range and skip all others. On a 500M row table partitioned
+-- daily this difference is scanning 31 partitions vs all 500+.
+
+-- SECOND TRAP — timezone:
+-- If the warehouse stores updated_at in UTC but your app sends
+-- timestamps in IST (UTC+5:30), '2024-03-01 00:00:00' in your
+-- query is actually '2024-02-29 18:30:00' UTC. You will miss
+-- the first 5.5 hours of Mar 01 data. Always confirm timezone
+-- convention before writing range predicates on timestamp columns.
+
+
+========================================================
+
+
+Q7 — Data Quality Check: Detect Anomalies Before Loading
+---------------------------------------------------------
+
+Before loading orders_cdc into the warehouse, your pipeline runs
+a data quality gate. Write a single query that checks ALL of the
+following and returns one row per failed check:
+
+1. NULL order_id — must never be null
+2. amount <= 0 — orders must have positive amount
+3. status not in allowed values ('pending','delivered',
+   'cancelled','returned')
+4. updated_at in the future (> CURRENT_TIMESTAMP)
+5. Duplicate order_id + updated_at + op combinations
+   (true duplicates that DISTINCT won't catch if any field differs)
+
+
+QUERY:
+------
+WITH checks AS (
+
+    SELECT 'null_order_id' AS check_name,
+           COUNT(*) AS failed_rows
+    FROM orders_cdc
+    WHERE order_id IS NULL
+
+    UNION ALL
+
+    SELECT 'invalid_amount',
+           COUNT(*)
+    FROM orders_cdc
+    WHERE amount <= 0
+
+    UNION ALL
+
+    SELECT 'invalid_status',
+           COUNT(*)
+    FROM orders_cdc
+    WHERE status NOT IN ('pending','delivered','cancelled','returned')
+
+    UNION ALL
+
+    SELECT 'future_timestamp',
+           COUNT(*)
+    FROM orders_cdc
+    WHERE updated_at > CURRENT_TIMESTAMP
+
+    UNION ALL
+
+    SELECT 'duplicate_cdc_rows',
+           COUNT(*) - COUNT(DISTINCT CONCAT(order_id,'|',
+                                            CAST(updated_at AS CHAR),'|',
+                                            op))
+    FROM orders_cdc
+)
+SELECT check_name, failed_rows
+FROM checks
+WHERE failed_rows > 0;
+
+
+TRAP:
+-----
+The duplicate check using CONCAT is fragile — if order_id contains
+the delimiter character '|' you get false matches. In production
+use a composite GROUP BY with HAVING COUNT(*) > 1 instead:
+
+    SELECT 'duplicate_cdc_rows',
+           COUNT(*) AS failed_rows
+    FROM (
+        SELECT order_id, updated_at, op
+        FROM orders_cdc
+        GROUP BY order_id, updated_at, op
+        HAVING COUNT(*) > 1
+    ) dups
+
+Also: this query returns ZERO rows if all checks pass — which is
+exactly what you want. Wire this into your pipeline as a gate:
+if row count > 0, fail the pipeline and alert.
+
+EXPECTED OUTPUT (with sample data):
+| check_name         | failed_rows |
+|--------------------|-------------|
+| duplicate_cdc_rows | 2           |
+
+(O002 and O003 each have one duplicate INSERT)
+
+
+========================================================
+
+
+Q8 — Slowly Changing Dimension Type 1 vs Type 2 Decision
+----------------------------------------------------------
+
+Your customers_snapshot table shows that C01 changed plan from
+gold → platinum between Mar 02 and Mar 03.
+
+The business comes to you with two requirements:
+
+Requirement A (Finance team):
+"Show me what plan each customer was on when each order was placed.
+ Historical accuracy matters — if C01 placed an order on Mar 01
+ under gold plan, show gold, even if they are now platinum."
+
+Requirement B (Marketing team):
+"Show me each customer's current plan. We only care about today."
+
+Write two separate queries demonstrating why Requirement A needs
+SCD Type 2 and Requirement B only needs SCD Type 1.
+Use the orders_cdc and customers_snapshot tables.
+
+
+QUERY FOR REQUIREMENT A (SCD Type 2 — point-in-time lookup):
+-------------------------------------------------------------
+-- After applying Q3 merge logic, dim_customers has history.
+-- Join orders to the dimension using the order date falling
+-- within the valid_from / valid_to range of the customer record.
+
+SELECT
+    o.order_id,
+    o.customer_id,
+    o.amount,
+    o.status,
+    DATE(o.updated_at)   AS order_date,
+    d.plan               AS plan_at_time_of_order,
+    d.credit_limit       AS credit_limit_at_time_of_order
+FROM (
+    -- Use Q1 deduplicated orders
+    SELECT DISTINCT ON (order_id) *
+    FROM orders_cdc
+    ORDER BY order_id, updated_at DESC
+) o
+JOIN dim_customers d
+    ON o.customer_id = d.customer_id
+    AND DATE(o.updated_at) >= d.valid_from
+    AND (d.valid_to IS NULL OR DATE(o.updated_at) <= d.valid_to);
+
+
+QUERY FOR REQUIREMENT B (SCD Type 1 — current state only):
+----------------------------------------------------------
+-- Just take the latest snapshot. No history needed.
+
+SELECT
+    c.customer_id,
+    c.name,
+    c.plan               AS current_plan,
+    c.credit_limit       AS current_credit_limit
+FROM customers_snapshot c
+WHERE c.snapshot_date = (SELECT MAX(snapshot_date)
+                         FROM customers_snapshot);
+
+
+TRAP:
+-----
+Requirement A is where most engineers make the mistake of joining
+on customer_id alone without the date range condition. This gives
+every order the customer's CURRENT plan, not their plan at the
+time of the order. For financial reporting this is a compliance
+violation — you are reporting incorrect historical data.
+
+The valid_to IS NULL condition handles current (open-ended) records.
+If you write valid_to IS NULL OR valid_to >= order_date you get
+the same result but the IS NULL check must come first or the
+planner may not use the index on valid_to efficiently.
+
+
+========================================================
+
+
+Q9 — Idempotent Pipeline: Safe to Re-run Without Duplicates
+------------------------------------------------------------
+
+Your pipeline loads the deduplicated orders into a clean
+orders_clean table. It failed midway on Mar 03 and loaded
+only 2 of 5 rows before crashing. On re-run it must not
+duplicate those 2 rows.
+
+orders_clean (current state after partial load)
+| order_id | customer_id | amount  | status    | updated_at          |
+|----------|-------------|---------|-----------|---------------------|
+| O001     | C01         | 1200.00 | returned  | 2024-03-02 13:00:00 |
+| O002     | C01         | 850.00  | cancelled | 2024-03-01 15:00:00 |
+
+Write an idempotent MERGE/UPSERT query that loads the full Q1
+output into orders_clean safely — inserting new rows and updating
+existing ones if the status or updated_at changed.
+
+
+QUERY:
+------
+-- MySQL / BigQuery style (INSERT ... ON DUPLICATE KEY UPDATE)
+INSERT INTO orders_clean
+    (order_id, customer_id, amount, status, updated_at)
+SELECT
+    order_id, customer_id, amount, status, updated_at
+FROM (
+    -- Q1 deduplicated result inline
+    WITH deduped AS (
+        SELECT DISTINCT order_id, customer_id, amount, status, updated_at, op
+        FROM orders_cdc
+    ),
+    latest AS (
+        SELECT *,
+               ROW_NUMBER() OVER (
+                   PARTITION BY order_id ORDER BY updated_at DESC
+               ) AS rn
+        FROM deduped
+    )
+    SELECT order_id, customer_id, amount, status, updated_at
+    FROM latest
+    WHERE rn = 1 AND op != 'DELETE'
+) src
+ON DUPLICATE KEY UPDATE
+    status     = VALUES(status),
+    updated_at = VALUES(updated_at),
+    customer_id = VALUES(customer_id),
+    amount     = VALUES(amount);
+
+-- PostgreSQL style (INSERT ... ON CONFLICT DO UPDATE):
+/*
+INSERT INTO orders_clean
+    (order_id, customer_id, amount, status, updated_at)
+SELECT order_id, customer_id, amount, status, updated_at
+FROM deduplicated_source
+ON CONFLICT (order_id) DO UPDATE SET
+    status     = EXCLUDED.status,
+    updated_at = EXCLUDED.updated_at
+WHERE orders_clean.updated_at < EXCLUDED.updated_at;
+*/
+
+
+TRAP:
+-----
+The PostgreSQL version has a critical WHERE clause:
+    WHERE orders_clean.updated_at < EXCLUDED.updated_at
+
+Without this, a re-run could DOWNGRADE an order — if the pipeline
+re-processes older CDC records and the ON CONFLICT fires, it would
+overwrite a 'returned' status (from Mar 02) with a 'pending' status
+(from Mar 01). The WHERE ensures you only update if the incoming
+row is NEWER than what is already stored. This is called
+"last-write-wins with timestamp guard" and is essential in any
+idempotent CDC pipeline.
+
+
+========================================================
+
+
+Q10 — Full Pipeline Audit: End-to-End Reconciliation
+-----------------------------------------------------
+
+At end of day your pipeline must reconcile: rows in source
+(orders_cdc raw count) vs rows in clean table (orders_clean)
+vs rows in aggregate (daily_revenue). Any mismatch must be flagged.
+
+Write a single query that produces a reconciliation report showing:
+- raw CDC rows loaded today
+- unique orders after deduplication
+- orders in orders_clean
+- delivered orders counted in daily_revenue aggregate
+- any row count mismatches flagged with a reason
+
+
+QUERY:
+------
+WITH raw_counts AS (
+    SELECT
+        DATE(updated_at)    AS pipeline_date,
+        COUNT(*)            AS raw_rows,
+        COUNT(DISTINCT order_id) AS distinct_orders_in_raw
+    FROM orders_cdc
+    GROUP BY DATE(updated_at)
+),
+clean_counts AS (
+    SELECT
+        DATE(updated_at)    AS pipeline_date,
+        COUNT(*)            AS clean_rows
+    FROM orders_clean
+    GROUP BY DATE(updated_at)
+),
+agg_counts AS (
+    SELECT
+        revenue_date        AS pipeline_date,
+        total_orders        AS agg_orders
+    FROM daily_revenue
+),
+reconciliation AS (
+    SELECT
+        rc.pipeline_date,
+        rc.raw_rows,
+        rc.distinct_orders_in_raw,
+        COALESCE(cc.clean_rows, 0)  AS clean_rows,
+        COALESCE(ac.agg_orders, 0)  AS agg_orders,
+        CASE
+            WHEN rc.distinct_orders_in_raw != COALESCE(cc.clean_rows, 0)
+                THEN 'MISMATCH: dedup count != clean table'
+            WHEN rc.raw_rows = rc.distinct_orders_in_raw
+                THEN 'WARNING: no duplicates found — verify CDC source'
+            ELSE 'OK'
+        END AS reconciliation_status
+    FROM raw_counts rc
+    LEFT JOIN clean_counts cc ON rc.pipeline_date = cc.pipeline_date
+    LEFT JOIN agg_counts   ac ON rc.pipeline_date = ac.pipeline_date
+)
+SELECT * FROM reconciliation
+ORDER BY pipeline_date;
+
+
+TRAP:
+-----
+The WARNING case ("no duplicates found") sounds like a good thing
+but in a CDC pipeline it is suspicious. Real transactional systems
+almost always have at least some UPDATE events — if you see zero
+duplicates across millions of rows, either your deduplication ran
+twice (already cleaned upstream) or the CDC tool is misconfigured
+and sending only INSERTs. Always sanity check the op column
+distribution: what % are INSERT vs UPDATE vs DELETE. A 100% INSERT
+rate on a CDC feed is a red flag.
+
+EXPECTED OUTPUT:
+| pipeline_date | raw_rows | distinct_raw | clean_rows | agg_orders | status                              |
+|---------------|----------|--------------|------------|------------|-------------------------------------|
+| 2024-03-01    | 5        | 4            | 2          | 1          | MISMATCH: dedup count != clean table|
+| 2024-03-02    | 5        | 4            | 2          | 2          | MISMATCH: dedup count != clean table|
+| 2024-03-03    | 2        | 1            | 0          | 0          | MISMATCH: dedup count != clean table|
+
+All three dates show mismatch because orders_clean only has 2 rows
+(partial load from crashed pipeline). This is exactly what the
+reconciliation report should catch and alert on.
+
+
+========================================================
+END OF DAY 11
+========================================================
