@@ -1,0 +1,20 @@
+datbricks auto loader can check the schema ,
+cloudfile.schemalocation -> tell schema locaton
+cloudfile.schemaevloutionmode -> addnewcolumns
+
+new file aarive -> auto loader -> new column detected -> schema updated  -> schema stops -> job auto restart -> new schema used -> data processed
+
+  RESCUE MECHANISTM -> STOP UNEXPECTED INFORMATION LIKE COLUMN TYPE MISMATCH
+delta lake provide schema enforcement
+
+Three concept - schema vlidatin,evolution,enforcement
+
+
+bronze,silver,gold
+
+
+
+
+** Kafka
+
+schema registry 
