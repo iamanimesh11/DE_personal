@@ -1,0 +1,360 @@
+SQL DAILY DRILL — DAY 12
+Data Engineering SQL — Pipeline & Data Quality Problems
+========================================================
+
+FOCUS: Event deduplication · Watermarking · Partition pruning ·
+       Data lineage · Window-based aggregation traps ·
+       Multi-source reconciliation · Audit logging
+
+No solutions. No hints. Problem statement + expected output only.
+Figure it out yourself.
+========================================================
+
+
+PROBLEM CONTEXT
+---------------
+You are a Data Engineer at a logistics company. You own three pipelines:
+
+1. GPS event stream — trucks emit location pings every 30 seconds
+2. Warehouse management system — batch snapshot delivered nightly
+3. Customer delivery status API — webhook events on status changes
+
+Your job: write SQL that handles the real problems these pipelines produce.
+
+========================================================
+
+
+RAW TABLES
+----------
+
+gps_events  (raw GPS pings from trucks)
+| event_id | truck_id | lat      | lng      | speed_kmh | emitted_at          | ingested_at         |
+|----------|----------|----------|----------|-----------|---------------------|---------------------|
+| EV001    | T01      | 28.6139  | 77.2090  | 60        | 2024-03-01 08:00:00 | 2024-03-01 08:00:05 |
+| EV002    | T01      | 28.6200  | 77.2150  | 65        | 2024-03-01 08:00:30 | 2024-03-01 08:00:35 |
+| EV003    | T01      | 28.6200  | 77.2150  | 65        | 2024-03-01 08:00:30 | 2024-03-01 08:01:10 |
+| EV004    | T02      | 19.0760  | 72.8777  | 45        | 2024-03-01 08:00:00 | 2024-03-01 08:00:08 |
+| EV005    | T02      | 19.0800  | 72.8800  | 50        | 2024-03-01 08:00:30 | 2024-03-01 08:00:38 |
+| EV006    | T01      | 28.6250  | 77.2200  | 0         | 2024-03-01 08:01:00 | 2024-03-01 08:01:06 |
+| EV007    | T01      | 28.6250  | 77.2200  | 0         | 2024-03-01 08:01:00 | 2024-03-01 08:05:00 |
+| EV008    | T03      | 12.9716  | 77.5946  | 80        | 2024-03-01 08:00:00 | 2024-03-01 08:00:10 |
+| EV009    | T03      | 12.9750  | 77.5980  | 75        | 2024-03-01 08:00:30 | 2024-03-01 08:00:40 |
+| EV010    | T02      | 19.0760  | 72.8777  | 45        | 2024-03-01 08:00:00 | 2024-03-01 08:10:00 |
+
+-- EV003 is a duplicate of EV002 (same truck, same emitted_at, late ingestion)
+-- EV007 is a duplicate of EV006 (same truck, same emitted_at, very late ingestion)
+-- EV010 is a duplicate of EV004 (same truck, same emitted_at, 10 min late)
+
+trucks
+| truck_id | driver_name | route_id | capacity_kg | home_city |
+|----------|-------------|----------|-------------|-----------|
+| T01      | Ravi        | R01      | 5000        | Delhi     |
+| T02      | Suresh      | R02      | 8000        | Mumbai    |
+| T03      | Dinesh      | R03      | 6000        | Bangalore |
+
+warehouse_snapshot  (nightly full snapshot)
+| snapshot_date | warehouse_id | product_id | qty_on_hand | last_movement_at    |
+|---------------|--------------|------------|-------------|---------------------|
+| 2024-03-01    | WH01         | P01        | 500         | 2024-02-28 18:00:00 |
+| 2024-03-01    | WH01         | P02        | 230         | 2024-02-28 20:00:00 |
+| 2024-03-01    | WH02         | P01        | 120         | 2024-02-28 17:00:00 |
+| 2024-03-02    | WH01         | P01        | 480         | 2024-03-01 15:00:00 |
+| 2024-03-02    | WH01         | P02        | 230         | 2024-02-28 20:00:00 |
+| 2024-03-02    | WH02         | P01        | 120         | 2024-02-28 17:00:00 |
+| 2024-03-03    | WH01         | P01        | 460         | 2024-03-02 14:00:00 |
+| 2024-03-03    | WH01         | P02        | 195         | 2024-03-02 22:00:00 |
+| 2024-03-03    | WH02         | P01        | 150         | 2024-03-03 09:00:00 |
+
+delivery_events  (webhook events from delivery API)
+| event_id | shipment_id | status      | customer_id | occurred_at         | received_at         |
+|----------|-------------|-------------|-------------|---------------------|---------------------|
+| D001     | SH01        | dispatched  | C01         | 2024-03-01 09:00:00 | 2024-03-01 09:00:05 |
+| D002     | SH01        | in_transit  | C01         | 2024-03-01 11:00:00 | 2024-03-01 11:00:10 |
+| D003     | SH02        | dispatched  | C02         | 2024-03-01 10:00:00 | 2024-03-01 10:00:08 |
+| D004     | SH01        | delivered   | C01         | 2024-03-01 14:00:00 | 2024-03-01 14:00:12 |
+| D005     | SH02        | in_transit  | C02         | 2024-03-01 12:00:00 | 2024-03-03 08:00:00 |
+| D006     | SH03        | dispatched  | C03         | 2024-03-02 09:00:00 | 2024-03-02 09:00:06 |
+| D007     | SH02        | delivered   | C02         | 2024-03-01 16:00:00 | 2024-03-03 08:00:05 |
+| D008     | SH03        | in_transit  | C03         | 2024-03-02 11:00:00 | 2024-03-02 11:00:09 |
+| D009     | SH03        | failed      | C03         | 2024-03-02 15:00:00 | 2024-03-02 15:00:15 |
+| D010     | SH01        | delivered   | C01         | 2024-03-01 14:00:00 | 2024-03-01 14:05:00 |
+
+-- D005 and D007 arrived 2 days late (occurred_at Mar 01, received_at Mar 03)
+-- D010 is a duplicate of D004 (same shipment, same status, same occurred_at)
+
+pipeline_watermarks  (tracks last processed event per pipeline)
+| pipeline_name  | last_processed_at   |
+|----------------|---------------------|
+| gps_pipeline   | 2024-03-01 08:00:35 |
+| delivery_pipeline | 2024-03-01 14:00:12 |
+
+========================================================
+
+
+Q1 — Deduplicate GPS Events: Same Truck, Same Emission Time
+------------------------------------------------------------
+
+The GPS device sometimes emits the same ping twice due to network
+retry logic. Two events are considered duplicates if they share the
+same truck_id AND emitted_at — regardless of how different their
+ingested_at timestamps are.
+
+Deduplicate gps_events keeping the earliest ingested_at record
+for each (truck_id, emitted_at) pair. Return one clean row per ping.
+
+Expected output — 7 rows (3 duplicates removed):
+| event_id | truck_id | lat     | lng     | speed_kmh | emitted_at          |
+|----------|----------|---------|---------|-----------|---------------------|
+| EV001    | T01      | 28.6139 | 77.2090 | 60        | 2024-03-01 08:00:00 |
+| EV002    | T01      | 28.6200 | 77.2150 | 65        | 2024-03-01 08:00:30 |
+| EV006    | T01      | 28.6250 | 77.2200 | 0         | 2024-03-01 08:01:00 |
+| EV004    | T02      | 19.0760 | 72.8777 | 45        | 2024-03-01 08:00:00 |
+| EV005    | T02      | 19.0800 | 72.8800 | 50        | 2024-03-01 08:00:30 |
+| EV008    | T03      | 12.9716 | 77.5946 | 80        | 2024-03-01 08:00:00 |
+| EV009    | T03      | 12.9750 | 77.5980 | 75        | 2024-03-01 08:00:30 |
+
+
+========================================================
+
+
+Q2 — Watermark-Based Incremental Processing
+--------------------------------------------
+
+Your gps_pipeline watermark is at 2024-03-01 08:00:35.
+Your delivery_pipeline watermark is at 2024-03-01 14:00:12.
+
+Write two queries:
+1. Return all GPS events not yet processed (emitted_at > watermark)
+   from the deduplicated set (use Q1 result as source)
+2. Return all delivery events not yet processed
+   (occurred_at > watermark) from delivery_events
+
+Do not hardcode the timestamps — read from pipeline_watermarks table.
+
+Expected output — GPS unprocessed (2 rows):
+| event_id | truck_id | emitted_at          |
+|----------|----------|---------------------|
+| EV006    | T01      | 2024-03-01 08:01:00 |
+| EV009    | T03      | 2024-03-01 08:00:30 |
+
+Expected output — Delivery unprocessed (4 rows):
+| event_id | shipment_id | status    | occurred_at         |
+|----------|-------------|-----------|---------------------|
+| D005     | SH02        | in_transit| 2024-03-01 12:00:00 |
+| D006     | SH03        | dispatched| 2024-03-02 09:00:00 |
+| D007     | SH02        | delivered | 2024-03-01 16:00:00 |
+| D008     | SH03        | in_transit| 2024-03-02 11:00:00 |
+| D009     | SH03        | failed    | 2024-03-02 15:00:00 |
+
+
+========================================================
+
+
+Q3 — Late Arriving Events: Out-of-Order Delivery Status
+---------------------------------------------------------
+
+D005 (in_transit for SH02) and D007 (delivered for SH02) both
+arrived on 2024-03-03 but occurred on 2024-03-01 — 2 days late.
+
+Your pipeline already loaded the current status of SH02 as
+'dispatched' (the only event received on time was D003).
+
+Write a query that:
+1. For each shipment, finds its CORRECT current status based
+   on occurred_at ordering (not received_at ordering)
+2. Compares it to what would be loaded using received_at ordering
+3. Flags shipments where the two orderings give different results
+
+Expected output:
+| shipment_id | correct_status | naive_status | mismatch |
+|-------------|----------------|--------------|----------|
+| SH01        | delivered      | delivered    | no       |
+| SH02        | delivered      | dispatched   | yes      |
+| SH03        | failed         | failed       | no       |
+
+
+========================================================
+
+
+Q4 — Inventory Delta: Detect What Changed Between Snapshots
+------------------------------------------------------------
+
+Your warehouse_snapshot delivers a full snapshot every night.
+You need to compute the delta — what changed between Mar 01
+and Mar 02 snapshots.
+
+For each warehouse-product combination show:
+- qty on Mar 01 and Mar 02
+- qty change (Mar 02 - Mar 01)
+- movement flag: 'increased' | 'decreased' | 'no_change' | 'new_product'
+- whether last_movement_at changed (means actual physical movement happened)
+
+Expected output:
+| warehouse_id | product_id | mar01_qty | mar02_qty | qty_change | movement_flag | movement_changed |
+|--------------|------------|-----------|-----------|------------|---------------|------------------|
+| WH01         | P01        | 500       | 480       | -20        | decreased     | yes              |
+| WH01         | P02        | 230       | 230       | 0          | no_change     | no               |
+| WH02         | P01        | 120       | 120       | 0          | no_change     | no               |
+
+
+========================================================
+
+
+Q5 — Truck Idle Detection: Speed = 0 for More Than 5 Minutes
+-------------------------------------------------------------
+
+A truck is considered "idling" if its speed_kmh = 0 for two or
+more consecutive GPS pings (emitted 30 seconds apart each) — meaning
+it has been stationary for at least 1 minute.
+
+Using the deduplicated GPS events from Q1, find all trucks that
+were idling and how long they were idle (first idle ping to last
+idle ping duration in seconds).
+
+Expected output:
+| truck_id | idle_start          | idle_end            | idle_duration_sec |
+|----------|---------------------|---------------------|-------------------|
+| T01      | 2024-03-01 08:01:00 | 2024-03-01 08:01:00 | 0                 |
+
+(T01 has only one speed=0 ping in this dataset — only 30 seconds.
+ Extend data with more speed=0 pings to test multi-ping idle logic.)
+
+
+========================================================
+
+
+Q6 — Multi-Source Reconciliation: GPS vs Delivery Events
+---------------------------------------------------------
+
+SH01 was delivered to C01 at 14:00 on Mar 01 (from delivery_events).
+T01 was the truck on route R01 (from trucks table).
+
+Cross-check: at 14:00, where was T01 according to GPS?
+If T01's last known GPS ping before 14:00 is more than 30 minutes
+old, flag it as 'gps_gap' — the truck went dark before delivery
+confirmation, which is suspicious.
+
+Write a query that for each delivered shipment finds:
+- delivery confirmed_at time
+- the truck assigned to that route
+- last GPS ping time before delivery
+- gap in minutes between last GPS ping and delivery
+- flag as 'gps_gap' if gap > 30 minutes, else 'ok'
+
+Expected output:
+| shipment_id | customer_id | delivered_at        | truck_id | last_gps_ping       | gap_minutes | flag     |
+|-------------|-------------|---------------------|----------|---------------------|-------------|----------|
+| SH01        | C01         | 2024-03-01 14:00:00 | T01      | 2024-03-01 08:01:00 | 359         | gps_gap  |
+
+
+========================================================
+
+
+Q7 — Data Quality Gate: Validate GPS Events Before Loading
+-----------------------------------------------------------
+
+Before loading gps_events into the clean GPS table, run a
+quality gate that checks ALL of the following in one query:
+
+1. NULL truck_id
+2. speed_kmh < 0 or speed_kmh > 200 (physically impossible)
+3. emitted_at > ingested_at (event claims to be from the future
+   relative to when it was received — clock skew or corrupt data)
+4. lat outside India bounds (lat < 8.0 or lat > 37.0)
+5. lng outside India bounds (lng < 68.0 or lng > 97.0)
+6. Duplicate (truck_id, emitted_at) combinations
+
+Return one row per failed check with check name and failed row count.
+Pipeline should halt if any check returns failed_rows > 0.
+
+Expected output (with sample data):
+| check_name              | failed_rows |
+|-------------------------|-------------|
+| duplicate_gps_events    | 3           |
+
+
+========================================================
+
+
+Q8 — Warehouse Stock Trend: 3-Day Moving Average of Quantity
+-------------------------------------------------------------
+
+Using all 3 days of warehouse_snapshot data (Mar 01, 02, 03),
+compute for each warehouse-product combination:
+- qty on each day
+- 3-day moving average of qty_on_hand
+- day-over-day change in qty
+- flag 'declining' if qty has dropped on both Mar 02 and Mar 03
+  compared to their previous day, else 'stable'
+
+Expected output:
+| warehouse_id | product_id | snap_date  | qty | moving_avg_3day | dod_change | trend    |
+|--------------|------------|------------|-----|-----------------|------------|----------|
+| WH01         | P01        | 2024-03-01 | 500 | 500.00          | NULL       | stable   |
+| WH01         | P01        | 2024-03-02 | 480 | 490.00          | -20        | stable   |
+| WH01         | P01        | 2024-03-03 | 460 | 480.00          | -20        | declining|
+| WH01         | P02        | 2024-03-01 | 230 | 230.00          | NULL       | stable   |
+| WH01         | P02        | 2024-03-02 | 230 | 230.00          | 0          | stable   |
+| WH01         | P02        | 2024-03-03 | 195 | 218.33          | -35        | stable   |
+| WH02         | P01        | 2024-03-01 | 120 | 120.00          | NULL       | stable   |
+| WH02         | P01        | 2024-03-02 | 120 | 120.00          | 0          | stable   |
+| WH02         | P01        | 2024-03-03 | 150 | 130.00          | +30        | stable   |
+
+
+========================================================
+
+
+Q9 — Pipeline Audit: Detect Missing Pipeline Runs
+--------------------------------------------------
+
+Your pipelines should run every day. Using pipeline_watermarks
+and the date range 2024-03-01 to 2024-03-03, detect which
+pipelines missed a run on which dates.
+
+A "missed run" means no watermark update occurred for that pipeline
+on that calendar date — i.e., the watermark did not advance past
+midnight of that date.
+
+Also compute: how many days has each pipeline been behind
+(days since last successful watermark update).
+
+Expected output:
+| pipeline_name      | missed_date | days_behind |
+|--------------------|-------------|-------------|
+| gps_pipeline       | 2024-03-02  | 2           |
+| gps_pipeline       | 2024-03-03  | 2           |
+| delivery_pipeline  | 2024-03-02  | 2           |
+| delivery_pipeline  | 2024-03-03  | 2           |
+
+
+========================================================
+
+
+Q10 — End-to-End Lineage: Trace a Shipment Through All Tables
+-------------------------------------------------------------
+
+For shipment SH02, build a complete lineage trace showing every
+system it touched and in what order. Pull from:
+- delivery_events (status timeline)
+- warehouse_snapshot (inventory at time of dispatch)
+- gps_events (which truck was on the route, GPS pings near dispatch time)
+- pipeline_watermarks (was this shipment processed within the watermark?)
+
+Produce a single unified timeline sorted by event time showing
+source system, event description, and timestamp for every record
+related to SH02.
+
+Expected output:
+| event_time          | source_system      | description                              |
+|---------------------|--------------------|------------------------------------------|
+| 2024-03-01 10:00:00 | delivery_events    | SH02 dispatched for C02                  |
+| 2024-03-01 12:00:00 | delivery_events    | SH02 in_transit (late arrival — 2 days)  |
+| 2024-03-01 16:00:00 | delivery_events    | SH02 delivered to C02 (late arrival)     |
+| 2024-03-01 08:00:00 | gps_events         | T02 ping near dispatch time (speed 45)   |
+| 2024-03-01 08:00:30 | gps_events         | T02 ping (speed 50)                      |
+| 2024-03-01 08:00:00 | warehouse_snapshot | WH01 P01 qty=500 at time of dispatch     |
+
+
+========================================================
+END OF DAY 12
+========================================================
